@@ -1,2 +1,11 @@
 *.DS_Store
 venv/
+
+# LaTeX auxiliary files
+poster/a0header.ps
+poster/poster.aux
+poster/poster.fdb_latexmk
+poster/poster.fls
+poster/poster.log
+poster/poster.pdf
+poster/poster.synctex.gz

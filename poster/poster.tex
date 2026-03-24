@@ -1,0 +1,289 @@
+\documentclass[a0]{a0poster}
+\usepackage{braket}
+\usepackage{multicol,graphicx,color}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tabularx}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{etoolbox}
+\newcommand{\defeq}{\vcentcolon=}
+%Thm Environments
+\newtheorem*{prop}{Result}
+\newtheorem*{cor}{Corollary}
+%Thm Environments
+%Colors
+%%%% THIS IS WHERE YOU CAN CHANGE COLORS.
+\definecolor{titlebackground}{rgb}{0, 0.121, 0.3}
+\definecolor{titletext}{rgb}{1, 1, 1}
+\definecolor{titlesubtext}{rgb}{0.52, 0.586, 0.664}
+\definecolor{subtitleoutline}{rgb}{0.819, 0.157, 0.157}
+\definecolor{subtitlebackground}{rgb}{0.819, 0.58, 0.58}
+\definecolor{subtitletext}{rgb}{0, 0, 0}
+%Colors
+%myfig
+\newcommand{\myfig}[3][0]{
+\begin{center}
+\vspace{1.5cm}
+% \includegraphics[width=#3\hsize,angle=#1]{#2}
+\nobreak\medskip
+\end{center}}
+%myfig
+%mycaption
+%\newcounter{figure}
+\setcounter{figure}{1}
+\newcommand{\mycaption}[1]{
+\vspace{0.5cm}
+\begin{quote}
+{{\sc Figure} \arabic{figure}: #1}
+\end{quote}
+\vspace{1cm}
+\stepcounter{figure}
+}
+% ---  padding knobs (change once)  -----------------------------
+\newlength{\tightfboxsep}      % outer padding for every frame
+\setlength{\tightfboxsep}{6pt} %   ← tweak to taste
+
+\newlength{\sectionpad}        % vertical gap before/after subsection title
+\setlength{\sectionpad}{1cm}
+
+% ---  1. subsection heading panel ------------------------------
+\newcommand{\SectionBox}[1]{%
+  \vspace{\sectionpad}%
+  % outer white area with thin red outline
+  \begingroup
+    \setlength{\fboxsep}{4pt}%  white margin around the red bar
+    \fcolorbox{RC@border}{white}{%
+      % inner solid‑red bar
+      \begingroup
+        \setlength{\fboxsep}{10pt}% ← more padding = taller bar
+        \colorbox{RC@border}{%
+          \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+            % vertical strut keeps top & bottom margins equal
+            \rule{0pt}{1.2\baselineskip}%
+            \centering
+            \sf\huge\textcolor{RC@titlefg}{\textbf{#1}}%
+            \rule{0pt}{0.7\baselineskip}%
+          \end{minipage}}%
+      \endgroup}%
+  \endgroup
+  \vspace{\sectionpad}%
+}
+
+% We hook into multicols so each column automatically starts
+% with \RedColumnStart and ends with \RedColumnEnd
+\makeatletter
+\newlength{\RC@colwidth}
+\preto{\MC@columns}{%
+  \setlength{\RC@colwidth}{\linewidth}% width of one column
+  \setlength{\fboxsep}{\tightfboxsep}%
+  \def\RedColumnStart{%
+    \fcolorbox{RC@border}{white}{\begin{minipage}[t]{\dimexpr\RC@colwidth-2\fboxsep-2\fboxrule\relax}\parindent\z@}%
+  }%
+  \def\RedColumnEnd{\end{minipage}}%
+}
+\apptocmd{\MC@collect@column}% executed at *start* of every column
+  {\RedColumnStart}{}{}
+\apptocmd{\MC@collect@column@after}% executed at *end* of every column
+  {\RedColumnEnd}{}{}
+\makeatother
+%mycaption
+%Font Helvetica
+\renewcommand\sfdefault{phv}
+\renewcommand\familydefault{\sfdefault}
+%Font Helvetica
+%Column Variables
+%%%%% THIS IS WHERE YOU CAN CHANGE COLUMN SIZE, SEPARATION AND OTHER STUFF.
+\setlength{\columnsep}{3cm}
+\color{titlesubtext}
+\setlength{\columnseprule}{2mm}
+\setlength{\fboxsep}{1cm}
+\setlength{\fboxrule}{5mm}
+
+%%% ------------------------------------------------------------
+%Column Variables
+\begin{document}
+%Title
+%\begin{minipage}{0.15\textwidth}
+% \begin{center}
+% \includegraphics[width=.7\textwidth,trim= 50 50 50 32 ]{byulogo.pdf}
+% \end{center}
+%\end{minipage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLE PANEL  – adjustable padding, outline always correct
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\colorlet{outlineclr}{subtitleoutline}
+\colorlet{RC@border}{subtitleoutline}   % already red – keep
+\colorlet{RC@titlebg}{white}            % ⟵ was subtitlebackground
+\colorlet{RC@titlefg}{white}            % ⟵ was subtitletext
+
+\newlength{\titlepad}
+\setlength{\titlepad}{4pt}
+
+\fcolorbox{outlineclr}{white}{%
+  \parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
+    \begingroup
+      \setlength{\fboxsep}{\titlepad} 
+      \colorbox{outlineclr}{%
+        \parbox{\dimexpr\linewidth-2\titlepad}{%
+            \rule{0pt}{1.4em}% 
+            
+            \centering
+            \begin{tabular}{@{}c@{\hspace{1cm}}c@{}}
+              {\VERYHuge\textcolor{white}{Sailing}}
+            \end{tabular}\\[10mm]
+            
+            % ---------- updated author line ----------
+            {\LARGE\textcolor{white}{\textbf{Ethan Palenske, Connor McBride, Jackson Pond}}}\\[-.5mm]
+            
+            % ---------- taller bottom strut ----------
+            \rule{0pt}{1.5em}%
+            % ------------------------------------------------------------
+        }% inner parbox
+      }% colorbox
+    \endgroup
+  }% outer parbox
+}% fcolorbox
+
+%\begin{minipage}{0.15\textwidth}
+% \begin{center}
+% \includegraphics[width=\textwidth,trim=0 20 0 0 0]{byumathlogo.pdf}
+% \end{center}
+% \end{minipage}
+%Title%
+%Column Variables
+\setlength{\fboxsep}{1cm}
+%Column Variables
+%Main
+\color{titlebackground}
+\vspace{1.5cm}
+%%%% THIS IS WHERE YOU SET THE NUMBER OF COLUMNS YOU WANT
+\begin{multicols}{4}
+\SectionBox{Background}
+
+The Enigma Machine is a complex mechanical and electrical encryption tool. The machine's complexity arises from its use of multiple rotors, a plugboard, and reflector, producing a vast number of possible configurations. The machine produces permutations from plaintext inputs to ciphertext outputs. The underlying theory of the Enigma Machine relies on the symmetric group.
+
+The \textbf{symmetric group} on \( n \) elements, denoted by \( S_n \), is the group of all bijective functions, also known as permutations, from the set \( \{1, 2, \dots, n\} \) to itself. The group operation is composition of functions.
+
+A substitution cipher replaces each letter in a message with another letter. There are 26 letters in the alphabet, meaning that the number of possible substitution ciphers is $|S_{26}| = 26!$. It is common to write these permutations using \textbf{k-cycles}.
+
+Let \(a_1,a_2,a_3,...,a_k\) with \(k\geq1\) be distinct elements of the set \(\{1,2,3,...,n\}\). Thus, \((a_1a_2a_3...a_k)\) is called a \textbf{cycle of length k} or a \textbf{k-cycle} and it denotes the permutation in \(S_n\) that maps \(a_1\) to \(a_2\), \(a_2\) to \(a_3\), ..., and \(a_{k}\) to \(a_1\). It maps any other element not in the set to itself. 
+
+It turns out that the encryption performed by the enigma machine can be expressed as a product of disjoint cycles.
+
+\vspace{0.2cm}
+{\small \textbf{Figure 1: } The structure of the Enigma Machine permutation. The letter A enters the plugboard and is routed to C. C goes into the entry drum and the three rotors scramble the letter further with their own permutations. The reflector transmits the signal back through the rotors in reverse order. The letter X, the output of the entry drum, goes back into the plugboard and the plugboard sends X to L, the final output. [\textbf{1}, p. 250]}
+\large
+
+\normalsize
+\SectionBox{The Encoding Process}
+\normalsize
+
+Encoding and decoding are reversible so we will encode and, due to how the Enigma Machine works, decode the word 'hi' using a two rotor system (the actual Enigma Machine typically used three or five, but this process can be extended). First, we need a substitution cipher. Consider EKMFLGDQVZNTOWYHXUSPAIBRCJ. A simple mapping system from an element of the symmetric group \(S_{26}\) will, hopefully, make this easier to understand:
+\large
+\[
+\text{Letters: } \begin{pmatrix} a & b & c & \cdots & z \\ 1 & 2 & 3 & \cdots & 26 \end{pmatrix} \quad
+\text{Cipher: } \begin{pmatrix} E & K & M & \cdots & J \\ 1 & 2 & 3 & \cdots & 26 \end{pmatrix}
+\]
+
+\normalsize
+Notice that \(a\rightarrow e\). Now \(e\) is the fifth letter. Correspondingly, \(L\) is the fifth letter on the cipher. Doing this for each letter, we get that the product of disjoint k-cycles is as follows:
+\large
+\[(aeltphqxru)(bknw)(cmoy)(dfg)(iv)(jz)(s)\]
+\normalsize
+
+Following the mapping, it can be seen that \(h\rightarrow Q\). Hence, our first letter for the encoding will be \(Q\). Now, due to how the rotors work, when we push a letter, the mappings change. See Figure 1. 
+
+\normalsize
+\SectionBox{The Decoding Process}
+\normalsize
+
+Let us assume we have pushed \(h\) and the product of disjoint cycles is now:
+\large
+\[(a)(bj)(cdklhup)(esz)(fixvyomw)(gr)(nt)(q)\]
+\normalsize
+\indent Notice that \((a)\) and \((q)\) map to themselves. For the two-cycles, consider \((gr)\). Well, \(g\rightarrow r\) and \(r \rightarrow g\). Continuing this, we can see that the substitution cipher is AJDKSIRUXBLHWTMCQGZNPYFVOE. This is how one would decode it by hand, by working backwards.
+
+Now we can compute how to get \(i\). However, we must remember the machine uses a composition of functions. Using \(f(x)\) as our first cipher substitution and \(g(x)\) as our second cipher substitution, it can be seen that \(f(i)=v\) so that the following is true:
+\[g(f(i))=g(v)=y\]
+Our completed encoding is \textbf{QY}. For decoding, we can follow the composition of functions backwards and use the cycles. This is part of why the Enigma Machine's encryption and decryption had an inherent flaw.
+
+
+\columnbreak
+\SectionBox{Algebraic Structure Reveals Cipher Structure}
+\normalsize
+
+To decode the Enigma, Polish mathematicians relied on the structure of the symmetric group $S_{26}$ and the theory of conjugation and disjoint cycle decompositions.
+
+Let $\Pi \in S_{26}$ denote the permutation induced by the Enigma’s rotors and reflector. Let $S \in S_{26}$ be the plugboard permutation. The total Enigma permutation becomes
+\[
+\Pi' = S \Pi S^{-1}. \quad (1)
+\]
+Because conjugation preserves cycle type, we have that $\Pi$ and $\Pi'$ are \textbf{conjugate elements} in $S_{26}$ and therefore share identical cycle structure. This invariance allowed cryptanalysts to disregard the $10^{11}$ possible plugboard wirings and focus instead on recovering $\Pi$ up to conjugation.
+
+Furthermore, Rejewski exploited the fact that the Enigma's reflector and rotor components yield permutations composed of disjoint transpositions. If two such permutations $X$ and $Y$ are composed of disjoint 2-cycles, then their product $XY$ decomposes into disjoint cycles of equal length occurring in even number. That is:
+\begin{align*}
+    X = \prod_{i=1}^{k}(a_{2i-1}\ a_{2i}) \qquad Y = \prod_{i=1}^{k}(a_{2i}\ a_{2i+1}) \\
+    XY = (a_1 \ a_3 \dots a_{2k-3} \ a_{2k-1})(a_{2k} \ a_{2k-2} \ \dots a_4 \ a_2).
+\end{align*}
+
+The Poles used this result to analyze 65 intercepted message headers from a single day. Each contained repeated trigrams like \texttt{GPB ZSV}. Because the same trigram was encoded twice under slightly different permutations, we could compute a composition like
+\[
+DA = (a)(bc)(dvpfkxgzyo)(eijmunqlht)(rw)(s),
+\]
+which preserved enough structure to infer underlying rotor behavior.
+
+This algebraic analysis turned what could have been a brute-force cryptographic task into a tractable mathematical problem. The core idea—that the structure of $S_{26}$ encodes the behavior of the Enigma—was not just descriptive, but prescriptive. It enabled systematic recovery of the machine's internal configuration.
+
+\vspace{0.3cm}
+\textit{By analyzing the Enigma with algebraic tools, we made visible the hidden patterns that encryption tried to obscure.}
+
+
+
+
+\columnbreak
+\SectionBox{Permutations in Enigma}
+\normalsize
+
+Each letter from the 26-letter alphabet gets permuted by enigma to a lamp on the lampboard. Therefore, each \textbf{permutation} can be viewed of as an element of the symmetric group $S_{26}$. It was this fact that Marian Rejewski and other Polish mathematicians used to frame facts about the engima machine in the language of algebra.
+
+Each major component of the machine can be thought expressed in the language of permutations. Each rotor is a permutation of the alphabet, the plugboard is a product of transpositions, and the reflector is a product of 13 transpositions. The resulting enigma permutation becomes:
+\[ (\text{plugboard}) \circ (\text{rotors}) \circ (\text{reflector}) \circ (\text{rotors backwards}) \circ (\text{plugboard})^{-1}. \]
+
+\vspace{-1em}
+\SectionBox{Rotor Stepping}
+\normalsize 
+
+A key feature of the enigma was the movement of the rotors as certain keys were pressed. In particular, the middle rotor sometimes could advance twice on two consecutive key presses, instead of the usual single step. This destroyed initial period-26 assumptions. We label the three windows by the vector 
+\[ \mathbf{p} = (p_1, p_2, p_3) \in \mathbb{Z}_{26}^3. \]
+We then define the step operator $\sigma$, which occurs when one key has been pressed. One key press applies 
+\[ \sigma : (p_1, p_2, p_3) \mapsto (p_1 + 1, p_2 + \delta_2, p_3 + \delta_3), \]
+where
+\[ \delta_2 = \begin{cases}
+    1 & \text{if } p_1 = 25 \text{ or } p_2 = 25 \\
+    0 & \text{otherwise,}
+\end{cases} \qquad \delta_3 = \begin{cases}
+    1 & \text{if } p_1 = 25 \text{ and } p_2 = 25 \\
+    0 & \text{otherwise.}
+\end{cases} \]
+The double-step is encoded by the "and" and "or" relating the window positions. This map generates the subgroup
+\[ \langle \sigma \rangle \leq \mathbb{Z}_{26}^3 \rtimes C_2. \]
+The semi-direct product incorporates the carry-over logic. We can now calculate the order of $\langle \sigma \rangle$, given by
+\[ |\langle \sigma \rangle| = 26 \cdot 25 \cdot 26 = 15,900. \]
+Compare this to the naive $26^3 = 17,676$ states. $676$ states never occur, meaning the cyclometer size could be catalogued correctly.
+
+\normalsize
+\SectionBox{References}
+
+\(^{[1]}\) Christensen, Chris. ``Polish Mathematicians Finding Patterns in Enigma Messages.'' \textit{Mathematics Magazine} 80, no. 4 (2007): 247-73.
+
+\footnotesize
+\normalsize
+% \nocite{ellis_class}
+% \bibliographystyle{amsalpha}
+% \bibliography{preliminary}
+\end{multicols}
+%Main
+\end{document}
