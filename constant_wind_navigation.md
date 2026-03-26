@@ -15,14 +15,12 @@ The velocity vector is the control vector plus the effects of the drift $w$:
 
 $$ \dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
 
-
-FIX THIS: NO NORM
 This problem's constraints are fixed endpoints and a norm for our control $u$.
-$$ \| u \| = v \\ \vec{s}(t_0) = \vec{s}_0 \\ \vec{s}(t_f) = \vec{s}_f $$
+$$ \| u \| = v \cos^2(\theta - \phi) \\ \vec{s}(t_0) = \vec{s}_0 \\ \vec{s}(t_f) = \vec{s}_f $$
 
 ## Optimization problem
 We have 
-$$ J[u] = \int_{t_0}^{t_f} 1 dt \\ \text{subject to } \dot{\vec{s}} = \vec{u}(t) + \vec{w}(\vec{s}(t)) \\ \vec{s}(t_0) = \vec{s}_0 \\ \vec{s}(t_f) = \vec{s}_f \\ \| u \| = v$$
+$$ J[u] = \int_{t_0}^{t_f} 1 dt \\ \text{subject to } \dot{\vec{s}} = \vec{u}(t) + \vec{w}(\vec{s}(t)) \\ \vec{s}(t_0) = \vec{s}_0 \\ \vec{s}(t_f) = \vec{s}_f \\ \| u \| = v \cos^2(\theta - \phi)$$
 
 So the lagrangian constraint version is 
 
@@ -34,15 +32,15 @@ $$
 \begin{aligned}
 H &= \lambda^\top f - L \\
   &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}
-     \left( v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} \right) - 1
+     \left( v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix} \right) - 1
 \end{aligned}
 $$
 
-By Potrayigin's Maximization principle, we have
+By Pontryagin's Maximization principle, we have
 
 $$ \begin{aligned}
-\dot{x} &= v\cos(\theta) + w_1(x, y) \\
-\dot{y} &= v\sin(\theta) + w_2(x, y) \\
+\dot{x} &= v\cos(\theta - \phi) \cos(\theta) + w_1(x, y) \\
+\dot{y} &= v\cos(\theta - \phi) \sin(\theta) + w_2(x, y) \\
 \dot{\lambda_1} &= -\lambda_1 \frac{\partial w_1}{\partial x} -\lambda_2 \frac{\partial w_2}{\partial x} \\
 \dot{\lambda_2} &= -\lambda_1 \frac{\partial w_1}{\partial y} -\lambda_2 \frac{\partial w_2}{\partial y} \\
 H(t_f) &= 0
@@ -57,4 +55,4 @@ We get $u = \frac{\lambda}{\| \lambda \|}$ at each time $t$, which we can plug i
 
 ## Implementation
 
-This is implemented in [this notebook](zermelo.ipynb), though imperfectly because I hardcode the function $w()$ in the `ode()` function. It's just a shape issue. I am currently solving it over the time interval $[0, 1]$, and then solving for $t_f$ at the same time I solve for the optimal route. I pass that in as the argument `p`, and rescale everything in the `ode()` and `bc()` functions accordingly. I will include more here about the change of variables eventually.
+This is implemented in [this notebook](constant_wind.ipynb), though imperfectly because I hardcode the function $w()$ in the `ode()` function. It's just a shape issue. I am currently solving it over the time interval $[0, 1]$, and then solving for $t_f$ at the same time I solve for the optimal route. I pass that in as the argument `p`, and rescale everything in the `ode()` and `bc()` functions accordingly. I will include more here about the change of variables eventually.
