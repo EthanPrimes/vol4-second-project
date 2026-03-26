@@ -1,0 +1,120 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{VdCBRG19}
+
+\bibitem[AOT{\etalchar{+}}12]{o2_uptake}
+Felipe~F. Aceituno, Marcelo Orellana, Jorge Torres, Sebasti{\'a}n Mendoza, Alex~W. Slater, Francisco Melo, and Eduardo Agosin.
+\newblock Oxygen response of the wine yeast {\itshape saccharomyces cerevisiae} ec1118 grown under carbon-sufficient, nitrogen-limited enological conditions.
+\newblock {\em Applied and Environmental Microbiology}, 78(23):8344, 2012.
+
+\bibitem[BAK]{Bakerpedia}
+BAKERpedia.
+\newblock Yeast nutrients.
+\newblock \url{https://www.bakerpedia.com/processes/yeast-nutrients/}.
+\newblock Accessed on 2025-12-02.
+
+\bibitem[Bru]{bread_chemistry_1}
+Andy Brunning.
+\newblock Baking bread: The chemistry of bread-making.
+\newblock https://www.compoundchem.com/2016/01/13/bread/.
+
+\bibitem[CMVM13]{WheatFlourSugars}
+Georgiana~Gabriela Codină, Silvia Mironeasa, Daniela~V. Voica, and Costel Mironeasa.
+\newblock Multivariate analysis of wheat flour dough sugars, gas production, and dough development at different fermentation times.
+\newblock {\em Czech Journal of Food Sciences}, 31(3):222--229, 2013.
+
+\bibitem[DJDV{\etalchar{+}}16]{O2-breadmaking}
+Karolien Decamps, Iris~J. Joye, Dirk~E. De~Vos, Christophe~M. Courtin, and Jan~A. Delcour.
+\newblock Molecular oxygen and reactive oxygen species in bread-making processes: Scarce, but nevertheless important.
+\newblock {\em Critical Reviews in Food Science and Nutrition}, 56(5):722--736, 2016.
+
+\bibitem[ea]{mechanistic}
+Salazar et~al.
+\newblock \url{https://www.mdpi.com/1099-4300/25/3/497}.
+
+\bibitem[Els25]{aerobic_yield1}
+Elsevier.
+\newblock Biomass yield, 2025.
+\newblock Accessed: 2025-11-15.
+
+\bibitem[Eth25]{modeling_yeast_spread}
+EthanPrimes.
+\newblock modeling\_yeast\_spread.
+\newblock \url{https://github.com/EthanPrimes/modeling_yeast_spread}, 2025.
+\newblock GitHub repository, MIT license, accessed 2025-12-03.
+
+\bibitem[LKH{\etalchar{+}}20]{yeast_chicken}
+David Lape\u{n}a, Gergely Kosa, Line~D. Hansen, Liv~T. Mydland, Volkmar Passoth, Svein~J. Horn, and Vincent G.~H. Eijsink.
+\newblock Production and characterization of yeasts grown on media composed of spruce-derived sugars and protein hydrolysates from chicken by-products.
+\newblock {\em Microbial Cell Factories}, 19(1):19, 2020.
+
+\bibitem[Ltd25]{anaerobic_yield1}
+Triyambak Life Sciences~Pvt. Ltd.
+\newblock Practice questions \&amp; video solutions for gate biotechnology, 2025.
+\newblock Accessed: 2025-11-15.
+
+\bibitem[Mon49]{monod_1}
+Jacques Monod.
+\newblock The growth of bacterial cultures.
+\newblock {\em Annual Review of Microbiology}, 3:371--394, 1949.
+
+\bibitem[oESM]{monod_2}
+UCSB Bren~School of~Environmental~Science and Management.
+\newblock \url{https://web.archive.org/web/20091229043435/http://www.bren.ucsb.edu/academics/courses/219/Lectures/Lecture\_4\_ESM219\_06.ppt.pdf}.
+
+\bibitem[PMGSM20]{AdaptiveStrategies}
+Leonardo Pacciani-Mori, Andrea Giometto, Samir Suweis, and Amos Maritan.
+\newblock Adaptive metabolic strategies in consumer-resource models.
+\newblock {\em PLOS Computational Biology}, 16(6):e1007896, 2020.
+\newblock Originally published as bioRxiv preprint 385724, doi:10.1101/385724.
+
+\bibitem[Pro]{molar_weights}
+Powder Process.
+\newblock \url{https://powderprocess.net/Tools_html/Data_Diagrams/Chemical_Compound_Molecular_Weight.html}.
+
+\bibitem[PSvD89]{GlucoseTransportLimit}
+E~Postma, W.A. Scheffers, and J.P. van Dijken.
+\newblock Kinetics of growth and glucose transport in glucose-limited chemostat cultures of {\itshape saccharomyces cerevisiae} cbs 8066.
+\newblock {\em Applied and Environmental Microbiology}, 55(12):3214--3220, 1989.
+
+\bibitem[Sci]{bread_chemistry_2}
+UCSB Scienceline.
+\newblock http://scienceline.ucsb.edu/getkey.php?key=692.
+
+\bibitem[SVC15]{Struyf2}
+Nore Struyf, Joran Verspreet, and Christophe~M. Courtin.
+\newblock The effect of amylolytic activity and substrate availability on sugar release in non-yeasted dough (preprint / conference or repository version).
+\newblock KU Leuven repository / J-GLOBAL entry, 2015.
+\newblock Preprint of the 2016 Journal of Cereal Science article.
+
+\bibitem[SVC16]{Struyf1}
+Nore Struyf, Joran Verspreet, and Christophe~M. Courtin.
+\newblock The effect of amylolytic activity and substrate availability on sugar release in non-yeasted dough.
+\newblock {\em Journal of Cereal Science}, 69:111--118, 2016.
+
+\bibitem[VdCBRG18]{AnaerobiosisRevisited}
+Bruno~Labate Vale~da Costa, Thiago~Olitta Basso, Vijayendran Raghavendran, and Andreas~Karoly Gombert.
+\newblock Anaerobiosis revisited: growth of {\itshape saccharomyces cerevisiae} under extremely low oxygen availability.
+\newblock {\em Applied Microbiology and Biotechnology}, 102(5):2101--2116, 2018.
+
+\bibitem[VdCBRG19]{ForeverPantingGrowing}
+Bruno~Labate Vale~da Costa, Thiago~Olitta Basso, Vijayendran Raghavendran, and Andreas~Karoly Gombert.
+\newblock Forever panting and forever growing: physiology of {\itshape saccharomyces cerevisiae} at extremely low oxygen availability in the absence of ergosterol and unsaturated fatty acids.
+\newblock {\em FEMS Yeast Research}, 19(6):foz054, 2019.
+
+\bibitem[VSSvD91]{aerobic_yield2}
+Cornelis Verduyn, Adriaan~H. Stouthamer, W.~Alexander Scheffers, and Johannes~P. van Dijken.
+\newblock A theoretical evaluation of growth yields of yeasts.
+\newblock {\em Antonie van Leeuwenhoek}, 59(1):53, 1991.
+
+\bibitem[WASvD93]{anaerobic_yield2}
+Ruud~A. Weusthuis, Hendrik Adams, W.~Alexander Scheffers, and Johannes~P. van Dijken.
+\newblock Energetics and kinetics of maltose transport in {Saccharomyces} cerevisiae: a continuous culture study.
+\newblock {\em Applied and Environmental Microbiology}, 59(9):3104, 1993.
+\newblock Accessed: 2025-11-15.
+
+\bibitem[WVLM{\etalchar{+}}24]{o2_yield1}
+Marieke Warmerdam, Marcel~A. Vieira-Lara, Robert Mans, Jean~Marc Daran, and Jack~T. Pronk.
+\newblock Specific growth rates and growth stoichiometries of saccharomycotina yeasts on ethanol as sole carbon and energy substrate.
+\newblock {\em FEMS Yeast Research}, 24, 2024.
+
+\end{thebibliography}
