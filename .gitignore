@@ -1,5 +1,10 @@
 *.DS_Store
+
+# Virtual environment files
 venv/
+.python-version
+pyproject.toml
+uv.lock
 
 # LaTeX auxiliary files
 poster/a0header.ps
