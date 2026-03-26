@@ -1,19 +1,22 @@
 # Derivation of Solution for Constant Wind Navigation
 
 ## Set up
-For a sailboat moving in a place with fixed wind speed and direction and neglecting current drag, we only care about the heading. Our control, then, is $\theta$. For this problem we assume that the sail is fixed in place, but we can change the direction in which the boat points. Equivalently, we could assume that the sail turns and the boat just moves perpindicular to it.
+For a sailboat moving in a place with fixed wind speed and direction, we only care about the heading. Our control, then, is $\theta$. For this problem we assume that the sail is fixed in place, but we can change the direction in which the boat points. We also assume that the wind directly controls the velocity, instead of the acceleration.
+
+Let $v$ refer to the speed of the wind, with $\phi$ the angle at which the wind is blowing in radians, where $\phi = 0$ corresponding to wind blowing in the east direction. Similarly, let $\theta$ correspond to the angle the boat is pointing.
 
 Our state $\vec{s}$ is given by $$ \begin{bmatrix} x \\ y \end{bmatrix}$$ which are simply our $x$ and $y$ coordinates. 
 
-The control vector, or $\vec{u}$, is given by the $x$ and $y$ components of the fixed velocity $v$ in the direction of $\theta$
+The control vector, or $\vec{u}$, is given by the $x$ and $y$ components of the fixed velocity $v$ in the direction of $\theta,$ multiplied by the exposure of the sail to the wind:
 
-$$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} $$
+$$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix} $$
 
 The velocity vector is the control vector plus the effects of the drift $w$:
 
-$$ \dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
+$$ \dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
 
 
+FIX THIS: NO NORM
 This problem's constraints are fixed endpoints and a norm for our control $u$.
 $$ \| u \| = v \\ \vec{s}(t_0) = \vec{s}_0 \\ \vec{s}(t_f) = \vec{s}_f $$
 
