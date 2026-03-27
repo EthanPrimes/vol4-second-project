@@ -14,3 +14,6 @@ poster/poster.fls
 poster/poster.log
 poster/poster.pdf
 poster/poster.synctex.gz
+
+# PyCache from importing local files
+__pycache__/
