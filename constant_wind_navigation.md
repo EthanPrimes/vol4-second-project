@@ -47,7 +47,7 @@ H(t_f) &= 0
 \end{aligned}
 $$
 
-Where the last equality comes from the fact that we are maximizing over unknown time. We don't get that $\frac{\partial H}{\partial u} = 0$ because $u$ is not unconstrained in this problem.
+Where the last equality comes from the fact that we are maximizing over unknown time. We get that $\frac{\partial H}{\partial u} = 0$ as well.
 
 Since we are maximizing $H$, and the only term where $u$ shows up is $\lambda \cdot u$, we can just maximize that to solve for u.
 
