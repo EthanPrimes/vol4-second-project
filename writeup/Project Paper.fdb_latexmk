@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex Project Paper"] 1764822437.6863 "Project Paper.aux" "Project Paper.bbl" "Project Paper" 1764822438.67285 0
+["bibtex Project Paper"] 1774972313.01859 "Project Paper.aux" "Project Paper.bbl" "Project Paper" 1774972313.98952 0
   "./refs.bib" 1764811929.27838 8318 9e4f43a23ba93064a90af3a1d765c260 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "Project Paper.aux" 1764822438.49338 7232 aa851e13dbdf60b756d161fc7bbc4690 "pdflatex"
+  "Project Paper.aux" 1774972313.82953 7234 c109639746d52c3ff728d5a6c36f4bd4 "pdflatex"
   (generated)
   "Project Paper.bbl"
   "Project Paper.blg"
   (rewritten before read)
-["pdflatex"] 1764822437.76568 "/Users/ethanpalenske/Desktop/Fall 2025 Classes/Volume 4 Project/modeling_yeast_spread/Paper/Project Paper.tex" "Project Paper.pdf" "Project Paper" 1764822438.67296 0
-  "/Users/ethanpalenske/Desktop/Fall 2025 Classes/Volume 4 Project/modeling_yeast_spread/Paper/Project Paper.tex" 1764822436.36284 23056 f3fa45fe2feebcea17b858f73a582c1a ""
+["pdflatex"] 1774972313.0864 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup/Project Paper.tex" "Project Paper.pdf" "Project Paper" 1774972313.98962 0
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup/Project Paper.tex" 1774972310.78275 23418 05f45fc9112df1bb40b7777f945039fb ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -111,10 +111,10 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1757904402 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Project Paper.aux" 1764822438.49338 7232 aa851e13dbdf60b756d161fc7bbc4690 "pdflatex"
-  "Project Paper.bbl" 1764822437.76393 6029 b05a4287314d65a27240bfffffb0481f "bibtex Project Paper"
-  "Project Paper.out" 1764822438.49392 2649 9c330b646ab38b990bc071082106f092 "pdflatex"
-  "Project Paper.tex" 1764822436.36284 23056 f3fa45fe2feebcea17b858f73a582c1a ""
+  "Project Paper.aux" 1774972313.82953 7234 c109639746d52c3ff728d5a6c36f4bd4 "pdflatex"
+  "Project Paper.bbl" 1774972313.08478 6029 b05a4287314d65a27240bfffffb0481f "bibtex Project Paper"
+  "Project Paper.out" 1774972313.83016 2649 9c330b646ab38b990bc071082106f092 "pdflatex"
+  "Project Paper.tex" 1774972310.78275 23418 05f45fc9112df1bb40b7777f945039fb ""
   "images/km_mechanistic.png" 1763607518.75743 30304 c7ae1101abe16dcaafe6e831d1d14394 ""
   "images/mcrm.png" 1763574844.95448 68758 4f53c64d069e06075bbcc5f134e5e191 ""
   "images/monod_categorical.png" 1763238821.92618 31818 f9d463029180e2c52647b0151e793c30 ""

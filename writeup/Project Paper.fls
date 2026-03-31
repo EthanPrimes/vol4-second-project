@@ -1,8 +1,8 @@
-PWD /Users/ethanpalenske/Desktop/Fall 2025 Classes/Volume 4 Project/modeling_yeast_spread/Paper
+PWD /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup
 INPUT /usr/local/texlive/2025/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/ethanpalenske/Desktop/Fall 2025 Classes/Volume 4 Project/modeling_yeast_spread/Paper/Project Paper.tex
+INPUT /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup/Project Paper.tex
 OUTPUT Project Paper.log
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/amscls/amsart.cls
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/amscls/amsart.cls
