@@ -1,6 +1,8 @@
-# Derivation of Solution for Constant Wind Navigation
+# Derivation of Accurate Solution for Constant Wind Navigation
 
 ## Set up
+In this file we use the more accurate version of how wind impacts a sailboat, using a nephroid-shaped region we can move in.
+
 For a sailboat moving in a place with fixed wind speed and direction, we only care about the heading. Our control, then, is $\theta$. For this problem we assume that the sail is fixed in place, but we can change the direction in which the boat points. We also assume that the wind directly controls the velocity, instead of the acceleration.
 
 Let $v$ refer to the speed of the wind, with $\phi$ the angle at which the wind is blowing in radians, where $\phi = 0$ corresponding to wind blowing in the east direction.
