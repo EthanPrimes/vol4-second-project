@@ -149,11 +149,15 @@
         \large The historic M\&M 100 Miler sailing race takes place annualy in Lake Michigan. In this project we determined the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
 
 \FancySubtitle[0cm][2cm]{The problem}
-    \begin{center}
-    \LARGE{\textbf{Assumptions \& Equations}}
+\begin{center}
+\LARGE{\textbf{Assumptions \& Equations}}
+\end{center}
+\vspace{5mm}
+
+\begin{center}
+        % \includegraphics[width=1\linewidth, trim={0 9cm 0 91cm}, clip]{route_map.png}
+        \includegraphics[width=1\linewidth]{boat_velocity.png}
     \end{center}
-    \vspace{5mm}
-        \large As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
 
 \columnbreak
 You could use Tikz to make figures (if you want)
@@ -178,51 +182,49 @@ You could use Tikz to make figures (if you want)
 \LARGE{\textbf{The Zermelo Navigation Problem}}
 \end{center}
 
-We begin by solving the standard Zermelo Navigation problem, where 
-
-We chose $\theta,$ the angle between the $x$-axis and our heading, to be our control, and assumed that the velocity of the boat would be given by
+We begin by solving the standard Zermelo Navigation problem, where we are piloting a motor boat through water with a current and want to travel between two points as fast as possible. We chose $\theta,$ the angle between the $x$-axis and our heading, to be our control, and assumed that the velocity of the boat would be given by
 \[
-\begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix},
+\begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix},
 \]
-where the $\cos(\theta - \phi)$ refers to the exposure of the sail to the wind. This model assumes that the boat moves in the direction that it's facing with speed proportional to the the cosine of the angle between the sail and the wind. This yields the following:
+This yields the following velocity:
 \[
-\begin{bmatrix} \dot x \\ \dot y \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}.
+\begin{bmatrix} \dot x \\ \dot y \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix},
 \]
+where $\mathbf{w}$ refers to the impact of current.
 
-So, we are trying to minimize 
-$$
+So, we are trying to minimize the functional
+
 \begin{align*}
     J[u] &= \int_{t_0}^{t_f} 1 dt\\
     \text{subject to } \dot{\vec{s}} &= \vec{u}(t) + \vec{w}(\vec{s}(t))\\
     \vec{s}(t_0) &= \vec{s}_0\\
     \vec{s}(t_f) &= \vec{s}_f \\ \| u \| = v \cos(\theta - \phi)
 \end{align*}
-$$
-
 So the lagrangian constraint version is 
 
 $$ \tilde{J}[u] = \int_{t_0}^{t_f} 1 + \lambda^T (\dot{\vec{s}} - \vec{u}(t) - \vec{w}(\vec{s}(t))) dt $$
 
 And so
 
-$$
-\begin{aligned}
+
+\begin{align*}
 H &= \lambda^\top f - L \\
   &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}
      \left( v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) + w_1(x, y) \\ \cos(\theta - \phi) \sin(\theta) + w_2(x, y) \end{bmatrix} \right) - 1
-\end{aligned}
-$$
+\end{align*}
+
 
 By Pontryagin's Maximization principle, we have
 
-$$ \begin{aligned}
+
+\begin{align*}
 \dot{x} &= v\cos(\theta - \phi) \cos(\theta) + w_1(x, y) \\
 \dot{y} &= v\cos(\theta - \phi) \sin(\theta) + w_2(x, y) \\
 \dot{\lambda_1} &= -\lambda_1 \frac{\partial w_1}{\partial x} -\lambda_2 \frac{\partial w_2}{\partial x} \\
 \dot{\lambda_2} &= -\lambda_1 \frac{\partial w_1}{\partial y} -\lambda_2 \frac{\partial w_2}{\partial y} \\
 H(t_f) &= 0
-\end{aligned}
-$$
+\end{align*}
+
 
 Where the last equality comes from the fact that we are maximizing over unknown time. We get that $\frac{\partial H}{\partial u} = 0$ as well.
 
@@ -247,9 +249,6 @@ But what if we are sailing using the wind and currents instead of a motor? This 
 
 
 \columnbreak
-\begin{center}
-\LARGE{\textbf{Non-Constant Wind and Current}}
-\end{center}
 
 Only if you actually used Infinite-Time LQR?
 
