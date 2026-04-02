@@ -61,7 +61,7 @@ This is implemented in [this notebook](zermelo.ipynb), though imperfectly becaus
 ## Set up
 
 $$J[u] = \int_0^{t_f} 1 dt \\ 
-\text{ subj. to } \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix} \\ 
+\text{ subj. to } \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} - \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix} \\ 
 \begin{bmatrix} x(0) \\ y(0) \end{bmatrix} = \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} \\ \\
 \begin{bmatrix} x(t_f) \\ y(t_f) \end{bmatrix} = \begin{bmatrix} x_f \\ y_f \end{bmatrix}$$
 
@@ -70,8 +70,10 @@ So then the hamiltonian is given by
 
 $$ 
 \begin{aligned}
-H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) \\
-&= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} \dot{x} - v(\theta(t), \phi(x, y)) \cos(\theta) - w_1(x, y) \\ \dot{y} - v(\theta(t), \phi(x, y)) \sin(\theta) - w_2(x, y) \end{bmatrix}
+H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
+&= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} \dot{x} - v(\theta(t), \phi(x, y)) \cos(\theta) - w_1(x, y) \\ \dot{y} - v(\theta(t), \phi(x, y)) \sin(\theta) - w_2(x, y) \end{bmatrix} - 1 \\
+
+&= \lambda_1​(v(\theta, \phi(x, y))\cos(\theta) - w_1​)+ \lambda_2​(v(\theta,\phi(x, y))\sin(\theta)-w_2​)−1
 \end{aligned}
 $$
 
@@ -80,10 +82,14 @@ So the costate evolution equations are given by
 $$
 \begin{aligned}
 \dot{\lambda_1} &= -\frac{\partial H}{\partial x} \\
-& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) + \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
+& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
 
 \dot{\lambda_2} & = -\frac{\partial H}{\partial y} \\
-& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) + \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
+& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
+
+\frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) \\
+
+&= 0
 
 \end{aligned}
 $$
@@ -92,4 +98,12 @@ And it is all subject to the boundary conditions
 $$ \vec{s_{0}} = \vec{s}(0) \text{ and } \vec{s_{t_f}} = \vec{s}(t_f) \text{ and } H(t_f) = 0 $$
 
 ## Implementation
-The implementation will be very similar, as long as we have a $V$ and $\partial V$ we can call.
+The implementation will be kinda tricky and maybe slow--if the sailing polar diagram is not well behaved, as it shouldn't be, then we will do a little optimization step inside of the ode() function to get the optimal $u^*$ at each step. As in
+
+```python
+def ode(t, Y):
+  x, y, lam1, lam2 = Y
+  theta_star = scipy.optimize.minimize(-H, args=(theta, x, y, lam1, lam2))
+
+  dx, dy = ...
+```

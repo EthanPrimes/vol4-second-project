@@ -1,8 +1,8 @@
-PWD /Users/ethanpalenske/Desktop/Fall 2025 Classes/Volume 4 Project/modeling_yeast_spread/Paper
+PWD /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup
 INPUT /usr/local/texlive/2025/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/ethanpalenske/Desktop/Fall 2025 Classes/Volume 4 Project/modeling_yeast_spread/Paper/Project Paper.tex
+INPUT /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup/Project Paper.tex
 OUTPUT Project Paper.log
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/amscls/amsart.cls
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/amscls/amsart.cls
@@ -159,40 +159,7 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmti9.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map
-INPUT ./images/km_mechanistic.png
-INPUT ./images/km_mechanistic.png
-INPUT ./images/km_mechanistic.png
-INPUT ./images/km_mechanistic.png
-INPUT ./images/monod_categorical.png
-INPUT ./images/monod_categorical.png
-INPUT ./images/monod_categorical.png
-INPUT ./images/monod_categorical.png
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
-INPUT ./images/simple_compartmental.png
-INPUT ./images/simple_compartmental.png
-INPUT ./images/simple_compartmental.png
-INPUT ./images/simple_compartmental.png
-INPUT ./images/simple_compartmental.png
-INPUT ./images/monod_modeling.png
-INPUT ./images/monod_modeling.png
-INPUT ./images/monod_modeling.png
-INPUT ./images/monod_modeling.png
-INPUT ./images/monod_modeling.png
-INPUT ./images/mcrm.png
-INPUT ./images/mcrm.png
-INPUT ./images/mcrm.png
-INPUT ./images/mcrm.png
 INPUT ./Project Paper.bbl
 INPUT ./Project Paper.bbl
 INPUT Project Paper.bbl
@@ -202,15 +169,8 @@ INPUT ./Project Paper.out
 INPUT ./Project Paper.out
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb

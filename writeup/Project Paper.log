@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  3 DEC 2025 21:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  31 MAR 2026 09:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/ethanpalenske/Desktop/Fall 2025 Classes/Volume 4 Project/modeling_yeast_spread/Paper/Project Paper.tex"
-(/Users/ethanpalenske/Desktop/Fall 2025 Classes/Volume 4 Project/modeling_yeast_spread/Paper/Project Paper.tex
+**"/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup/Project Paper.tex"
+(/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup/Project Paper.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amscls/amsart.cls
@@ -345,102 +345,40 @@ Package hyperref Info: Link coloring OFF on input line 15.
 
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<./images/km_mechanistic.png, id=89, 412.6617pt x 328.8285pt>
-File: ./images/km_mechanistic.png Graphic file (type png)
-<use ./images/km_mechanistic.png>
-Package pdftex.def Info: ./images/km_mechanistic.png  used on input line 64.
-(pdftex.def)             Requested size: 206.33034pt x 164.41385pt.
 
-
-[2 <./images/km_mechanistic.png>]
-<./images/monod_categorical.png, id=103, 406.1574pt x 328.8285pt>
-File: ./images/monod_categorical.png Graphic file (type png)
-<use ./images/monod_categorical.png>
-Package pdftex.def Info: ./images/monod_categorical.png  used on input line 105.
-(pdftex.def)             Requested size: 203.0782pt x 164.41385pt.
-
-
-[3]
-
-[4 <./images/monod_categorical.png>]
-
-[5]
-<images/simple_compartmental.png, id=130, 426.393pt x 426.393pt>
-File: images/simple_compartmental.png Graphic file (type png)
-<use images/simple_compartmental.png>
-Package pdftex.def Info: images/simple_compartmental.png  used on input line 193.
-(pdftex.def)             Requested size: 213.19597pt x 213.19597pt.
-
-
-[6]
-
-[7 <./images/simple_compartmental.png>]
-<images/monod_modeling.png, id=153, 426.393pt x 426.393pt>
-File: images/monod_modeling.png Graphic file (type png)
-<use images/monod_modeling.png>
-Package pdftex.def Info: images/monod_modeling.png  used on input line 223.
-(pdftex.def)             Requested size: 213.19597pt x 213.19597pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<./images/mcrm.png, id=173, 736.4313pt x 411.2163pt>
-File: ./images/mcrm.png Graphic file (type png)
-<use ./images/mcrm.png>
-Package pdftex.def Info: ./images/mcrm.png  used on input line 260.
-(pdftex.def)             Requested size: 257.7548pt x 143.92786pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[8 <./images/monod_modeling.png>]
-
-[9 <./images/mcrm.png>]
-
-[10] (./Project Paper.bbl
-Underfull \hbox (badness 4144) in paragraph at lines 16--19
-[]\OT1/cmr/m/n/9 Andy Brun-ning. Bak-ing bread: The chem-istry of bread-making.
+[2] (./Project Paper.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 4--8
+[]\OT1/cmr/m/n/9 EthanPrimes. mod-el-ing[]yeast[]spread. []$\OT1/cmtt/m/n/9 https : / / github . com / EthanPrimes /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--63
-\OT1/cmtt/m/n/9 / / web . archive . org / web / 20091229043435 / http : / / www . bren . ucsb . edu /
+Underfull \hbox (badness 2538) in paragraph at lines 4--8
+\OT1/cmtt/m/n/9 modeling _ yeast _ spread$[]\OT1/cmr/m/n/9 , 2025. GitHub repos-i-tory, MIT li-cense, ac-cessed
  []
 
+)
 
-Underfull \hbox (badness 10000) in paragraph at lines 71--73
-[]\OT1/cmr/m/n/9 Powder Pro-cess. []$\OT1/cmtt/m/n/9 https : / / powderprocess . net / Tools _ html / Data _
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[11])
-
-[12] (./Project Paper.aux)
+[3] (./Project Paper.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `"Project Paper".out' has not changed.
-(rerunfilecheck)             Checksum: 9C330B646AB38B990BC071082106F092;2649.
+(rerunfilecheck)             Checksum: 6BFDA9C8227363BD21604B914F851828;1069.
  ) 
 Here is how much of TeX's memory you used:
- 11365 strings out of 473190
- 180077 string characters out of 5715801
- 600371 words of memory out of 5000000
- 34257 multiletter control sequences out of 15000+600000
- 567443 words of font info for 69 fonts, out of 8000000 for 9000
+ 11204 strings out of 473190
+ 176868 string characters out of 5715801
+ 594577 words of memory out of 5000000
+ 34151 multiletter control sequences out of 15000+600000
+ 564605 words of font info for 58 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 75i,11n,79p,959b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on "Project Paper.pdf" (12 pages, 423022 bytes).
+ 75i,6n,79p,951b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on "Project Paper.pdf" (3 pages, 105714 bytes).
 PDF statistics:
- 305 PDF objects out of 1000 (max. 8388607)
- 247 compressed objects within 3 object streams
- 64 named destinations out of 1000 (max. 500000)
- 154 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 96 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
+ 13 named destinations out of 1000 (max. 500000)
+ 65 words of extra memory for PDF output out of 10000 (max. 10000000)
 

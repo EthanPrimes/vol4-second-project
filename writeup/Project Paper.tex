@@ -14,274 +14,47 @@
 
 \begin{document}
 
-\title{Modeling Yeast Spread in Bread Dough}
+\title{Go With the Flow: Optimal Sailboat Racing}
 \author{Connor McBride, Ethan Palenske, Jackson Pond}
 
 % Change the date to match the date you actually wrote this paper
 \date{\today} % or use \today
 
 \begin{abstract}
-Yeast undergoes complex interactions with the other ingredients in bread dough. We sought to determine if we could use an understanding of the chemical reactions yeast undergoes to build accurate models of sugar consumption, yeast growth, and byproduct production. Similarly, we examined the results of each model to see how well they qualitatively fit our expectations. We compare the results to data from other papers and observe that our models performed surprisingly well.
+In this paper we will try to model the optimal path in the historical M\&M 100 Miler sailing race that takes place in Lake Michigan. Many forces impact optimal sailing, including wind direction, current, and waves, making this a challenging problem to model accurately. The primary questions we work to answer are what the simplest model is that rediscovers real sailing techniques, such as tacking, and how many parameters we can add into our model while still being able to solve it and getting reasonable results. We solve the classic Zermelo Navigation Problem assuming constant boat velocity and fixed current drift vector field. Further iterations involve relying on wind instead of a motor, taking into account the impact of the islands on wind and current speed, and including the impacts of being near Wisconsin on the wind.
 \end{abstract}
 
 \maketitle % this actually makes the title
 
 %% First Section
-\section{Background/Motivation}
+\section{Background}
 
 \par The primary question this paper seeks to answer is determining the sorts of models that accurately match the chemical reactions that yeast undergo within bread. Yeast interacts in complicated ways with the other ingredients in bread, and even with its own byproducts. We also want to determine what factors make failed models no longer accurate.
 
 \par Every breadmaker has noticed that small changes in initial dough conditions can lead to wide variations in the quality of the baked bread. By having a good model for how yeast interacts with the other ingredients in bread, we will be able to better understand the breadmaking process and how to optimize initial conditions.
 
-\subsection*{The Chemistry of Bread}
-
-\par There are four primary ingredients in bread dough: flour, water, salt, and yeast. Flour provides not only the gluten that gives bread its structure, but also contains sugars that the yeast consumes. Salt strengthens the bread dough, making it more elastic.
-
-\par Once water is mixed with flour, enzymes from the flour activate, including alpha-amylase and beta-amylase. These enzymes break up the long starch chains in the flour, quickly converting these into glucose and maltose. These sugars, unlike starch itself, are edible by yeast \cite{bread_chemistry_1}.
-
-\par Yeast is a type of single-celled fungus that produces the \ce{CO_2} that forms bubbles in bread. This process is called fermentation, and yeast undergoes two primary phases within bread. The first is aerobic respiration, where yeast consumes oxygen and sugar and produces carbon dioxide and ATP, which is a molecule that stores energy for cells. The chemical reaction is
-\[
-\ce{6O_2} + \ce{C_6H_{12}O_6} \to \ce{6CO_2} + \ce{6H_2O} + \ce{ATP}.
-\]
-
-\par The second phase, called anaerobic respiration, occurs once the oxygen in the bread is exhausted. Yeast consumes glucose and begins producing ethanol instead of water. Not much ethanol is produced compared to alcohol fermentation, and evaporates during the baking process. The yeast still produces \ce{CO_2} as a byproduct, but it produces it at a slower rate.
-\[
-\ce{C_6H_{12}O_6} \to \ce{2CO_2} + \ce{2C_2H_5OH} + \ce{ATP}\; \text{\cite{bread_chemistry_2}}.
-\]
-
-\par Some of the more advanced models in this paper sought to incorporate this two-phase structure.
-
-\par We reviewed some existing models for modeling yeast fermentation in the literature. The KM mechastic model was one model created to describe the dynamics of alcoholic fermentation of yeast. It is given by 
-\begin{align*}
-    \dot{x} &= \frac{\rho_1 xy}{\rho_2 + y} - \rho_3 x z - \rho_4 x \\
-    \dot{y} &= -\rho_5 xy - \rho_6 yz - \rho_7 y \\
-    \dot{z} &= \rho_8 xz + \rho_9 yz - \rho_{10} z,
-\end{align*}
-where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose consumption, and ethanol production respectively \cite{mechanistic}. Each $\rho_k$ value depicts a specific constant related to a specific part of the fermentation process. The plotted solution for this model is given in Figure \ref{fig:images/km_mechanistic.png}.
-
-\begin{figure}[h]
-\begin{center}
-    \includegraphics[scale=0.5]{km_mechanistic.png}
-\end{center}
-    \caption{A KM mechanistic model plot for $t \in [0, 5]$. Values of $\rho_k$ as given in the paper and we use initial conditions $(x_0, y_0, z_0) = (5, 200, 0.5)$ (measured in g/L).}
-    \label{fig:images/km_mechanistic.png}
-\end{figure}
-
-\par 
-
 %% Second Section 
-\section{Modeling}
+\section{Mathematical Representation}
 
 \par In this section we go over the models we built in detail.
 
-\subsection*{Simple Compartmental Model}
-
-\par This was the simplest of the models we implement. The goal was to get a baseline for future models and to see if we can fit real-world data with a simple compartmental model. If this did not fit data well, we at least hoped that the model would be qualitatively accurate, in that the amount of yeast and byproducts increase over time while the amount of sugar decreases. We used sugar, yeast, and byproducts as our three compartments. The model's differential equation is given by
-\begin{align*}
-    \dot S &= -\alpha S Y\\
-    \dot Y &= \beta S Y - \gamma Y\\
-    \dot B &= \delta S Y,
-\end{align*}
-where $\alpha, \beta, \gamma$ and $\delta$ are constants. In particular, $\alpha$ controls the quantity of sugar eaten by yeast in each interaction, $\beta$ controls the reproduction rate of yeast as it consumes sugar, $\gamma$ controls the death rate of yeast, and $\delta$ controls the rate at which byproducts are produced as yeast consumes sugar.
-
-\subsection*{Compartmental Model with Monod Equation}
-We also sought to incorporate the Monod equation into a compartmental model. The Monod equation models the growth of a microorganism based on the concentration of a limiting substance \cite{monod_1}. The standard form of the Monod equation is given by 
-\[
-    \mu = \mu_{\text{max}} \frac{S}{K_s + S},
-\]
-where $\mu$ is the growth rate of a microorganism, $\mu_{\text{max}}$ is the maximum growth rate of the microorganism, $S$ is the concentration of the limiting substance for growth, and $K_s$ is the ``half-velocity'' constant (the value of $S$ when $\mu / \mu_{\text{max}} = 0.5)$ \cite{monod_2}.
-
-Some modifications to a traditional SIR model were required in order to fit the Monod equation into a compartmental model. SIR models typically assume a closed population, but for modeling yeast fermentation, compartments don't simply flow into one another as some mass escapes the system. 
-Similarly, the yeast growth and fermentation are based on growth rates and yield coefficients, not just population flow. Let $Y$ depict the quantity of yeast, $S$ for sugar, and $P$ for the byproducts produced (e.g. ethanol and $\ce{CO_2}$). The monod categorical model is given by 
-\begin{align*}
-    \dot{Y} &= \mu_{\text{max}} \frac{S}{K_s + S}Y \\
-    \dot{S} &= -\frac{1}{Y_{X/S}} \dot{Y} \\
-    \dot{P} &= Y_{P/S} (-\dot{S}),
-\end{align*}
-where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_{P/S}$ denotes the product yield of yeast per gram of sugar. We make the simplifying assumptions of not taking into account the death of yeast or non-product growth formation. The plot of the solution is given in Figure \ref{fig:monod_categorical}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.5]{monod_categorical.png}
-    \caption{The monod categorical model. We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units g/L). We also suppose that $K_s = 0.6$, $Y_{X/S} = 0.1$, and $Y_{P/S} = 1$.}
-    \label{fig:monod_categorical}
-\end{figure}
-
-\subsection*{MacArthur Consumer-Resource}
-\par The previous models make the following simplifying assumptions: that all sugar is initially available to be consumed by yeast and only decreases over time, that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast and sugar, and that oxygen is not a resource on which yeast feeds.
-
-\par In this section, we attempt to incorporate more realistic assumptions into our model. A more appropriate family of models to use would be Consumer-Resource models, which are designed to factor in multiple consumers and multiple replenishing resources. This family of models considers the replenishment of resources, predators' affinity for different resources (called uptake in this paper), and the yield in biomass for the consumer per unit of resource consumed. In the case considered by this paper, there is a single consumer (yeast), and two resources (sugar and oxygen). Additionally, both the uptake and yield of sugar vary with the amount of oxygen.
-
-\par The general form of the MacArthur consumer-resource model for S species of consumers with concentrations $N_i$ for $i \in {1, 2, ..., S}$, and M resources with concentrations $R_{\alpha}$ for $\alpha \in {1, 2, ..., M}$ is
-\begin{align*}
-    \frac{dN_i}{dt} &= N_i \sum_\alpha (u_{i\alpha}(R_{\alpha}) w_{i\alpha}) - m_i \\
-    \frac{dR_\alpha}{dt} &= F_{\alpha} (R_{\alpha}) - \sum_i (N_i u_{i\alpha}(R_{\alpha}))
-\end{align*}
-
-\par $u_{i\alpha}$ controls the uptake of the resource by the consumer, or how quickly consumer $i$ consumes resource $\alpha$ per unit biomass. This can vary with the concentration of the resource, as it can saturate \cite{AdaptiveStrategies}. $w_{i\alpha}$ is the biomass \textit{yield} that resource $\alpha$ provides consumer $i$, and controls the proportion between resource $\alpha$ consumed and biomass added to consumer $i$. $m_i$ is the natural mortality rate of consumer $i$. $F_{\alpha}$ is the function that controls the replenishment of resource $\alpha$ in the absence of consumers.
-
-\par The zoo of parameters and associated dimensions can be disorienting. We will provide a sort of index here of the parameters we will use in our model, and then we will detail the way each fits into our model.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{l c c c}
-\hline
-\textbf{Parameter} & \textbf{Units} & \textbf{Notes} \\ 
-\hline
-$Y$ & $g_Y / L$ & Dry Yeast concentration \\
-$O$ & $mmol / L$ & $O_2$ concentration \\
-$S$ & $GGE / L$ & Sugar concentration \\
-$C$ & $mol / L$ & Count of $CO_2$ per liter of dough \\
-$K_O$ & $mmol / L$ & Half saturation for Oxygen \\
-$K_S$ & $GGE / L$ & Half saturation for Sugar \\
-$P_S$ & $g_S / L$ & Carrying capacity for sugar \\
-$r_S$ & $1 / h$ & Sugar logistic growth rate \\
-$f(O)$ & dimensionless & Oxygen availibility switch \\
-$w_S^{aer}$ & $g_Y / g_S$ & aerobic ATP yield, very efficient \\
-$w_S^{ana}$ & $g_Y / g_S$ & anaerobic ATP yield, inefficient \\
-$w_O$ & $g_Y / mmol$ & Oxygen yield \\
-$c_S$ &  $L / g_Yh$ & Maximum Sugar uptake \\
-$u_S$ & dimensionless & Instantaneous uptake of sugar \\
-$c_O$ & $L / g_Yh$ & Oxygen uptake \\
-\hline
-\end{tabular}
-\caption{Parameter Index}
-\label{tab:param_index}
-\end{table}
-
-\subsubsection*{Uptake}
-\par Uptake describes the rate at which the consumer metabolizes each resource, and is a function of the available amount of the resource. It is often modeled with a Monod equation, as previously discussed. We modeled the sugar uptake as a function of S using the Monod equation.
-$$u_S(S) = c_S \frac{S}{K_S \cdot S}$$
-\par See Table \ref{tab:param_index} for an explanation of each term. Thus the sugar uptake climbs quickly when below half saturation, and then grows more slowly past that point.
-\par Because the amount of Oxygen starts low and thus its uptake varies little, we chose to control it with just a constant.
-$$u_O(O) = c_O O$$
-
-\subsubsection*{Decrease and Replenishment of Resources}
-\par As no sugar is ordinarily added to the loaf, the sugar present is contained in the flour. As discussed in a previous section, the sugar replenishes logistically as more complex molecules break down. Therefore $\frac{dS}{dt}$ becomes
-$$\frac{dS}{dt} = r_S S \left(1 - \frac{S}{P_S}\right) - c_S Y S$$
-See Table \ref{tab:param_index} for an explanation of each term.  
-
-\par Since oxygen is not replenished, its change equation has only a consumption term:
-$$\frac{dO}{dt} = -c_O O Y.$$
-
-\subsubsection*{Yield}
-\par Additionally, the biomass yield sugar provides yeast varies with the amount of oxygen available. Our model should reflect both aerobic and anaerobic metabolism of sugar. We want to model a smooth switch between aerobic and anaerobic metabolism. We accomplish this via a switching function, which we name $f$ in our model.
-$$f(O) = \frac{O}{K_O + O}$$
-\par See \ref{tab:param_index} for details about the terms. The full effective yield term, which controls the yield that sugar provides the yeast for a given amount of oxygen, is the following.
-$$ w_S^{eff} = [w_S^{ana}+(w_S^{aer}-w_S^{ana})f(O)] $$
-\par Thus, when $O \gg K_O$, $f(O) \approx 1$, and $w_S^{eff} \approx w_S^{aer}$ indicating fully aerobic yield. Likewise, when $O \ll K_O$, $f(O) \approx 0$, and $w_S^{eff} \approx w_S^ana$, indicating fully anaerobic yield. 
-
-\subsubsection*{Byproduct}
-\par The $CO_2$ created during this process exists outside the consumer resource relationship, and is simply stoichiometrically related to the rate of anaerobic sugar consumption. By straightforward rearrangement of the $f(O)$ equation given above, and since in the anaerobic reaction one gram of sugar becomes 0.0111 mols of $\ce{CO_2}$, the instantaneous rate of production of $\ce{CO_2}$ in mols per liter is given by  
-$$(1 - f(O))u_S(S)Y \cdot 0.0111$$
-
-\subsubsection*{Final Form}
-\par By assembling these pieces into the general MacArthur consumer resource model found above, we have the following ODE.
-
-$$\frac{dY}{dt} = Y \bigg[w_O c_O O + [w_S^{ana}+(w_S^{aer}-w_S^{ana})f(O)]u_S(S) - m\bigg]$$
-$$\frac{dO}{dt} = -c_O O Y$$
-$$\frac{dS}{dt} = r_S S \left(1 - \frac{S}{P_S}\right) - c_S Y S$$
-$$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
-
 %% Third Section
-\section{Results}
+\section{Solution}
 
-\subsection*{Simple Compartmental Model}
-
-\begin{figure}[t]
-\begin{center}
-\includegraphics[scale=0.5]{images/simple_compartmental.png}
-\end{center}
-\caption{This figure shows the results of the categorical model after having the constants trained on real data \cite{mechanistic}. The three graphs show the three categories in the model; sugar, yeast, and byproducts.}
-\label{fig:images/simple_compartmental.png}
-\end{figure}
-
-\par The simple model fit the real-world data \cite{mechanistic} surprisingly well in Figure \ref{fig:images/simple_compartmental.png}. This model sadly does not incorporate the two-phase structure that some of the other models do, but each category's graph looks similar to the data it trained on.
-
-\par The constants of this model, which were computed using SciPy, were estimated to equal
-\[
-\alpha = 0.1128 \frac{g}{mol^2}, \; \beta = 0.0178 \frac{g}{mol^2}, \; \gamma = 0.010 \frac{g}{mol}, \; \delta = 0.0475 \frac{g}{mol^2}.
-\]
-
-\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate just with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanol) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156 g/mol}{2 \cdot 46.069 g/mol}.$ We see that we have:
-\[
-\frac{\alpha \text{ g/mol}^2}{\delta \text{ g/mol}^2} = 2.375 \quad \frac{180.156 \text{ g/mol}}{2 \cdot 46.069 \text{ g/mol}} = 1.955,
-\]
-a $21\%$ error compared to the true value. For such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
-
-\subsection*{Compartmental Model with Monod Equation}
-We similarly fit the compartmental to the data \cite{mechanistic}. Using Scipy, we were able to estimate the coefficients as
-
-\[ 
-    \mu_{\text{max}} \approx 0.169 \text{ hrs}^{-1}, \, K_S \approx 0.100 \text{ g/L}, \, Y_{X/S} \approx 0.177 \text{ g/g}, \, Y_{P/S} \approx 0.702 \text{ g/g}.
-\]
-
-The model with these coefficients and initial values taken from the data is plotted alongside the data in Figure \ref{fig:images/monod_modeling.png}.
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.5]{images/monod_modeling.png}
-\end{center}
-\caption{The fitted monod categorical model plotted alongside the experimental data. \cite{mechanistic}}
-\label{fig:images/monod_modeling.png}
-\end{figure}
-An experimental value for the product yield of yeast $Y_{P/S}$ is 0.5 g of weight per gram of yeast \cite{yeast_chicken}, which our model was able to get a reasonable approximation for.
-
-\subsection*{MacArthur Consumer-Resource}
-Unfortunately we were unable to find real-world data which we could use to evaluate this model quantitatively. Instead we will pick reasonable parameter values and evaluate the results qualitatively. Using parameters in the ranges in Table \ref{tab:param_vals}, we obtain Figure~\ref{fig:mcrm}.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{l c c c}
-\hline
-\textbf{Parameter} & \textbf{Value} & \textbf{units} & \textbf{Sources} \\ 
-\hline
-$Y_0$ & 5.3 & $g_L / L$ &  \text{calculated} \\
-$O_0$ & 0.25 & $mmol / L$ &  \cite{O2-breadmaking}\\
-$S_0$ & 3-5 & $ GGE/L $& \cite{Bakerpedia} \\
-$C_0$ & 0 & $mol / L$ &   \\
-$K_O$ & 0.01 - 0.03 & $mmol / L$ & \cite{AnaerobiosisRevisited} \cite{ForeverPantingGrowing} \\
-$K_S$ & 0.1 - 0.5 & $GGE / L$ &  \cite{GlucoseTransportLimit} \\
-$P_S$ & 10 - 20 & $g_S / L$ &  \cite{WheatFlourSugars}\\
-$r_S$ & 0.4 & $h^{-1}$ &  \cite{Struyf1} \cite{Struyf2}\\
-$w_S^{aer}$ & 0.45 - 0.55 & $g_Y / g_S$ & \cite{aerobic_yield1} \cite{aerobic_yield2} \\
-$w_S^{ana}$ & 0.1 & $g_Y / g_S$ & \cite{anaerobic_yield1} \cite{anaerobic_yield2} \\
-$w_O$ & 0.016 & $g_Y / mmol$ & \cite{o2_yield1} \\
-$c_S$ & 0.15 &  $L / (g_Y h)$ & \cite{GlucoseTransportLimit} \\
-$c_O$ & 0.1 & $L / g_Y h$ & \cite{o2_uptake} \\
-\hline
-\end{tabular}
-\caption{Reasonable Parameter Values}
-\label{tab:param_vals}
-\end{table}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.35]{mcrm.png}
-    \caption{MacArthur Consumer-Resource Model Results}
-    \label{fig:mcrm}
-\end{figure}
-
-\par Using these parameter values and these initial values, we can visually inspect the resulting prediction made by this model. There is a clear aerobic phase where yeast concentration increases very quickly, before switching to anaerobic when oxygen is depleted. $\ce{CO_2}$ concentration also rises until sugar is depleted and the anaerobic phase finishes. However, the model reaches equilibrium in about 55 minutes, while in reality yeast continues to grow for much longer. 
-The complete code and figures used for this report can be found on GitHub \cite{modeling_yeast_spread}.
+\cite{modeling_yeast_spread}
 
 %%Fourth Section
-\section{Analysis/Conclusions} We attempted to model the dynamics present in a rising loaf of bread dough using three models: A simple compartmental model, a compartmental model with a Monod Equation, and a MacArthur Consumer-Resource model, ordered in terms of complexity. 
+\section{Interpretation}
+
 
 \subsection*{Appropriateness of models}
-The two compartmental models captured the changing concentrations of their assumed dynamics with surprising accuracy, considering their simplicity. The fitted simple compartmental model yielded a mere 21\% error for the glucose consumed to ethanol produced ratio. However, the assumed dynamics are far from the true dynamics of a rising loaf of bread dough. The most egregious simplifiying assumption was that all sugar is initially available and does not replenish. Fortunately experimental data that matched the assumptions validated these models.
 
-\par The most complex model we attempted to use, the MacArthur Consumer-Resource model, corrected the previous simplifications by including terms to describe a replenishing supply of available sugar, a variable rate of sugar consumption and yield depending on the oxygen supply, and metabolism of oxygen when available. Although we were unable to find or produce experimental data to validate this model, we found it satisfactory qualitatively. The phases of aerobic metabolism, anaerobic metabolism, and equilibrium are each amenable to visual inspections of the figures the model produces.
 
-\subsection*{Potential improvements} Our model which most closely approximates the dynamics of fermentation in a loaf of bread dough, the MacArthur Consumer-Resource model, has several shortcomings. The most glaring is that it is not fit to experimental data, and its parameters' true values are not verified to the desired degree of accuracy. Furthermore, the model does not capture enviornmental factors such as temperature, humidity, or pressure, which are known to affect the rate of fermentation. Parameters and functions that describe uptake, yield, resource replenishment, and maintenance depend on such enviornmental factors as these. Similarly, we do not consider the effects of key added ingredients such as salt (which inhibits yeast growth), or of elective added ingredients such as jalapeño and cheddar.
+\subsection*{Potential improvements}
 
-\par Another shortcoming is the limitation of bread making practices represented in even our broadest assumptions. We do not consider a double-rising period or the effect of several intermediate "stretch and folds". Bread makers  report that small changes in the mixing, kneading, and intermediate checkpoints lead to large changes in the results of the loaf. Nonetheless, these effects are not captured in our model.
 
-\subsection*{What we learned} Our main takeaway was the effectiveness of relatively simple models to decently approximate complicated dynamics. We also enjoyed reasoning mathematically with chemistry, basic stoichimetry, and reasoning through relationships between compartments/consumers and resources.
+\subsection*{Impact}
 
-\subsection*{Impact} The impact of an accurate bread-rising model would be profound and far-reaching. Bread is a worldwide staple, and is much beloved by nearly all cultures. An accurate model would create tremendous accessibility consistently higher quality bread, exactly as desired by its bakers, despite the complexity.
-
-\par Such a day is yet beyond us. Using the models we produced, by fiddling with initial values, a user can easily see the effects of changing the initial concentrations of yeast, sugar, and oxygen, and use these initial concentrations to create the desired effect while baking bread.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Bibliography below
