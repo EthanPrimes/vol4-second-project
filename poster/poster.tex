@@ -11,7 +11,8 @@
 \usepackage{tikz}
 \usepackage{eso-pic}
 \usepackage{geometry}
-\geometry{margin=2cm, top=2cm}
+% \geometry{margin=2cm, top=2cm}
+\geometry{margin=3cm}
 \usetikzlibrary{arrows.meta}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -110,7 +111,7 @@
 }
 
 % Create the fancy subtitle command
-\NewDocumentCommand{\FancySubtitle}{ O{1cm} O{1cm} m }{
+\NewDocumentCommand{\FancySubtitle}{ O{1cm} O{1cm} m}{
     \vspace{#2}
     \noindent
     \fcolorbox{subtitleoutline}{subtitlebackground}{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
@@ -195,7 +196,7 @@
         % \includegraphics[width=1\linewidth]{boat_velocity.png}
 \end{center}
 
-\columnbreak
+% \columnbreak
 % You could use Tikz to make figures (if you want)
 
 % \begin{center}
@@ -279,24 +280,13 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
 \large However, wind doesn't move boats by ``blowing on the sails;'' For boats with triangular sails, it's more accurate to say that sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. In fact, boats rarely sail directly downwind since this makes them very unstable! A more accurate model would have boats going fastest about 70$^\circ$ off of straight downwind, called a "Broad Reach". Not only does this allow sailboats with triangular sails to sail \textit{across} the wind, or orthogonally to the wind, it also allows the sailboat to sail about 40$^\circ$ from directly upwind! So sailboats can effectively move in any direction, in a straight line for friendly directions, and in zig-zags if close to directly up-wind or directly down-wind. Switching which zig you are zagging while going upwind is called \textbf{tacking}. Switching while going downwind is called \textbf{jibing}. One main objective of this project is to \textit{discover} tacking and jibing as part of the optimal solution.
 
 
-\columnbreak
-
-Only if you actually used Infinite-Time LQR?
-
-As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
-
-
 \FancySubtitle[4mm][1cm]{Early Results \& Analysis}
 
 \begin{center}
     % \includegraphics[width=1\linewidth,trim={0 8cm 0 10cm},clip]{anothepicture.png}
 \end{center}
 
-As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
-
-
-\columnbreak  
-As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
+\large 
 
 \FancySubtitle[4mm][1cm]{Conclusions and next steps}
 
