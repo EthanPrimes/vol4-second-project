@@ -146,8 +146,8 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     # Plot
     # ---------------------------------------------------------------------------
     if want_plot
-        xs  = range(0, 30, length=12)
-        ys  = range(0, 30, length=12)
+        xs  = range(x0_val, xf_val, length=12)
+        ys  = range(y0_val, yf_val, length=12)
         Xg  = [xi for xi in xs, yi in ys]
         Yg  = [yi for xi in xs, yi in ys]
         w0  = phi(15.0, 15.0)
