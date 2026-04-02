@@ -133,7 +133,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     x_sol, y_sol, theta_sol, T_sol = value.(x), value.(y), value.(theta), value(T)
 
 
-    h5open("$filename.h5", "w") do f
+    h5open("2_$filename.h5", "w") do f
         f["x"]     = x_sol
         f["y"]     = y_sol
         f["theta"] = theta_sol
