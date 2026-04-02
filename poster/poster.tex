@@ -87,8 +87,8 @@
         % Clip to the header rectangle, then place a larger image centered in it
         \begin{scope}
             \clip (0,0) rectangle (\headerwidth, \headerheight);
-            \node[inner sep=0pt, anchor=center] at (0.5*\headerwidth, 1.4*\headerheight) {
-                \includegraphics[width=\headerwidth]{background.jpg}
+            \node[inner sep=0pt, anchor=center] at (0.5*\headerwidth, 1.8*\headerheight) {
+                \includegraphics[width=\headerwidth]{background.png}
                 % Use 'width' alone (no height) to preserve aspect ratio — 
                 % the clip will hide the overflow top and bottom.
                 % Swap to 'height=\headerheight' if your image is taller than wide.
@@ -323,10 +323,18 @@ As the sun dipped below the horizon, casting hues of orange and pink across the 
 As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
 
 \FancySubtitle[4mm][1cm]{Conclusions and next steps}
-As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
+
+\large 
+
+\large We have a lot of further directions we want to explore. The first things that we want to incorporate into our models are land penalties, to prevent the boats from running into land or islands. This is the most obvious issue with the optimal solutions we have computed so far.
+
+\large Similarly, it is not physically realistic that the wind directly controls the boat's velocity. Instead, the wind should impact the boat's \textit{acceleration}. Solving this optimal control problem will likely yield even more accurate results, although it will take more effort to implement.
+
+\cite{einstein1905}
+
 
 \bibliographystyle{amsalpha}
-\bibliography{poster_references}
+\bibliography{refs.bib}
 \end{multicols*}
 \end{minipage}
 \end{minipage}
