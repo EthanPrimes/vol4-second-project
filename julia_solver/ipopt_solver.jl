@@ -85,7 +85,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     # the total cost of 100 chatters each of 1° equals the cost of one switch of 100°,
     # so Ipopt strongly prefers to consolidate switching into as few steps as possible.
     # Increase eps to accept a longer T in exchange for cleaner legs.
-    eps = 10.0
+    eps = 1.5
     smooth = 1e-4   # smoothing; keeps the Hessian nonsingular at Δθ=0
     @objective(model, Min, T + eps * sum(sqrt((theta[i+1]-theta[i])^2 + smooth) for i in 1:N-1))
 
@@ -133,7 +133,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     x_sol, y_sol, theta_sol, T_sol = value.(x), value.(y), value.(theta), value(T)
 
 
-    h5open("$filename.h5", "w") do f
+    h5open("2_$filename.h5", "w") do f
         f["x"]     = x_sol
         f["y"]     = y_sol
         f["theta"] = theta_sol

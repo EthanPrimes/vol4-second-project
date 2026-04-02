@@ -11,7 +11,8 @@
 \usepackage{tikz}
 \usepackage{eso-pic}
 \usepackage{geometry}
-\geometry{margin=2cm, top=2cm, left=2cm, bottom=2cm, right=2cm}
+% \geometry{margin=2cm, top=2cm}
+\geometry{margin=3cm}
 \usetikzlibrary{arrows.meta}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -87,8 +88,8 @@
         % Clip to the header rectangle, then place a larger image centered in it
         \begin{scope}
             \clip (0,0) rectangle (\headerwidth, \headerheight);
-            \node[inner sep=0pt, anchor=center] at (0.5*\headerwidth, 1.4*\headerheight) {
-                \includegraphics[width=\headerwidth]{background.jpg}
+            \node[inner sep=0pt, anchor=center] at (0.5*\headerwidth, 1.8*\headerheight) {
+                \includegraphics[width=\headerwidth]{background.png}
                 % Use 'width' alone (no height) to preserve aspect ratio — 
                 % the clip will hide the overflow top and bottom.
                 % Swap to 'height=\headerheight' if your image is taller than wide.
@@ -110,7 +111,7 @@
 }
 
 % Create the fancy subtitle command
-\NewDocumentCommand{\FancySubtitle}{ O{1cm} O{1cm} m }{
+\NewDocumentCommand{\FancySubtitle}{ O{1cm} O{1cm} m}{
     \vspace{#2}
     \noindent
     \fcolorbox{subtitleoutline}{subtitlebackground}{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
@@ -159,7 +160,7 @@
 \end{center}
 \begin{center}
 \begin{tikzpicture}[scale=5, 
-    every path/.style={line width=20pt},
+    every path/.style={line width=10pt},
     every node/.style={font=\large}
 ]
     % x-axis
@@ -201,7 +202,7 @@
         % \includegraphics[width=1\linewidth]{boat_velocity.png}
 \end{center}
 
-\columnbreak
+% \columnbreak
 % You could use Tikz to make figures (if you want)
 
 % \begin{center}
@@ -286,15 +287,32 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
 \vspace{2cm}
 \LARGE{\textbf{Physically Accurate Sailing}}
 \end{center}
-\large However, wind doesn't move boats by ``blowing on the sails;'' it's more accurate to say that sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. In fact, boats rarely sail directly downwind since this makes them very unstable! A more accurate model would have boats going fastest when they are nearly orthogonal to the wind, so 
+\large However, wind doesn't move boats by ``blowing on the sails;'' For boats with triangular sails, it's more accurate to say that sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. In fact, boats rarely sail directly downwind since this makes them very unstable! A more accurate model would have boats going fastest about 70$^\circ$ off of straight downwind, called a "Broad Reach". Not only does this allow sailboats with triangular sails to sail \textit{across} the wind, or orthogonally to the wind, it also allows the sailboat to sail about 40$^\circ$ from directly upwind! So sailboats can effectively move in any direction, in a straight line for friendly directions, and in zig-zags if close to directly up-wind or directly down-wind. Switching which zig you are zagging while going upwind is called \textbf{tacking}. Switching while going downwind is called \textbf{jibing}. One main objective of this project is to \textit{discover} tacking and jibing as part of the optimal solution.
 
+In this case, the speed of the boat is a function of the difference between the heading of the boat and the angle of the wind. When we factor in the $x$- and $y$-components of the current as $w_1$ and $w_2$, our optimization problem becomes
 
-\columnbreak
+$$J[u] = \int_0^{t_f} 1 dt \\ 
+\text{ subj. to } \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t) - \phi) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}
+$$
 
-Only if you actually used Infinite-Time LQR?
+So our Hamilton and costate evolution equations are given by
 
-As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
+$$ 
+\begin{aligned}
+H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
+&= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} \dot{x} - v(\theta(t), \phi(x, y)) \cos(\theta) - w_1(x, y) \\ \dot{y} - v(\theta(t), \phi(x, y)) \sin(\theta) - w_2(x, y) \end{bmatrix} - 1 \\
+&= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2) - 1
+\end{aligned}
+$$
 
+$$
+\begin{aligned}
+\dot{\lambda_1} &= -\frac{\partial H}{\partial x} \\
+& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
+\dot{\lambda_2} & = -\frac{\partial H}{\partial y} \\
+& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
+\end{aligned}
+$$
 
 \FancySubtitle[4mm][1cm]{Early Results \& Analysis}
 
@@ -302,17 +320,21 @@ As the sun dipped below the horizon, casting hues of orange and pink across the 
     % \includegraphics[width=1\linewidth,trim={0 8cm 0 10cm},clip]{anothepicture.png}
 \end{center}
 
-As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
-
-
-\columnbreak  
-As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
+\large 
 
 \FancySubtitle[4mm][1cm]{Conclusions and next steps}
-As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
+
+\large 
+
+\large We have a lot of further directions we want to explore. The first things that we want to incorporate into our models are land penalties, to prevent the boats from running into land or islands. This is the most obvious issue with the optimal solutions we have computed so far.
+
+\large Similarly, it is not physically realistic that the wind directly controls the boat's velocity. Instead, the wind should impact the boat's \textit{acceleration}. Solving this optimal control problem will likely yield even more accurate results, although it will take more effort to implement.
+
+\cite{einstein1905}
+
 
 \bibliographystyle{amsalpha}
-\bibliography{poster_references}
+\bibliography{refs.bib}
 \end{multicols*}
 \end{minipage}
 \end{minipage}
