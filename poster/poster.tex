@@ -11,7 +11,7 @@
 \usepackage{tikz}
 \usepackage{eso-pic}
 \usepackage{geometry}
-\geometry{margin=2cm, top=2cm}
+\geometry{margin=2cm, top=2cm, left=2cm, bottom=2cm, right=2cm}
 \usetikzlibrary{arrows.meta}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -158,7 +158,10 @@
 \LARGE{\textbf{Assumptions \& Equations}}
 \end{center}
 \begin{center}
-\begin{tikzpicture}[scale=5]
+\begin{tikzpicture}[scale=5, 
+    every path/.style={line width=20pt},
+    every node/.style={font=\large}
+]
     % x-axis
     \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
     % y-axis
@@ -174,18 +177,21 @@
 
     % theta arc
     \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
-    \node[blue] at (1.0, 0.2) {$\theta$};
+    \node[blue] at (0.9, 0.2) {$\theta$};
 
     % phi arc
     \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
-    \node[red] at (0.35, 0.55) {$\phi$};
+    \node[red] at (0.5, 0.55) {$\phi$};
 
     % theta - phi arc (the angle between them)
     \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
-    \node[purple] at (1.05, 1.15) {$\theta - \phi$};
+    \node[purple] at (1.2, 1.15) {$\theta - \phi$};
 
     % Simple boat shape (triangle)
-    \fill[gray!40] (0,0) -- ++(31:0.3) -- ++(121:0.15) -- cycle;
+    \begin{scope}[rotate=-59]
+        \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+        \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+    \end{scope}
 \end{tikzpicture}
 \end{center}
 \vspace{5mm}
@@ -229,20 +235,24 @@ Accounting for current yields the following velocity:
 where $w_1$ and $w_2$ refer to the impact of current. So, we are trying to minimize the functional
 
 \begin{align*}
-    J[u] &= \int_{t_0}^{t_f} 1 dt\\
-    \text{subject to } \dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t))\\
+    J[u] &= \int_{t_0}^{t_f} 1 \,dt,
+\end{align*}
+subject to
+\begin{align*}
+\dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t))\\
     \mathbf{s}(t_0) &= \mathbf{s}_0\\
-    \mathbf{s}(t_f) &= \mathbf{s}_f \\ \| u \| = v \cos(\theta - \phi)
+    \mathbf{s}(t_f) &= \mathbf{s}_f \\ 
+    \| \mathbf{u} \| &= v \cos(\theta - \phi)
 \end{align*}
 So the Lagrangian constraint version will be given by
 \[
-\tilde{J}[u] = \int_{t_0}^{t_f} 1 + \lambda^T (\dot{\mathbf{s}} - \mathbf{u}(t) - \mathbf{w}(\mathbf{s}(t))) dt,
+    \tilde{J}[u] = \int_{t_0}^{t_f} 1 + \lambda^T (\dot{\mathbf{s}} - \mathbf{u}(t) - \mathbf{w}(\mathbf{s}(t))) \,dt,
 \]
 and the Hamiltonian will be given by
 \begin{align*}
-H &= \lambda^\top f - L \\
+H &= \boldsymbol{\lambda}^\top \mathbf{f} - L \\
   &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}
-     \left( v \begin{bmatrix} \cos(\theta) + w_1(x, y) \\ \sin(\theta) + w_2(x, y) \end{bmatrix} \right) - 1
+     \left( v \begin{bmatrix} \cos(\theta) + w_1(x, y) \\ \sin(\theta) + w_2(x, y) \end{bmatrix} \right) - 1.
 \end{align*}
 By Pontryagin's Maximization principle, an optimal solution must satisfy
 \begin{align*}
