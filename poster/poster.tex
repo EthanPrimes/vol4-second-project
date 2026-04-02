@@ -290,17 +290,14 @@ So our Hamilton and costate evolution equations are given by
 $$ 
 \begin{aligned}
 H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
-&= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} \dot{x} - v(\theta(t), \phi(x, y)) \cos(\theta) - w_1(x, y) \\ \dot{y} - v(\theta(t), \phi(x, y)) \sin(\theta) - w_2(x, y) \end{bmatrix} - 1 \\
 &= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2) - 1
 \end{aligned}
 $$
 
 $$
 \begin{aligned}
-\dot{\lambda_1} &= -\frac{\partial H}{\partial x} \\
-& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
-\dot{\lambda_2} & = -\frac{\partial H}{\partial y} \\
-& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
+\dot{\lambda_1} & = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
+\dot{\lambda_2} & = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ).
 \end{aligned}
 $$
 
@@ -312,13 +309,23 @@ $$
 
 \large 
 
+
+\begin{center}
+\vspace{2cm}
+\LARGE{\textbf{Issues and Troubleshooting}}
+\end{center}
+
+\large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model was much more complex, and included some sharp corners due to tacking. This resulted in \verb|solve_bvp| failing as it tried to make the corners round by increasing the size of its mesh indefinitely, eventually crashing the script. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solvebvp| is theoretically elegant and clean and incorporates the costate, but is very fragile in ways that did not work well with this problem.
+
+\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues.
+
 \FancySubtitle[4mm][1cm]{Conclusions and next steps}
 
 \large 
 
 \large We have a lot of further directions we want to explore. The first things that we want to incorporate into our models are land penalties, to prevent the boats from running into land or islands. This is the most obvious issue with the optimal solutions we have computed so far.
 
-\large Similarly, it is not physically realistic that the wind directly controls the boat's velocity. Instead, the wind should impact the boat's \textit{acceleration}. Solving this optimal control problem will likely yield even more accurate results, although it will take more effort to implement.
+\large Similarly, it is not physically realistic that the wind directly controls the boat's velocity. Instead, the wind should impact the boat's \textit{acceleration}. Solving this optimal control problem will likely yield even more accurate results, although it will take more effort to implement. We also want to try putting bounds on how quickly $\theta$ can change, since a boat cannot change its heading instantaneously.
 
 \cite{einstein1905}
 
