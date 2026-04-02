@@ -37,7 +37,7 @@ OFFICIAL = [
 
 # ── Islands / obstacles: (lon, lat, label, radius_deg_approx) ───────────────
 OBSTACLES = [
-    (-87.357, 45.184, "Chambers Island", 0.035)
+    (-87.357, 45.184, "", 0.035)
     # (-87.370, 45.162, "Horseshoe\nIsland",    0.012),
     # (-87.268, 45.196, "Strawberry\nIslands",  0.018),
     # (-87.495, 44.990, "Green Island",         0.010),
@@ -101,21 +101,21 @@ def draw_marks(ax, marks, zorder=10):
         is_start = i == 1
         color = '#111111' if is_start else '#cc2200'
         marker = 's' if is_start else 'o'
-        ax.plot(lon, lat, marker=marker, color=color, markersize=9 if is_start else 8,
-                markeredgecolor='white', markeredgewidth=1.2,
+        ax.plot(lon, lat, marker=marker, color=color, markersize=18 if is_start else 15,
+                markeredgecolor='white', markeredgewidth=1.6,
                 transform=PLATE, zorder=zorder)
         # Number badge
-        ax.text(lon, lat, str(i), color='white', fontsize=5.5, fontweight='bold',
+        ax.text(lon, lat, str(i), color='white', fontsize=9, fontweight='bold',
                 ha='center', va='center', transform=PLATE, zorder=zorder+1)
         # Label — nudge to avoid overlap
-        nudge = {1: (0.010, 0.006), 2: (-0.015, -0.012),
+        nudge = {1: (0.010, 0.006), 2: (-0.045, -0.018),
                  3: (0.010, 0.006), 4: (0.012, -0.005),
-                 5: (0.012, 0.005), 6: (-0.005, 0.010)}
+                 5: (0.012, 0.005), 6: (-0.055, 0.02)}
         dx, dy = nudge.get(i, (0.008, 0.006))
         ax.text(lon + dx, lat + dy, name,
-                fontsize=6.5, color='#111111', transform=PLATE,
-                zorder=zorder+1, ha='left',
-                path_effects=[pe.withStroke(linewidth=2, foreground='white')])
+                fontsize=11.25, fontweight='bold', color='white', transform=PLATE,
+                zorder=zorder+1, ha='left')
+                # path_effects=[pe.withStroke(linewidth=2.5, foreground='white')])
 
 
 def draw_obstacles(ax, obstacles, zorder=4):
@@ -132,9 +132,9 @@ def draw_obstacles(ax, obstacles, zorder=4):
                                  linewidth=0.8, linestyle=':', transform=PLATE,
                                  zorder=zorder+1, alpha=0.7)
         ax.add_patch(ring)
-        ax.text(lon, lat - r - 0.006, label, fontsize=5.5,
+        ax.text(lon, lat - r - 0.006, label, fontsize=9,
                 color='#7f2704', ha='center', transform=PLATE, zorder=zorder+2,
-                path_effects=[pe.withStroke(linewidth=2, foreground='white')])
+                path_effects=[pe.withStroke(linewidth=3, foreground='white')])
 
 
 def add_legend(ax, extra_handles=None):
@@ -144,13 +144,13 @@ def add_legend(ax, extra_handles=None):
         mpatches.Patch(facecolor='none', edgecolor='#e6550d',
                        linestyle=':', label='Exclusion zone'),
         Line2D([0],[0], marker='o', color='w', markerfacecolor='#cc2200',
-               markeredgecolor='white', markersize=8, label='Race mark'),
+               markeredgecolor='white', markersize=11, label='Race mark'),
         Line2D([0],[0], marker='s', color='w', markerfacecolor='#111',
-               markeredgecolor='white', markersize=8, label='Start / Finish'),
+               markeredgecolor='white', markersize=11, label='Start / Finish'),
     ]
     if extra_handles:
         handles += extra_handles
-    ax.legend(handles=handles, loc='lower right', fontsize=6.5,
+    ax.legend(handles=handles, loc='lower right', fontsize=11,
               framealpha=0.92, edgecolor='#cccccc', fancybox=False)
 
 
@@ -159,7 +159,7 @@ def add_scalebar(ax, lon0, lat0, length_nm=10):
     deg = length_nm / 60.0
     ax.plot([lon0, lon0 + deg], [lat0, lat0], 'k-', lw=3, transform=PLATE, zorder=20)
     ax.text(lon0 + deg/2, lat0 + 0.004, f'{length_nm} nm',
-            ha='center', fontsize=6, transform=PLATE, zorder=20)
+            ha='center', fontsize=9, transform=PLATE, zorder=20)
     
 
 def get_default_map():
@@ -178,13 +178,14 @@ def get_default_map():
                     linestyle=':', x_inline=False, y_inline=False)
     gl.top_labels = False
     gl.right_labels = False
-    gl.xlabel_style = {'size': 7}
-    gl.ylabel_style = {'size': 7}
+    gl.xlabel_style = {'size': 9}
+    gl.ylabel_style = {'size': 9}
 
     add_scalebar(ax, -87.76, 44.91, length_nm=10)
     add_legend(ax)
 
-    ax.set_title('MMYC 100 Miler — Green Bay Course', fontsize=11, pad=10)
+    ax.set_title('MMYC 100 Miler — Green Bay Course', fontsize=15, pad=10)
+    fig.patch.set_facecolor('white')
 
     # plt.tight_layout()
     # plt.savefig('mmyc_100_miler_full.png', dpi=200, bbox_inches='tight')
@@ -203,19 +204,19 @@ def get_satellite_map():
     ax.add_image(tiler, 11)   # zoom level 11 — increase for more detail, slower fetch
 
     draw_obstacles(ax, OBSTACLES)
-    draw_course(ax, OFFICIAL, color='white', label='Official course')
+    draw_course(ax, OFFICIAL, color='#222222', label='Official course')
     draw_marks(ax, MARKS)
 
-    gl = ax.gridlines(draw_labels=True, linewidth=0.3, color='#ffffff88',
+    gl = ax.gridlines(draw_labels=True, linewidth=0.3, color='#aaaaaa',
                     linestyle=':', x_inline=False, y_inline=False)
     gl.top_labels = False
     gl.right_labels = False
-    gl.xlabel_style = {'size': 7, 'color': 'white'}
-    gl.ylabel_style = {'size': 7, 'color': 'white'}
+    gl.xlabel_style = {'size': 9, 'color': '#111111'}
+    gl.ylabel_style = {'size': 9, 'color': '#111111'}
 
     add_legend(ax)
-    ax.set_title('MMYC 100 Miler — Satellite View', fontsize=11, pad=10, color='white')
-    fig.patch.set_facecolor('#111111')
+    ax.set_title('MMYC 100 Miler — Satellite View', fontsize=15, pad=10, color='#111111')
+    fig.patch.set_facecolor('white')
 
     # plt.tight_layout()
     # plt.savefig('mmyc_100_miler_satellite.png', dpi=200, bbox_inches='tight')
