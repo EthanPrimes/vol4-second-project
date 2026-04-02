@@ -247,7 +247,7 @@ subject to
 \end{align*}
 So the Lagrangian constraint version will be given by
 \[
-    \tilde{J}[u] = \int_{t_0}^{t_f} 1 + \lambda^T (\dot{\mathbf{s}} - \mathbf{u}(t) - \mathbf{w}(\mathbf{s}(t))) \,dt,
+    \tilde{J}[u] = \int_{t_0}^{t_f} 1 + \boldsymbol{\lambda}^\top (\dot{\mathbf{s}} - \mathbf{u}(t) - \mathbf{w}(\mathbf{s}(t))) \,dt,
 \]
 and the Hamiltonian will be given by
 \begin{align*}
@@ -267,7 +267,7 @@ Where the last equality comes from the fact that we are maximizing over unknown 
 
 \par Since we are maximizing $H$, and the only term where $u$ shows up is $\lambda \cdot u$, we can just maximize that to solve for u.
 
-We get $u = \frac{\lambda}{\| \lambda \|} v(\theta)$ at each time $t$, which we can plug into the above system.
+We get $u = \frac{\boldsymbol{\lambda}}{\| \boldsymbol{\lambda} \|} v(\theta)$ at each time $t$, which we can plug into the above system.
 
 \begin{center}
 \LARGE{\textbf{The Simplest Sailing Approach}}
@@ -299,7 +299,7 @@ So our Hamilton and costate evolution equations are given by
 
 $$ 
 \begin{aligned}
-H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
+H &= \boldsymbol{\lambda}^\top \left(\dot{\mathbf{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
 &= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2) - 1
 \end{aligned}
 $$
