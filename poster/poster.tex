@@ -187,70 +187,65 @@
 \LARGE{\textbf{The Zermelo Navigation Problem}}
 \end{center}
 
-We begin by solving the standard Zermelo Navigation problem, where we are piloting a motor boat through water with a current and want to travel between two points as fast as possible. We chose $\theta,$ the angle between the $x$-axis and our heading, to be our control, and assumed that the velocity of the boat would be given by
+We begin by solving the standard Zermelo Navigation problem, where we are piloting a motor boat through water with a current and want to travel between two points as fast as possible. We chose $\theta,$ the angle between the $x$-axis and our heading, to be our control, and assumed that the velocity of the boat due to the motor would be given by
 \[
 \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix},
 \]
-This yields the following velocity:
+Accounting for current yields the following velocity:
 \[
 \begin{bmatrix} \dot x \\ \dot y \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix},
 \]
-where $\mathbf{w}$ refers to the impact of current.
-
-So, we are trying to minimize the functional
+where $w_1$ and $w_2$ refer to the impact of current. So, we are trying to minimize the functional
 
 \begin{align*}
     J[u] &= \int_{t_0}^{t_f} 1 dt\\
-    \text{subject to } \dot{\vec{s}} &= \vec{u}(t) + \vec{w}(\vec{s}(t))\\
-    \vec{s}(t_0) &= \vec{s}_0\\
-    \vec{s}(t_f) &= \vec{s}_f \\ \| u \| = v \cos(\theta - \phi)
+    \text{subject to } \dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t))\\
+    \mathbf{s}(t_0) &= \mathbf{s}_0\\
+    \mathbf{s}(t_f) &= \mathbf{s}_f \\ \| u \| = v \cos(\theta - \phi)
 \end{align*}
-So the lagrangian constraint version is 
-
-$$ \tilde{J}[u] = \int_{t_0}^{t_f} 1 + \lambda^T (\dot{\vec{s}} - \vec{u}(t) - \vec{w}(\vec{s}(t))) dt $$
-
-And so
-
-
+So the Lagrangian constraint version will be given by
+\[
+\tilde{J}[u] = \int_{t_0}^{t_f} 1 + \lambda^T (\dot{\mathbf{s}} - \mathbf{u}(t) - \mathbf{w}(\mathbf{s}(t))) dt,
+\]
+and the Hamiltonian will be given by
 \begin{align*}
 H &= \lambda^\top f - L \\
   &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}
-     \left( v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) + w_1(x, y) \\ \cos(\theta - \phi) \sin(\theta) + w_2(x, y) \end{bmatrix} \right) - 1
+     \left( v \begin{bmatrix} \cos(\theta) + w_1(x, y) \\ \sin(\theta) + w_2(x, y) \end{bmatrix} \right) - 1
 \end{align*}
-
-
-By Pontryagin's Maximization principle, we have
-
-
+By Pontryagin's Maximization principle, an optimal solution must satisfy
 \begin{align*}
-\dot{x} &= v\cos(\theta - \phi) \cos(\theta) + w_1(x, y) \\
-\dot{y} &= v\cos(\theta - \phi) \sin(\theta) + w_2(x, y) \\
+\dot{x} &= v \cos(\theta) + w_1(x, y) \\
+\dot{y} &= v \sin(\theta) + w_2(x, y) \\
 \dot{\lambda_1} &= -\lambda_1 \frac{\partial w_1}{\partial x} -\lambda_2 \frac{\partial w_2}{\partial x} \\
 \dot{\lambda_2} &= -\lambda_1 \frac{\partial w_1}{\partial y} -\lambda_2 \frac{\partial w_2}{\partial y} \\
 H(t_f) &= 0
 \end{align*}
-
-
 Where the last equality comes from the fact that we are maximizing over unknown time. We get that $\frac{\partial H}{\partial u} = 0$ as well.
 
-Since we are maximizing $H$, and the only term where $u$ shows up is $\lambda \cdot u$, we can just maximize that to solve for u.
+\par Since we are maximizing $H$, and the only term where $u$ shows up is $\lambda \cdot u$, we can just maximize that to solve for u.
 
 We get $u = \frac{\lambda}{\| \lambda \|} v(\theta)$ at each time $t$, which we can plug into the above system.
 
 \begin{center}
-\LARGE{\textbf{The Simplest Approach}}
+\LARGE{\textbf{The Simplest Sailing Approach}}
 \end{center}
 \large
 
-But what if we are sailing using the wind and currents instead of a motor? This model makes the assumption that current and wind are the only factors we need to account for, and that they directly control velocity. 
-            
+But what if we are sailing using the wind and currents instead of a motor? This model makes the assumption that current and wind are the only factors we need to account for, and that they directly control velocity. More precisely, the impact of wind on the boat's velocity is
+
+\[
+\begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix} 
+\]
+where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to the wind. This makes the boat go at full speed when it's facing the same way as the wind, and is still when its sail is orthogonal to the wind. The derivation of the solution is nearly identical to the previous one.
+
 % \FancyFigure{Figure file}{Figure caption.}{fig:evolution-comparison}
 
 \begin{center}
 \vspace{2cm}
 \LARGE{\textbf{Physically Accurate Sailing}}
 \end{center}
-\large As the sun dipped below the horizon, casting hues of orange and pink across the sky, the quaint village came to life with the soft chatter of its inhabitants. Children chased each other through narrow cobblestone streets, their laughter echoing against the ancient stone walls. The scent of freshly baked bread wafted from the local bakery, enticing passersby with its warm embrace. In the distance, the sound of church bells rang out, signaling the end of another peaceful day in this idyllic countryside retreat.
+\large However, wind doesn't move boats by ``blowing on the sails;'' it's more accurate to say that sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. A more accurate 
 
 
 \columnbreak
