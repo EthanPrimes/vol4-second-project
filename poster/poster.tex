@@ -10,6 +10,8 @@
 \usepackage{enumerate}
 \usepackage{tikz}
 \usepackage{eso-pic}
+\usepackage{geometry}
+\geometry{margin=2cm, top=2cm}
 \usetikzlibrary{arrows.meta}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -79,7 +81,7 @@
     \noindent
     \begin{tikzpicture}
         % Define the header dimensions
-        \def\headerwidth{\dimexpr\textwidth+\fboxsep+2\fboxrule\relax}
+        \def\headerwidth{\textwidth}
         \def\headerheight{12cm}
 
         % Clip to the header rectangle, then place a larger image centered in it
@@ -103,6 +105,7 @@
             {\Large \textcolor{titletext}{#4}}
         };
     \end{tikzpicture}
+    \vspace{-\baselineskip}
     \vspace{#1}
 }
 
@@ -132,14 +135,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+\vspace*{-1cm}
+\noindent\begin{minipage}[t]{\textwidth}
 
 \FancyTitle{Go With the Flow:}{Optimizing the 100 Miler Sailing Race}{Connor McBride, Ethan Palenske, and Jackson Pond}
 
 %Main
 \color{black}
 \noindent
-\begin{minipage}{\linewidth + 2\fboxsep}
-\begin{multicols*}{\NumColumns}
+\begin{minipage}{\dimexpr\linewidth+2\fboxsep\relax}
+    \begin{multicols*}{\NumColumns}
     \FancySubtitle[5mm]{Overview}
         \begin{center}
             % \includegraphics[width=1\linewidth, trim={0 9cm 0 91cm}, clip]{route_map.png}
@@ -190,14 +195,12 @@ where the $\cos(\theta - \phi)$ refers to the exposure of the sail to the wind. 
 \]
 
 So, we are trying to minimize 
-$$
 \begin{align*}
     J[u] &= \int_{t_0}^{t_f} 1 dt\\
     \text{subject to } \dot{\vec{s}} &= \vec{u}(t) + \vec{w}(\vec{s}(t))\\
     \vec{s}(t_0) &= \vec{s}_0\\
     \vec{s}(t_f) &= \vec{s}_f \\ \| u \| = v \cos(\theta - \phi)
 \end{align*}
-$$
 
 So the lagrangian constraint version is 
 
@@ -274,6 +277,7 @@ As the sun dipped below the horizon, casting hues of orange and pink across the 
 \bibliographystyle{amsalpha}
 \bibliography{poster_references}
 \end{multicols*}
+\end{minipage}
 \end{minipage}
 
 \nocite{unsplash}
