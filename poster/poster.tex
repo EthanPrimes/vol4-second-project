@@ -158,68 +158,103 @@
 \begin{center}
 \LARGE{\textbf{Assumptions \& Equations}}
 \end{center}
+% \begin{center}
+% \begin{tikzpicture}[scale=5, 
+%     every path/.style={line width=10pt},
+%     every node/.style={font=\large}
+% ]
+%     % x-axis
+%     \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
+%     % y-axis
+%     \draw[-{Latex[length=3mm]}, thick] (0,0) -- (0,3) node[above] {$y$};
+
+%     % Boat heading direction (theta from x-axis)
+%     \draw[-{Latex[length=4mm]}, thick, blue] (0,0) -- (2.5, 1.5) 
+%         node[above right] {boat heading};
+
+%     % Wind direction (phi from x-axis)
+%     \draw[-{Latex[length=4mm]}, thick, red, dashed] (0,0) -- (1.5, 2.5) 
+%         node[above right] {wind direction};
+
+%     % theta arc
+%     \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
+%     \node[blue] at (0.9, 0.2) {$\theta$};
+
+%     % phi arc
+%     \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
+%     \node[red] at (0.5, 0.55) {$\phi$};
+
+%     % theta - phi arc (the angle between them)
+%     \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
+%     \node[purple] at (1.2, 1.15) {$\theta - \phi$};
+
+%     % Simple boat shape (triangle)
+%     \begin{scope}[rotate=-59]
+%         \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+%         \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+%     \end{scope}
+% \end{tikzpicture}
+% \end{center}
+% \begin{center}
+%         \includegraphics[width=1\linewidth]{points_of_sail.png}
+% \end{center}
+% \begin{center}
+%         \includegraphics[width=1\linewidth]{vel_func.png}
+% \end{center}
+% \vspace{5mm}
+
 \begin{center}
-\begin{tikzpicture}[scale=5, 
-    every path/.style={line width=10pt},
-    every node/.style={font=\large}
-]
-    % x-axis
-    \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
-    % y-axis
-    \draw[-{Latex[length=3mm]}, thick] (0,0) -- (0,3) node[above] {$y$};
-
-    % Boat heading direction (theta from x-axis)
-    \draw[-{Latex[length=4mm]}, thick, blue] (0,0) -- (2.5, 1.5) 
-        node[above right] {boat heading};
-
-    % Wind direction (phi from x-axis)
-    \draw[-{Latex[length=4mm]}, thick, red, dashed] (0,0) -- (1.5, 2.5) 
-        node[above right] {wind direction};
-
-    % theta arc
-    \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
-    \node[blue] at (0.9, 0.2) {$\theta$};
-
-    % phi arc
-    \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
-    \node[red] at (0.5, 0.55) {$\phi$};
-
-    % theta - phi arc (the angle between them)
-    \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
-    \node[purple] at (1.2, 1.15) {$\theta - \phi$};
-
-    % Simple boat shape (triangle)
-    \begin{scope}[rotate=-59]
-        \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
-        \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
-    \end{scope}
-\end{tikzpicture}
+\begin{minipage}{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{points_of_sail.png}
+\end{minipage}%
+\hfill%
+\begin{minipage}{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{vel_func.png}
+\end{minipage}
 \end{center}
+% \hfill%
+\begin{minipage}{0.32\linewidth}
+    \centering
+    \begin{tikzpicture}[scale=3, 
+        every path/.style={line width=5pt},
+        every node/.style={font=\large}
+    ]
+        % x-axis
+        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
+        % y-axis
+        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (0,3) node[above] {$y$};
+
+        % Boat heading direction (theta from x-axis)
+        \draw[-{Latex[length=4mm]}, thick, blue] (0,0) -- (2.5, 1.5) 
+            node[above right] {boat heading};
+
+        % Wind direction (phi from x-axis)
+        \draw[-{Latex[length=4mm]}, thick, red, dashed] (0,0) -- (1.5, 2.5) 
+            node[above right] {wind direction};
+
+        % theta arc
+        \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
+        \node[blue] at (0.9, 0.2) {$\theta$};
+
+        % phi arc
+        \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
+        \node[red] at (0.5, 0.55) {$\phi$};
+
+        % theta - phi arc (the angle between them)
+        \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
+        \node[purple] at (1.2, 1.15) {$\theta - \phi$};
+
+        % Simple boat shape (triangle)
+        \begin{scope}[rotate=-59]
+            \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+            \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+        \end{scope}
+    \end{tikzpicture}
+\end{minipage}%
 \vspace{5mm}
 
-\begin{center}
-        % \includegraphics[width=1\linewidth, trim={0 9cm 0 91cm}, clip]{route_map.png}
-        % \includegraphics[width=1\linewidth]{boat_velocity.png}
-\end{center}
-
-% \columnbreak
-% You could use Tikz to make figures (if you want)
-
-% \begin{center}
-%     \vspace{5mm}
-%     \begin{tikzpicture}
-%         \draw[thick] (0,0) rectangle ++(4,2) node[midway] {\textsc{\texttt{Input}}};
-%         \draw[thick] (6,0) rectangle ++(4,2) node[midway] {\textsc{\texttt{Merge}}};
-%         \draw[thick] (14,0) rectangle ++(5,2) node[midway] {\textsc{\texttt{Leaving}}};
-%         \draw[thick] (3,-4) rectangle ++(5,2) node[midway] {\textsc{\texttt{Queue}}};
-%         \draw[-{Latex[length=5mm]}, ultra thick] (-3, 1) -- (0, 1) node[pos=.4, fill=white] {$\alpha$};
-%         \draw[-{Latex[length=5mm]}, ultra thick] (0, -3) -- (3, -3) node[pos=.4, fill=white] {$\beta$};
-%         \draw[-{Latex[length=5mm]}, ultra thick] (4, 1) -- (6, 1) node[pos=.4,above] {$\gamma$};
-%         \draw[-{Latex[length=5mm]}, ultra thick] (10, 1) -- (14, 1) node[midway,above] {$\delta$} node[midway,below] {(slow)};
-%         \draw[-{Latex[length=5mm]}, ultra thick] (6,-2) -- (8,0) node[near start,sloped,above] {$u$};
-%     \end{tikzpicture}
-%     \vspace{5mm}
-% \end{center}
 
 \begin{center}
 \LARGE{\textbf{The Zermelo Navigation Problem}}
