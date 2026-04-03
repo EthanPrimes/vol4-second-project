@@ -78,28 +78,62 @@
 %     \end{minipage}}
 %     \vspace{#1}
 % }
+% \NewDocumentCommand{\FancyTitle}{ O{1.25cm} m m m }{
+%     \noindent
+%     \begin{tikzpicture}
+%         % Define the header dimensions
+%         \def\headerwidth{\textwidth}
+%         \def\headerheight{12cm}
+
+%         % Clip to the header rectangle, then place a larger image centered in it
+%         \begin{scope}
+%             \clip (0,0) rectangle (\headerwidth, \headerheight);
+%             \node[inner sep=0pt, anchor=center] at (0.5*\headerwidth, 1.8*\headerheight) {
+%                 \includegraphics[width=\headerwidth]{background.png}
+%                 % Use 'width' alone (no height) to preserve aspect ratio — 
+%                 % the clip will hide the overflow top and bottom.
+%                 % Swap to 'height=\headerheight' if your image is taller than wide.
+%             };
+%         \end{scope}
+
+%         % Dark overlay for contrast
+%         \fill[black, opacity=0.3] (0,0) rectangle (\headerwidth, \headerheight);
+
+%         % Text on top
+%         \node[align=center] at (0.5*\headerwidth, 0.5*\headerheight) {
+%             {\VeryHuge \textcolor{titletext}{#2}}\\[10mm]
+%             {\Huge \textcolor{titletext}{#3}}\\[10mm]
+%             {\Large \textcolor{titletext}{#4}}
+%         };
+%     \end{tikzpicture}
+%     \vspace{-\baselineskip}
+%     \vspace{#1}
+% }
+
 \NewDocumentCommand{\FancyTitle}{ O{1.25cm} m m m }{
     \noindent
     \begin{tikzpicture}
-        % Define the header dimensions
-        \def\headerwidth{\textwidth}
+        \pgfmathsetlengthmacro{\headerwidth}{\linewidth}
         \def\headerheight{12cm}
 
-        % Clip to the header rectangle, then place a larger image centered in it
+        % Background image
         \begin{scope}
             \clip (0,0) rectangle (\headerwidth, \headerheight);
             \node[inner sep=0pt, anchor=center] at (0.5*\headerwidth, 1.8*\headerheight) {
                 \includegraphics[width=\headerwidth]{background.png}
-                % Use 'width' alone (no height) to preserve aspect ratio — 
-                % the clip will hide the overflow top and bottom.
-                % Swap to 'height=\headerheight' if your image is taller than wide.
             };
         \end{scope}
 
         % Dark overlay for contrast
         \fill[black, opacity=0.3] (0,0) rectangle (\headerwidth, \headerheight);
 
-        % Text on top
+        % QR code in bottom-left
+        \fill[white] (1cm, 1cm) rectangle (11cm, 11cm);
+        \node[inner sep=0pt, anchor=south west] at (1.5cm, 1.5cm) {
+            \includegraphics[width=9cm]{ethanpalenske.png}
+        };
+
+        % Title text centered
         \node[align=center] at (0.5*\headerwidth, 0.5*\headerheight) {
             {\VeryHuge \textcolor{titletext}{#2}}\\[10mm]
             {\Huge \textcolor{titletext}{#3}}\\[10mm]
