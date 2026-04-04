@@ -47,6 +47,7 @@
 \setlength{\fboxsep}{1cm}
 \setlength{\columnsep}{3cm}
 \color{titlesubtext}
+\captionsetup{labelfont={color=black,bf},textfont={color=black}}
 \setlength{\columnseprule}{2mm}
 \setlength{\fboxsep}{1cm}
 \setlength{\fboxrule}{5mm}
@@ -181,12 +182,9 @@
 \begin{minipage}{\dimexpr\linewidth+2\fboxsep\relax}
     \begin{multicols*}{\NumColumns}
     \FancySubtitle[5mm]{Overview}
-        \begin{center}
-            % \includegraphics[width=1\linewidth, trim={0 9cm 0 91cm}, clip]{route_map.png}
-            \includegraphics[width=1\linewidth]{route_map.png}
-        \end{center}
+    \FancyFigure[1.0]{route_map.png}{MMYC Race Course for Spinnaker Yachts in Green Bay. $\sim$41.8 nm.}{fig:route_map}
         
-        \large The historic M\&M 100 Miler sailing race takes place annualy in Lake Michigan. In this project we determined the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
+    \large The historic M\&M 100 Miler sailing race takes place annualy in Lake Michigan. In this project we determined the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
 
 \FancySubtitle[0cm][2cm]{The Problem}
 \begin{center}
@@ -238,17 +236,22 @@
 % \vspace{5mm}
 
 \begin{center}
-\begin{minipage}{0.5\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{points_of_sail.png}
-\end{minipage}%
-% \hfill%
-\begin{minipage}{0.5\linewidth}
-    \centering
-    \begin{tikzpicture}[scale=3, 
-        every path/.style={line width=5pt},
-        every node/.style={font=\large}
-    ]
+    \noindent
+    \begin{minipage}{\linewidth}
+        \centering
+        % First Image
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{points_of_sail.png}
+        \end{minipage}
+        \hfill
+        % Second Image (TikZ)
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \begin{tikzpicture}[scale=2.5, % Adjusted scale slightly to fit better
+                every path/.style={line width=5pt},
+                every node/.style={font=\large}
+            ]
         % x-axis
         \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
         % y-axis
@@ -272,15 +275,20 @@
 
         % theta - phi arc (the angle between them)
         \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
-        \node[purple] at (1.2, 1.15) {$\theta - \phi$};
+        \node[purple] at (1.37, 1.24) {$\theta - \phi$};
 
         % Simple boat shape (triangle)
         \begin{scope}[rotate=-59]
             \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
             \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
         \end{scope}
-    \end{tikzpicture}
-\end{minipage}%
+            \end{tikzpicture}
+        \end{minipage}
+        
+        \vspace{1cm}
+        \textcolor{black}{\captionof{figure}{Comparison of theoretical points of sail (left) vs. coordinate system geometry (right).}}
+        \label{fig:combined_sailing}
+    \end{minipage}
 \end{center}
 \vspace{5mm}
 
@@ -355,15 +363,15 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
 
 In this case, the speed of the boat is a function of the difference between the heading of the boat and the angle of the wind. When we factor in the $x$- and $y$-components of the current as $w_1$ and $w_2$, our optimization problem becomes
 
-$$J[u] = \int_0^{t_f} 1 dt \\ 
+$$J[u] = \int_0^{t_f} 1 \,dt \\ 
 \text{ subj. to } \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t) - \phi) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}
 $$
 
-So our Hamilton and costate evolution equations are given by
+So our Hamiltonian and costate evolution equations are given by
 
 $$ 
 \begin{aligned}
-H &= \boldsymbol{\lambda}k^\top \left(\dot{\mathbf{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
+H &= \boldsymbol{\lambda}^\top \left(\dot{\mathbf{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
 &= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2) - 1
 \end{aligned}
 $$
