@@ -5,9 +5,9 @@
   \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
 }
 \providecommand{\href}[2]{#2}
-\begin{thebibliography}{Ein05}
+\begin{thebibliography}{RPP11}
 
-\bibitem[Ein05]{einstein1905}
-Albert Einstein, \emph{Does the inertia of a body depend upon its energy content?}, Annalen der Physik \textbf{18} (1905), 639--641.
+\bibitem[RPP11]{points_of_sail}
+M~Ramirez, Clement Petres, and Frederic Plumet, \emph{Navigation with obstacle avoidance of an autonomous sailboat}, 08 2011, pp.~86--93.
 
 \end{thebibliography}

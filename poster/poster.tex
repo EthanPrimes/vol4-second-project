@@ -189,101 +189,6 @@
         \large The historic M\&M 100 Miler sailing race takes place annualy in Lake Michigan. In this project we determined the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
 
 \FancySubtitle[0cm][2cm]{The Problem}
-\begin{center}
-\LARGE{\textbf{Assumptions \& Equations}}
-\end{center}
-% \begin{center}
-% \begin{tikzpicture}[scale=5, 
-%     every path/.style={line width=10pt},
-%     every node/.style={font=\large}
-% ]
-%     % x-axis
-%     \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
-%     % y-axis
-%     \draw[-{Latex[length=3mm]}, thick] (0,0) -- (0,3) node[above] {$y$};
-
-%     % Boat heading direction (theta from x-axis)
-%     \draw[-{Latex[length=4mm]}, thick, blue] (0,0) -- (2.5, 1.5) 
-%         node[above right] {boat heading};
-
-%     % Wind direction (phi from x-axis)
-%     \draw[-{Latex[length=4mm]}, thick, red, dashed] (0,0) -- (1.5, 2.5) 
-%         node[above right] {wind direction};
-
-%     % theta arc
-%     \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
-%     \node[blue] at (0.9, 0.2) {$\theta$};
-
-%     % phi arc
-%     \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
-%     \node[red] at (0.5, 0.55) {$\phi$};
-
-%     % theta - phi arc (the angle between them)
-%     \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
-%     \node[purple] at (1.2, 1.15) {$\theta - \phi$};
-
-%     % Simple boat shape (triangle)
-%     \begin{scope}[rotate=-59]
-%         \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
-%         \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
-%     \end{scope}
-% \end{tikzpicture}
-% \end{center}
-% \begin{center}
-%         \includegraphics[width=1\linewidth]{points_of_sail.png}
-% \end{center}
-% \begin{center}
-%         \includegraphics[width=1\linewidth]{vel_func.png}
-% \end{center}
-% \vspace{5mm}
-
-\begin{center}
-\begin{minipage}{0.5\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{points_of_sail.png}
-\end{minipage}%
-% \hfill%
-\begin{minipage}{0.5\linewidth}
-    \centering
-    \begin{tikzpicture}[scale=3, 
-        every path/.style={line width=5pt},
-        every node/.style={font=\large}
-    ]
-        % x-axis
-        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
-        % y-axis
-        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (0,3) node[above] {$y$};
-
-        % Boat heading direction (theta from x-axis)
-        \draw[-{Latex[length=4mm]}, thick, blue] (0,0) -- (2.5, 1.5) 
-            node[above right] {boat heading};
-
-        % Wind direction (phi from x-axis)
-        \draw[-{Latex[length=4mm]}, thick, red, dashed] (0,0) -- (1.5, 2.5) 
-            node[above right] {wind direction};
-
-        % theta arc
-        \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
-        \node[blue] at (0.9, 0.2) {$\theta$};
-
-        % phi arc
-        \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
-        \node[red] at (0.5, 0.55) {$\phi$};
-
-        % theta - phi arc (the angle between them)
-        \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
-        \node[purple] at (1.2, 1.15) {$\theta - \phi$};
-
-        % Simple boat shape (triangle)
-        \begin{scope}[rotate=-59]
-            \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
-            \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
-        \end{scope}
-    \end{tikzpicture}
-\end{minipage}%
-\end{center}
-\vspace{5mm}
-
 
 \begin{center}
 \LARGE{\textbf{The Zermelo Navigation Problem}}
@@ -333,6 +238,55 @@ Where the last equality comes from the fact that we are maximizing over unknown 
 
 We get $u = \frac{\boldsymbol{\lambda}}{\| \boldsymbol{\lambda} \|} v(\theta)$ at each time $t$, which we can plug into the above system.
 
+
+\begin{center}
+\begin{minipage}{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{points_of_sail.png}
+    \cite{points_of_sail}
+\end{minipage}%
+% \hfill%
+\begin{minipage}{0.5\linewidth}
+    \centering
+    \begin{tikzpicture}[scale=3, 
+        every path/.style={line width=5pt},
+        every node/.style={font=\large}
+    ]
+        % x-axis
+        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
+        % y-axis
+        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (0,3) node[above] {$y$};
+
+        % Boat heading direction (theta from x-axis)
+        \draw[-{Latex[length=4mm]}, thick, blue] (0,0) -- (2.5, 1.5) 
+            node[above right] {boat heading};
+
+        % Wind direction (phi from x-axis)
+        \draw[-{Latex[length=4mm]}, thick, red, dashed] (0,0) -- (1.5, 2.5) 
+            node[above right] {wind direction};
+
+        % theta arc
+        \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
+        \node[blue] at (0.9, 0.2) {$\theta$};
+
+        % phi arc
+        \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
+        \node[red] at (0.5, 0.55) {$\phi$};
+
+        % theta - phi arc (the angle between them)
+        \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
+        \node[purple] at (1.2, 1.15) {$\theta - \phi$};
+
+        % Simple boat shape (triangle)
+        \begin{scope}[rotate=-59]
+            \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+            \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+        \end{scope}
+    \end{tikzpicture}
+\end{minipage}%
+\end{center}
+\vspace{1cm}
+
 \begin{center}
 \LARGE{\textbf{The Simplest Sailing Approach}}
 \end{center}
@@ -349,9 +303,10 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
 
 \begin{center}
 \vspace{2cm}
+
 \LARGE{\textbf{Physically Accurate Sailing}}
 \end{center}
-\large However, wind doesn't move boats by ``blowing on the sails;'' For boats with triangular sails, it's more accurate to say that sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. In fact, boats rarely sail directly downwind since this makes them very unstable! A more accurate model would have boats going fastest about 70$^\circ$ off of straight downwind, called a "Broad Reach". Not only does this allow sailboats with triangular sails to sail \textit{across} the wind, or orthogonally to the wind, it also allows the sailboat to sail about 40$^\circ$ from directly upwind! So sailboats can effectively move in any direction, in a straight line for friendly directions, and in zig-zags if close to directly up-wind or directly down-wind. Switching which zig you are zagging while going upwind is called \textbf{tacking}. Switching while going downwind is called \textbf{jibing}. One main objective of this project is to \textit{discover} tacking and jibing as part of the optimal solution.
+\large However, wind doesn't move boats by ``blowing on the sails;'' For boats with triangular sails, it's more accurate to say that sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. In fact, boats rarely sail directly downwind since this makes them very unstable! A more accurate model would have boats going fastest about 70$^\circ$ off of straight downwind, called a ``Broad Reach". Not only does this allow sailboats with triangular sails to sail \textit{across} the wind, or orthogonally to the wind, it also allows the sailboat to sail about 40$^\circ$ from directly upwind! So sailboats can effectively move in any direction, in a straight line for friendly directions, and in zig-zags if close to directly up-wind or directly down-wind. Switching which zig you are zagging while going upwind is called \textbf{tacking}. Switching while going downwind is called \textbf{jibing}. One main objective of this project is to \textit{discover} tacking and jibing as part of the optimal solution.
 
 In this case, the speed of the boat is a function of the difference between the heading of the boat and the angle of the wind. When we factor in the $x$- and $y$-components of the current as $w_1$ and $w_2$, our optimization problem becomes
 
@@ -381,7 +336,12 @@ $$
     % \includegraphics[width=1\linewidth,trim={0 8cm 0 10cm},clip]{anothepicture.png}
 \end{center}
 
-\large 
+\begin{center}
+\vspace{2cm}
+\LARGE{\textbf{Main Results}}
+\end{center}
+
+\large The simpler model of sailing was not able to uncover methods such as tacking, due to the fact that the boat could not go upwind. However, our more advanced model did discover and use tacking while going upwind, although our Julia implementation may be penalizing tacking too much, resulting in the model making only a few turns during the upwind legs of the race instead of many.
 
 
 \begin{center}
