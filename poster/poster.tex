@@ -180,21 +180,23 @@
 \color{black}
 \noindent
 \begin{minipage}{\dimexpr\linewidth+2\fboxsep\relax}
-    \begin{multicols*}{\NumColumns}
-    \FancySubtitle[5mm]{Overview}
-    \FancyFigure[1.0]{route_map.png}{MMYC Race Course for Spinnaker Yachts. $\sim$41.8 nm. \cite{mmyc2024charts} }{fig:route_map}
-        
-    \large The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan. In this project, we determined the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
+\begin{multicols*}{\NumColumns}
+\FancySubtitle[5mm]{Overview}
+\FancyFigure[1.0]{route_map.png}{MMYC Race Course for Spinnaker Yachts. $\sim$41.8 nm. \cite{mmyc2024charts} }{fig:route_map}
+    
+\large 
+\vspace{1cm}
+The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan. In this project, we determined the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
 
-\FancySubtitle[0cm][2cm]{The Problem}
+\FancySubtitle[0cm][1cm]{The Problem}
 
 \begin{center}
 \LARGE{\textbf{The Zermelo Navigation Problem}}
 \end{center}
-
+\vspace{1cm}
 We begin by solving the standard Zermelo Navigation problem, where we are piloting a motor boat through water with a current and want to travel between two points as fast as possible. We chose $\theta,$ the angle between the $x$-axis and our heading, to be our control, and assumed that the velocity of the boat due to the motor would be given by
 \[
-\begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix},
+\begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix}.
 \]
 Accounting for current yields the following velocity:
 \[
@@ -228,15 +230,15 @@ By Pontryagin's Maximization principle, an optimal solution must satisfy
 \dot{y} &= v \sin(\theta) + w_2(x, y) \\
 \dot{\lambda_1} &= -\lambda_1 \frac{\partial w_1}{\partial x} -\lambda_2 \frac{\partial w_2}{\partial x} \\
 \dot{\lambda_2} &= -\lambda_1 \frac{\partial w_1}{\partial y} -\lambda_2 \frac{\partial w_2}{\partial y} \\
-H(t_f) &= 0
+H(t_f) &= 0,
 \end{align*}
-Where the last equality comes from the fact that we are maximizing over unknown time. We get that $\frac{\partial H}{\partial u} = 0$ as well.
+where the last equality comes from the fact that we are maximizing over unknown time. We get that $\frac{\partial H}{\partial u} = 0$ as well.
 
 \par Since we are maximizing $H$, and the only term where $u$ shows up is $\lambda \cdot u$, we can just maximize that to solve for u.
 
 We get $u = \frac{\boldsymbol{\lambda}}{\| \boldsymbol{\lambda} \|} v(\theta)$ at each time $t$, which we can plug into the above system.
 
-\vspace{1cm}
+% \vspace{1cm}
 
 \begin{center}
 \LARGE{\textbf{The Simplest Sailing Approach}}
@@ -246,7 +248,7 @@ We get $u = \frac{\boldsymbol{\lambda}}{\| \boldsymbol{\lambda} \|} v(\theta)$ a
 But what if we are sailing using the wind and currents instead of a motor? This model makes the assumption that current and wind are the only factors we need to account for, and that they directly control velocity. More precisely, the impact of wind on the boat's velocity is
 
 \[
-\begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix} 
+\begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix},
 \]
 where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to the wind. This makes the boat go at full speed when it's facing the same way as the wind, and is still when its sail is orthogonal to the wind. The derivation of the solution is nearly identical to the previous one.
 
@@ -255,9 +257,6 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
 % \FancyFigure{Figure file}{Figure caption.}{fig:evolution-comparison}
 
 \FancyFigure[1.0]{route_map.png}{MMYC Race Course for Spinnaker Yachts. $\sim$41.8 nm. \cite{mmyc2024charts} }{fig:simple_model_map}
-
-\begin{center}
-\vspace{2cm}
 
 \begin{center}
     \noindent
@@ -314,65 +313,63 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
         \label{fig:combined_sailing}
     \end{minipage}
 \end{center}
-\vspace{5mm}
+\vspace{1cm}
 
+\begin{center}
 \LARGE{\textbf{Physically Accurate Sailing}}
 \end{center}
-\large However, wind doesn't move boats by ``blowing on the sails;'' For boats with triangular sails, it's more accurate to say that sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. In fact, boats rarely sail directly downwind since this makes them very unstable! A more accurate model would have boats going fastest about 70$^\circ$ off of straight downwind, called a ``Broad Reach". Not only does this allow sailboats with triangular sails to sail \textit{across} the wind, or orthogonally to the wind, it also allows the sailboat to sail about 40$^\circ$ from directly upwind! So sailboats can effectively move in any direction, in a straight line for friendly directions, and in zig-zags if close to directly up-wind or directly down-wind. Switching which zig you are zagging while going upwind is called \textbf{tacking}. Switching while going downwind is called \textbf{jibing}. One main objective of this project is to \textit{discover} tacking and jibing as part of the optimal solution.
 
-In this case, the speed of the boat is a function of the difference between the heading of the boat and the angle of the wind. When we factor in the $x$- and $y$-components of the current as $w_1$ and $w_2$, our optimization problem becomes
+\vspace{1cm}
+\large However, wind doesn't move boats by ``blowing on the sails.'' For boats with triangular sails, it's more accurate to say that the sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. In fact, boats rarely sail directly downwind since this makes them very unstable! A more accurate model would have boats going fastest about 70$^\circ$ off of straight downwind, called a ``Broad Reach". Not only does this allow sailboats with triangular sails to sail \textit{across} the wind, or orthogonally to the wind, it also allows the sailboat to sail about 40$^\circ$ from directly upwind! So sailboats can effectively move in any direction, in a straight line for friendly directions, and in zig-zags if close to directly up-wind or directly down-wind. 
 
-$$J[u] = \int_0^{t_f} 1 \,dt \\ 
-\text{ subj. to } \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t) - \phi) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}
-$$
+Switching which zig you are zagging while going upwind is called \textbf{tacking}. Switching while going downwind is called \textbf{jibing}. One main objective of this project is to \textit{discover} tacking and jibing as part of the optimal solution.
+
+In this case, the speed of the boat is a function of the difference between the heading of the boat and the angle of the wind. When we factor in the $x$ and $y$-components of the current as $w_1$ and $w_2$, our optimization problem becomes
+
+$$J[u] = \int_0^{t_f} 1 \,dt$$ 
+subject to
+$$\begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t) - \phi(x,y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}.$$
+
 
 So our Hamiltonian and costate evolution equations are given by
 
 $$ 
 \begin{aligned}
-H &= \boldsymbol{\lambda}^\top \left(\dot{\mathbf{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
-&= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2) - 1
+H &= \boldsymbol{\lambda}^\top \left(v(\theta - \phi) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
+&= \lambda_1(v(\theta - \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta - \phi)\sin(\theta) + w_2) - 1
 \end{aligned}
 $$
 
 $$
 \begin{aligned}
-\dot{\lambda_1} & = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
-\dot{\lambda_2} & = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ).
+\dot{\lambda_1} & = - \left ( \lambda_1 \left ( \frac{\partial v}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) + \lambda_2 \left ( \frac{\partial v}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
+\dot{\lambda_2} & = - \left ( \lambda_1 \left ( \frac{\partial v}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) + \lambda_2 \left ( \frac{\partial v}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ).
 \end{aligned}
 $$
+
+\FancyFigure[1.0]{optimized_route2.png}{Optimized route of MYMC 100 Miler with constant wind}{fig:optimized_route}
 
 \FancySubtitle[4mm][1cm]{Early Results \& Analysis}
 
 \begin{center}
-    % \includegraphics[width=1\linewidth,trim={0 8cm 0 10cm},clip]{anothepicture.png}
-\end{center}
-
-\begin{center}
-\vspace{2cm}
 \LARGE{\textbf{Main Results}}
 \end{center}
 
-\large The simpler model of sailing was not able to uncover methods such as tacking, due to the fact that the boat could not go upwind. However, our more advanced model did discover and use tacking while going upwind, although our Julia implementation may be penalizing tacking too much, resulting in the model making only a few turns during the upwind legs of the race instead of many.
-
+\large The simpler model of sailing was not able to uncover methods such as tacking because the boat could not go upwind. However, our more advanced model did discover and use tacking while going upwind. Our Julia implementation may be penalizing tacking too much, resulting in the model making only a few turns during the upwind legs of the race instead of many.
 
 \begin{center}
-\vspace{2cm}
 \LARGE{\textbf{Issues and Troubleshooting}}
 \end{center}
 
-\large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model was much more complex, and included some sharp corners due to tacking. This resulted in \verb|solve_bvp| failing as it tried to make the corners round by increasing the size of its mesh indefinitely, eventually crashing the script. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solvebvp| is theoretically elegant and clean and incorporates the costate, but is very fragile in ways that did not work well with this problem.
+\large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model led to discontinuous controls (bang-bang), which lead to sharp corners in the state--tacking. Since \verb|solve_bvp| assumes continuous solutions, it was incompatible with the proper solution. It crashed when trying to resolve the corners by increasing mesh resolution. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solvebvp| is theoretically elegant and mathematically clean, but is fragile in ways that did not work well with this problem.
 
-\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues.
+\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues. \verb|ipopt| is an interior-point optimization solver which only takes an objective function and certain kinds of constraints. We enforced the $\dot{x} = f$ relation via pointwise constraints with forward euler, and penalized changes in theta in the objective. Whereas \verb|ipopt| was a bit more brute force, perhaps, it successfully discovered tacking as the optimal route and is a very fast solver.
 
-\FancySubtitle[4mm][1cm]{Conclusions and next steps}
+\FancySubtitle[1cm][1cm]{Conclusions and Next Steps}
 
-\large 
-
-\large We have a lot of further directions we want to explore. The first things that we want to incorporate into our models are land penalties, to prevent the boats from running into land or islands. This is the most obvious issue with the optimal solutions we have computed so far.
+\large We have a lot of further directions we want to explore. The first things that we want to incorporate into our models are land penalties to prevent the boats from running into land or islands. This is the most obvious issue with the optimal solutions we have computed so far.
 
 \large Similarly, it is not physically realistic that the wind directly controls the boat's velocity. Instead, the wind should impact the boat's \textit{acceleration}. Solving this optimal control problem will likely yield even more accurate results, although it will take more effort to implement. We also want to try putting bounds on how quickly $\theta$ can change, since a boat cannot change its heading instantaneously.
-
 
 \bibliographystyle{amsalpha}
 \bibliography{refs.bib}
