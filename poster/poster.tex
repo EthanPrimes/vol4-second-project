@@ -11,7 +11,7 @@
 \usepackage{tikz}
 \usepackage{eso-pic}
 \usepackage{geometry}
-% \geometry{margin=2cm, top=2cm}
+% \geometry{margin=1cm, top=1cm}
 \geometry{margin=2cm}
 \usetikzlibrary{arrows.meta}
 \newtheorem{theorem}{Theorem}
@@ -67,49 +67,6 @@
 % FANCY COMMANDS                   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Create the fancy title command
-% \NewDocumentCommand{\FancyTitle}{ O{1.25cm} m m m }{
-%     \noindent
-%     \colorbox{titlebackground}{\begin{minipage}{\dimexpr\textwidth+\fboxsep+2\fboxrule\relax-2\fboxsep}
-%       \begin{center}\vspace{5mm}
-%        {\VeryHuge \textcolor{titletext}{#2}}\\[10mm]
-%        {\Huge \textcolor{titletext} {#3}}\\[10mm]
-%        {\Large \textcolor{titletext}{#4}}
-%       \end{center}
-%     \end{minipage}}
-%     \vspace{#1}
-% }
-% \NewDocumentCommand{\FancyTitle}{ O{1.25cm} m m m }{
-%     \noindent
-%     \begin{tikzpicture}
-%         % Define the header dimensions
-%         \def\headerwidth{\textwidth}
-%         \def\headerheight{12cm}
-
-%         % Clip to the header rectangle, then place a larger image centered in it
-%         \begin{scope}
-%             \clip (0,0) rectangle (\headerwidth, \headerheight);
-%             \node[inner sep=0pt, anchor=center] at (0.5*\headerwidth, 1.8*\headerheight) {
-%                 \includegraphics[width=\headerwidth]{background.png}
-%                 % Use 'width' alone (no height) to preserve aspect ratio — 
-%                 % the clip will hide the overflow top and bottom.
-%                 % Swap to 'height=\headerheight' if your image is taller than wide.
-%             };
-%         \end{scope}
-
-%         % Dark overlay for contrast
-%         \fill[black, opacity=0.3] (0,0) rectangle (\headerwidth, \headerheight);
-
-%         % Text on top
-%         \node[align=center] at (0.5*\headerwidth, 0.5*\headerheight) {
-%             {\VeryHuge \textcolor{titletext}{#2}}\\[10mm]
-%             {\Huge \textcolor{titletext}{#3}}\\[10mm]
-%             {\Large \textcolor{titletext}{#4}}
-%         };
-%     \end{tikzpicture}
-%     \vspace{-\baselineskip}
-%     \vspace{#1}
-% }
 
 \NewDocumentCommand{\FancyTitle}{ O{1.25cm} m m m }{
     \noindent
@@ -178,7 +135,7 @@
 %Main
 \color{black}
 \noindent
-\begin{minipage}{\dimexpr\linewidth+2\fboxsep\relax}
+\begin{minipage}{\linewidth}
 \begin{multicols*}{\NumColumns}
 \FancySubtitle[5mm]{Overview}
 \FancyFigure[1.0]{route_map.png}{MMYC Race Course for Spinnaker Yachts. $\sim$41.8 nm. \cite{mmyc2024charts} }{fig:route_map}
@@ -312,10 +269,10 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
 \end{center}
 \vspace{1cm}
 
+\columnbreak
 \begin{center}
 \LARGE{\textbf{Physically Accurate Sailing}}
 \end{center}
-
 \vspace{1cm}
 \large However, wind doesn't move boats by ``blowing on the sails.'' For boats with triangular sails, it's more accurate to say that the sails act like an airplane wing, creating thrust as wind moves faster over their front than their back. In fact, boats rarely sail directly downwind since this makes them very unstable! A more accurate model would have boats going fastest about 70$^\circ$ off of straight downwind, called a ``Broad Reach". Not only does this allow sailboats with triangular sails to sail \textit{across} the wind, or orthogonally to the wind, it also allows the sailboat to sail about 40$^\circ$ from directly upwind! So sailboats can effectively move in any direction, in a straight line for friendly directions, and in zig-zags if close to directly up-wind or directly down-wind. 
 
@@ -373,7 +330,6 @@ $$
 \item The most obvious addition to this work is the penalize sailing over land. This has a straightforward physical interpretation.
 \item It is not physically realistic that the wind directly controls the boat's velocity. Instead, the wind should impact the boat's \textit{acceleration}. Solving this optimal problem will yield more accurate results, though is a greater challenge to implement.
 \item We also will try putting bounds on how quickly $\theta$ can change, since a boat cannot change its heading instantaneously. This alteration place the problem back into the realm of continuous controls and states, which we can perhaps solve with the elegant \verb|solve_bvp| implementation.
-\item If time permits, we would also like to implement the "land shadow" penalty--wind is slower in the "shadow" of land, and in real races, sailors keep distance from land that is between them and the wind.
 \end{enumerate}
 
 Our group has already seen success and we are excited to implement more realistic models that produce more accurate optimal controls for the M\&M 100 miler race. We hope to see you in July!
