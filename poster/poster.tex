@@ -322,19 +322,19 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
 
 Switching which zig you are zagging while going upwind is called \textbf{tacking}. Switching while going downwind is called \textbf{jibing}. One main objective of this project is to \textit{discover} tacking and jibing as part of the optimal solution.
 
-In this case, the speed of the boat is a function of the difference between the heading of the boat and the angle of the wind. When we factor in the $x$ and $y$-components of the current as $w_1$ and $w_2$, our optimization problem becomes
+In this case, the speed of the boat is a function of the heading of the boat and the angle of the wind. When we factor in the $x$ and $y$-components of the current as $w_1$ and $w_2$, our optimization problem becomes
 
-$$J[u] = \int_0^{t_f} 1 \,dt$$ 
+$$J[u] = \int_0^{t_f} 1 \,dt,$$ 
 subject to
-$$\begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t) - \phi(x,y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}.$$
+$$\begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t), \phi(x,y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}.$$
 
 
 So our Hamiltonian and costate evolution equations are given by
 
 $$ 
 \begin{aligned}
-H &= \boldsymbol{\lambda}^\top \left(v(\theta - \phi) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
-&= \lambda_1(v(\theta - \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta - \phi)\sin(\theta) + w_2) - 1
+H &= \boldsymbol{\lambda}^\top \left(v(\theta, \phi) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
+&= \lambda_1(v(\theta, \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta, \phi)\sin(\theta) + w_2) - 1
 \end{aligned}
 $$
 
