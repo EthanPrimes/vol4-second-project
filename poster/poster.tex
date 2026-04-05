@@ -340,14 +340,11 @@ $$
 \end{aligned}
 $$
 
+\FancyFigure[1.0]{optimized_route2.png}{Optimized route of MYMC 100 Miler with constant wind}{fig:optimized_route}
+
 \FancySubtitle[4mm][1cm]{Early Results \& Analysis}
 
 \begin{center}
-    % \includegraphics[width=1\linewidth,trim={0 8cm 0 10cm},clip]{anothepicture.png}
-\end{center}
-
-\begin{center}
-\vspace{2cm}
 \LARGE{\textbf{Main Results}}
 \end{center}
 
@@ -355,13 +352,12 @@ $$
 
 
 \begin{center}
-\vspace{2cm}
 \LARGE{\textbf{Issues and Troubleshooting}}
 \end{center}
 
-\large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model was much more complex, and included some sharp corners due to tacking. This resulted in \verb|solve_bvp| failing as it tried to make the corners round by increasing the size of its mesh indefinitely, eventually crashing the script. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solvebvp| is theoretically elegant and clean and incorporates the costate, but is very fragile in ways that did not work well with this problem.
+\large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model led to discontinuous controls (bang-bang), which lead to sharp corners in the state--tacking. Since \verb|solve_bvp| assumes continuous solutions, it was incompatible with the proper solution. It crashed when trying to resolve the corners by increasing mesh resolution. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solvebvp| is theoretically elegant and mathematically clean, but is fragile in ways that did not work well with this problem.
 
-\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues.
+\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues. \verb|ipopt| is an interior-point optimization solver which only takes an objective function and certain kinds of constraints. We enforced the $\dot{x} = f$ relation via pointwise constraints with forward euler, and penalized changes in theta in the objective. Whereas \verb|ipopt| was a bit more brute force, perhaps, it successfully discovered tacking as the optimal route and is a very fast solver.
 
 \FancySubtitle[4mm][1cm]{Conclusions and next steps}
 
