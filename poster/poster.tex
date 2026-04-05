@@ -187,67 +187,6 @@
     \large The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan. In this project, we determined the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
 
 \FancySubtitle[0cm][2cm]{The Problem}
-\begin{center}
-\LARGE{\textbf{Assumptions \& Equations}}
-\end{center}
-
-\begin{center}
-    \noindent
-    \begin{minipage}{\linewidth}
-        \centering
-        % First Image
-        \begin{minipage}{0.48\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{points_of_sail.png}
-        \end{minipage}
-        \hfill
-        % Second Image (TikZ)
-        \begin{minipage}{0.48\linewidth}
-            \centering
-            \begin{tikzpicture}[scale=2.5, % Adjusted scale slightly to fit better
-                every path/.style={line width=5pt},
-                every node/.style={font=\large}
-            ]
-        % x-axis
-        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
-        % y-axis
-        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (0,3) node[above] {$y$};
-
-        % Boat heading direction (theta from x-axis)
-        \draw[-{Latex[length=4mm]}, thick, blue] (0,0) -- (2.5, 1.5) 
-            node[above right] {boat heading};
-
-        % Wind direction (phi from x-axis)
-        \draw[-{Latex[length=4mm]}, thick, red, dashed] (0,0) -- (1.5, 2.5) 
-            node[above right] {wind direction};
-
-        % theta arc
-        \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
-        \node[blue] at (0.9, 0.2) {$\theta$};
-
-        % phi arc
-        \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
-        \node[red] at (0.5, 0.55) {$\phi$};
-
-        % theta - phi arc (the angle between them)
-        \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
-        \node[purple] at (1.37, 1.24) {$\theta - \phi$};
-
-        % Simple boat shape (triangle)
-        \begin{scope}[rotate=-59]
-            \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
-            \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
-        \end{scope}
-            \end{tikzpicture}
-        \end{minipage}
-        
-        \vspace{1cm}
-        \textcolor{black}{\captionof{figure}{Comparison of theoretical points of sail (left) \cite{points_of_sail} vs. coordinate system geometry (right).}}
-        \label{fig:combined_sailing}
-    \end{minipage}
-\end{center}
-\vspace{5mm}
-
 
 \begin{center}
 \LARGE{\textbf{The Zermelo Navigation Problem}}
@@ -315,6 +254,63 @@ where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to 
 
 \begin{center}
 \vspace{2cm}
+
+\begin{center}
+    \noindent
+    \begin{minipage}{\linewidth}
+        \centering
+        % First Image
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{points_of_sail.png}
+        \end{minipage}
+        \hfill
+        % Second Image (TikZ)
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \begin{tikzpicture}[scale=2.5, % Adjusted scale slightly to fit better
+                every path/.style={line width=5pt},
+                every node/.style={font=\large}
+            ]
+        % x-axis
+        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (3,0) node[right] {$x$};
+        % y-axis
+        \draw[-{Latex[length=3mm]}, thick] (0,0) -- (0,3) node[above] {$y$};
+
+        % Boat heading direction (theta from x-axis)
+        \draw[-{Latex[length=4mm]}, thick, blue] (0,0) -- (2.5, 1.5) 
+            node[above right] {boat heading};
+
+        % Wind direction (phi from x-axis)
+        \draw[-{Latex[length=4mm]}, thick, red, dashed] (0,0) -- (1.5, 2.5) 
+            node[above right] {wind direction};
+
+        % theta arc
+        \draw[blue, thick] (0.7,0) arc[start angle=0, end angle=31, radius=0.7];
+        \node[blue] at (0.9, 0.2) {$\theta$};
+
+        % phi arc
+        \draw[red, thick] (0.5,0) arc[start angle=0, end angle=59, radius=0.5];
+        \node[red] at (0.5, 0.55) {$\phi$};
+
+        % theta - phi arc (the angle between them)
+        \draw[purple, thick] (1.2,0.72) arc[start angle=31, end angle=59, radius=1.4];
+        \node[purple] at (1.37, 1.24) {$\theta - \phi$};
+
+        % Simple boat shape (triangle)
+        \begin{scope}[rotate=-59]
+            \fill[gray!50] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+            \draw[gray!70, thick] (-0.15, -0.5) -- (0.15, -0.5) -- (0.15, -0.2) -- (0, 0) -- (-0.15, -0.2) -- cycle;
+        \end{scope}
+            \end{tikzpicture}
+        \end{minipage}
+        
+        \vspace{1cm}
+        \textcolor{black}{\captionof{figure}{Comparison of theoretical points of sail (left) \cite{points_of_sail} vs. coordinate system geometry (right).}}
+        \label{fig:combined_sailing}
+    \end{minipage}
+\end{center}
+\vspace{5mm}
 
 \LARGE{\textbf{Physically Accurate Sailing}}
 \end{center}
