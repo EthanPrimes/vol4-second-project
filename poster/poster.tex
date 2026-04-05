@@ -250,6 +250,8 @@ But what if we are sailing using the wind and currents instead of a motor? This 
 \]
 where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to the wind. This makes the boat go at full speed when it's facing the same way as the wind, and is still when its sail is orthogonal to the wind. The derivation of the solution is nearly identical to the previous one.
 
+\large However, there were some major issues with this approach. This function that determined the boat's velocity assumed that boats could not go upwind, which is not physically accurate. As such, the boat could not complete the course under this optimization problem.
+
 % \FancyFigure{Figure file}{Figure caption.}{fig:evolution-comparison}
 
 \FancyFigure[1.0]{route_map.png}{MMYC Race Course for Spinnaker Yachts. $\sim$41.8 nm. \cite{mmyc2024charts} }{fig:simple_model_map}
