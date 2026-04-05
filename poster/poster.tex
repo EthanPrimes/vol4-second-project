@@ -326,22 +326,22 @@ In this case, the speed of the boat is a function of the difference between the 
 
 $$J[u] = \int_0^{t_f} 1 \,dt$$ 
 subject to
-$$\begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t) - \phi) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}.$$
+$$\begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t) - \phi(x,y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}.$$
 
 
 So our Hamiltonian and costate evolution equations are given by
 
 $$ 
 \begin{aligned}
-H &= \boldsymbol{\lambda}^\top \left(\dot{\mathbf{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
-&= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2) - 1
+H &= \boldsymbol{\lambda}^\top \left(v(\theta - \phi) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
+&= \lambda_1(v(\theta - \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta - \phi)\sin(\theta) + w_2) - 1
 \end{aligned}
 $$
 
 $$
 \begin{aligned}
-\dot{\lambda_1} & = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
-\dot{\lambda_2} & = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ).
+\dot{\lambda_1} & = - \left ( \lambda_1 \left ( \frac{\partial v}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) + \lambda_2 \left ( \frac{\partial v}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
+\dot{\lambda_2} & = - \left ( \lambda_1 \left ( \frac{\partial v}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) + \lambda_2 \left ( \frac{\partial v}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ).
 \end{aligned}
 $$
 
