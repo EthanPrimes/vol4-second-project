@@ -171,8 +171,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\vspace*{-1cm}
-\noindent\begin{minipage}[t]{\textwidth}
+\vspace*{-2.5cm}
 
 \FancyTitle{Go With the Flow:}{Optimizing the 100 Miler Sailing Race}{Connor McBride, Ethan Palenske, and Jackson Pond}
 
@@ -361,7 +360,10 @@ $$
 
 \large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model led to discontinuous controls (bang-bang), which lead to sharp corners in the state--tacking. Since \verb|solve_bvp| assumes continuous solutions, it was incompatible with the proper solution. It crashed when trying to resolve the corners by increasing mesh resolution. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solvebvp| is theoretically elegant and mathematically clean, but is fragile in ways that did not work well with this problem.
 
-\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues. \verb|ipopt| is an interior-point optimization solver which only takes an objective function and certain kinds of constraints. We enforced the $\dot{x} = f$ relation via pointwise constraints with forward euler, and penalized changes in theta in the objective. Whereas \verb|ipopt| was a bit more brute force, it successfully discovered tacking as the optimal route and is computationally efficient.
+\large We decided to use Julia's \verb|Ipopt| to attempt to avoid these issues. \verb|Ipopt| is an interior-point optimization solver which only takes an objective function and certain kinds of constraints. We enforced the $\dot{x} = f$ relation via pointwise constraints with forward Euler, and penalized changes in theta in the objective. Whereas \verb|Ipopt| was a bit more brute force, it successfully discovered tacking as the optimal route and is computationally efficient.
+
+\vspace{1cm}
+\FancyFigure[1.0]{tacking.png}{Demonstration of tacking discovered through Ipopt. Comparison of optimal path (left) vs. the heading over time (right).}{fig:tacking}
 
 \FancySubtitle[1cm][1cm]{Conclusions and Next Steps}
 
@@ -372,7 +374,6 @@ $$
 \bibliographystyle{amsalpha}
 \bibliography{refs.bib}
 \end{multicols*}
-\end{minipage}
 \end{minipage}
 
 \nocite{sunsail_racing_bvi}
