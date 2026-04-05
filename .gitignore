@@ -15,7 +15,6 @@ poster/poster.log
 poster/poster.pdf
 poster/poster.synctex.gz
 poster/poster.blg
-poster/poster.bbl
 
 # PyCache from importing local files
 __pycache__/
