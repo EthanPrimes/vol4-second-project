@@ -12,7 +12,7 @@
 \usepackage{eso-pic}
 \usepackage{geometry}
 % \geometry{margin=2cm, top=2cm}
-\geometry{margin=3cm}
+\geometry{margin=2cm}
 \usetikzlibrary{arrows.meta}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -42,10 +42,10 @@
 
 % Columns
 %%%% THIS IS WHERE YOU CAN CHANGE THE HEIGHT & NUMBER OF COLUMNS
-\newcommand{\ColumnScale}{0.74526}
+\newcommand{\ColumnScale}{0.71}
 \newcommand{\NumColumns}{4}
 \setlength{\fboxsep}{1cm}
-\setlength{\columnsep}{3cm}
+\setlength{\columnsep}{2cm}
 \color{titlesubtext}
 \captionsetup{labelfont={color=black,bf},textfont={color=black}}
 \setlength{\columnseprule}{2mm}
@@ -186,7 +186,7 @@
     
 \large 
 \vspace{1cm}
-The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan. In this project, we determined the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
+The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan, in the lovely waters of Green Bay. In this project, we aim to determine the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
 
 \FancySubtitle[0cm][1cm]{The Problem}
 
@@ -367,9 +367,16 @@ $$
 
 \FancySubtitle[1cm][1cm]{Conclusions and Next Steps}
 
-\large We have a lot of further directions we want to explore. The first things that we want to incorporate into our models are land penalties to prevent the boats from running into land or islands. This is the most obvious issue with the optimal solutions we have computed so far.
+\large There is more work to be done, in a few directions. Some we have mentioned, such as re-working the penalty on tacking in order to see more small tacks. Possible further research directions include:
 
-\large Similarly, it is not physically realistic that the wind directly controls the boat's velocity. Instead, the wind should impact the boat's \textit{acceleration}. Solving this optimal control problem will likely yield even more accurate results, although it will take more effort to implement. We also want to try putting bounds on how quickly $\theta$ can change, since a boat cannot change its heading instantaneously.
+\begin{enumerate}
+\item The most obvious addition to this work is the penalize sailing over land. This has a straightforward physical interpretation.
+\item It is not physically realistic that the wind directly controls the boat's velocity. Instead, the wind should impact the boat's \textit{acceleration}. Solving this optimal problem will yield more accurate results, though is a greater challenge to implement.
+\item We also will try putting bounds on how quickly $\theta$ can change, since a boat cannot change its heading instantaneously. This alteration place the problem back into the realm of continuous controls and states, which we can perhaps solve with the elegant \verb|solve_bvp| implementation.
+\item If time permits, we would also like to implement the "land shadow" penalty--wind is slower in the "shadow" of land, and in real races, sailors keep distance from land that is between them and the wind.
+\end{enumerate}
+
+Our group has already seen success and we are excited to implement more realistic models that produce more accurate optimal controls for the M\&M 100 miler race. We hope to see you in July!
 
 \bibliographystyle{amsalpha}
 \bibliography{refs.bib}
