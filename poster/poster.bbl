@@ -5,7 +5,10 @@
   \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
 }
 \providecommand{\href}[2]{#2}
-\begin{thebibliography}{RPP11}
+\begin{thebibliography}{{Mar}24}
+
+\bibitem[{Mar}24]{mmyc2024charts}
+{Marinette \& Menominee Yacht Club}, \emph{100 miler race charts}, 2024, Accessed: March 27, 2026.
 
 \bibitem[RPP11]{points_of_sail}
 M~Ramirez, Clement Petres, and Frederic Plumet, \emph{Navigation with obstacle avoidance of an autonomous sailboat}, 08 2011, pp.~86--93.
