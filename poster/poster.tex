@@ -252,6 +252,8 @@ But what if we are sailing using the wind and currents instead of a motor? This 
 \]
 where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to the wind. This makes the boat go at full speed when it's facing the same way as the wind, and is still when its sail is orthogonal to the wind. The derivation of the solution is nearly identical to the previous one.
 
+\large However, there were some major issues with this approach. This function that determined the boat's velocity assumed that boats could not go upwind, which is not physically accurate. As such, the boat could not complete the course under this optimization problem.
+
 % \FancyFigure{Figure file}{Figure caption.}{fig:evolution-comparison}
 
 \FancyFigure[1.0]{route_map.png}{MMYC Race Course for Spinnaker Yachts. $\sim$41.8 nm. \cite{mmyc2024charts} }{fig:simple_model_map}
@@ -345,24 +347,23 @@ $$
 \end{aligned}
 $$
 
+\FancyFigure[1.0]{optimized_route2.png}{Optimized route of MYMC 100 Miler with constant wind}{fig:optimized_route}
+
 \FancySubtitle[4mm][1cm]{Early Results \& Analysis}
 
 \begin{center}
-\vspace{1.5cm}
 \LARGE{\textbf{Main Results}}
 \end{center}
 
 \large The simpler model of sailing was not able to uncover methods such as tacking because the boat could not go upwind. However, our more advanced model did discover and use tacking while going upwind. Our Julia implementation may be penalizing tacking too much, resulting in the model making only a few turns during the upwind legs of the race instead of many.
 
 \begin{center}
-\vspace{2cm}
 \LARGE{\textbf{Issues and Troubleshooting}}
 \end{center}
 
-\vspace{1cm}
-\large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model was much more complex, and included some sharp corners due to tacking. This resulted in \verb|solve_bvp| failing as it tried to make the corners round by increasing the size of its mesh indefinitely, eventually crashing the script. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solve_bvp| is theoretically elegant and clean and incorporates the costate, but is very fragile in ways that did not work well with this problem.
+\large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model led to discontinuous controls (bang-bang), which lead to sharp corners in the state--tacking. Since \verb|solve_bvp| assumes continuous solutions, it was incompatible with the proper solution. It crashed when trying to resolve the corners by increasing mesh resolution. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solvebvp| is theoretically elegant and mathematically clean, but is fragile in ways that did not work well with this problem.
 
-\large We decided to use Julia's \verb|Ipopt| to attempt to avoid these issues.
+\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues. \verb|ipopt| is an interior-point optimization solver which only takes an objective function and certain kinds of constraints. We enforced the $\dot{x} = f$ relation via pointwise constraints with forward euler, and penalized changes in theta in the objective. Whereas \verb|ipopt| was a bit more brute force, perhaps, it successfully discovered tacking as the optimal route and is a very fast solver.
 
 \FancySubtitle[1cm][1cm]{Conclusions and Next Steps}
 

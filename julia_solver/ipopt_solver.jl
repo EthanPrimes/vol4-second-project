@@ -191,8 +191,13 @@ LEGS = [
     ("Leg 11", (-87.335, 45.260), (-87.606, 45.111), "leg_11")
 ]
 
-for (plot_title, start, finish, filename) in LEGS
-    x0_val, y0_val = start
-    xf_val, yf_val = finish
-    solve(x0_val, y0_val, xf_val, yf_val, 150, filename, true, plot_title)
-end
+# for (plot_title, start, finish, filename) in LEGS
+#     x0_val, y0_val = start
+#     xf_val, yf_val = finish
+#     solve(x0_val, y0_val, xf_val, yf_val, 150, filename, true, plot_title)
+# end
+plot_title, start, finish, filename = LEGS[3]
+x0_val, y0_val = start
+xf_val, yf_val = finish
+solve(x0_val, y0_val, xf_val, yf_val, 100, filename, true, plot_title)
+

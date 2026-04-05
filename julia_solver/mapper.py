@@ -150,7 +150,7 @@ def add_legend(ax, extra_handles=None):
     ]
     if extra_handles:
         handles += extra_handles
-    ax.legend(handles=handles, loc='lower right', fontsize=11,
+    ax.legend(handles=handles, loc='lower right', fontsize=16,
               framealpha=0.92, edgecolor='#cccccc', fancybox=False)
 
 
