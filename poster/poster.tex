@@ -186,7 +186,7 @@
     
 \large 
 \vspace{1cm}
-The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan, in the lovely waters of Green Bay. In this project, we aim to determine the optimal path for a sailboat to take in this race. We use a few different models; a simple one assuming uniform current and wind, a more complex one that accounts for real-world sailing dynamics, and the most advanced one that accounts for variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking.
+The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan. In this project, we determined the optimal path for a sailboat to take in this race. We use a few different models; piloting a motor boat with constant velocity, one that matches simple sailing dynamics assuming uniform current and wind, and a more complex one that accounts for real-world sailing dynamics with variable wind and current. Our goal was to determine the simplest model that would re-discover real world sailing techniques, particularly tacking and jibing.
 
 \FancySubtitle[0cm][1cm]{The Problem}
 
@@ -214,7 +214,7 @@ subject to
     \mathbf{s}(t_f) &= \mathbf{s}_f \\ 
     \| \mathbf{u} \| &= v \cos(\theta - \phi)
 \end{align*}
-So the Lagrangian constraint version will be given by
+The Lagrangian constraint version will be given by
 \[
     \tilde{J}[u] = \int_{t_0}^{t_f} 1 + \boldsymbol{\lambda}^\top (\dot{\mathbf{s}} - \mathbf{u}(t) - \mathbf{w}(\mathbf{s}(t))) \,dt,
 \]
@@ -234,9 +234,7 @@ H(t_f) &= 0,
 \end{align*}
 where the last equality comes from the fact that we are maximizing over unknown time. We get that $\frac{\partial H}{\partial u} = 0$ as well.
 
-\par Since we are maximizing $H$, and the only term where $u$ shows up is $\lambda \cdot u$, we can just maximize that to solve for u.
-
-We get $u = \frac{\boldsymbol{\lambda}}{\| \boldsymbol{\lambda} \|} v(\theta)$ at each time $t$, which we can plug into the above system.
+\par Since we are maximizing $H$, and the only term where $u$ shows up is $\lambda \cdot u$, we can just maximize that to solve for u. We get $u = \frac{\boldsymbol{\lambda}}{\| \boldsymbol{\lambda} \|} v(\theta)$ at each time $t$, which we can plug into the above system.
 
 % \vspace{1cm}
 
@@ -245,18 +243,18 @@ We get $u = \frac{\boldsymbol{\lambda}}{\| \boldsymbol{\lambda} \|} v(\theta)$ a
 \end{center}
 \large
 
-But what if we are sailing using the wind and currents instead of a motor? This model makes the assumption that current and wind are the only factors we need to account for, and that they directly control velocity. More precisely, the impact of wind on the boat's velocity is
+But what if we are sailing using the wind instead of a motor? This model makes the assumption that current and wind are the only factors we need to account for, and that they directly control velocity. More precisely, the impact of wind on the boat's velocity is
 
 \[
 \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix},
 \]
 where the new $\cos(\theta - \phi)$ term determines the exposure of the sail to the wind. This makes the boat go at full speed when it's facing the same way as the wind, and is still when its sail is orthogonal to the wind. The derivation of the solution is nearly identical to the previous one.
 
-\large However, there were some major issues with this approach. This function that determined the boat's velocity assumed that boats could not go upwind, which is not physically accurate. As such, the boat could not complete the course under this optimization problem.
+\large However, there were some major issues with this approach. This function that determined the boat's velocity assumed that boats could not go upwind, which is not physically accurate. As such, the boat could not complete the course under this optimization problem, and so we had it optimize a single leg of the race.
 
 % \FancyFigure{Figure file}{Figure caption.}{fig:evolution-comparison}
 
-\FancyFigure[1.0]{simple_zermelo_paths.png}{Plotting the optimal paths computed by the two simpler models under some modest assumptions about wind.}{fig:simple_model_map}
+\FancyFigure[1.0]{simple_zermelo_paths.png}{Plotting the optimal paths computed by the two simpler models.}{fig:simple_model_map}
 
 \begin{center}
     \noindent
@@ -363,7 +361,7 @@ $$
 
 \large For the Zermelo problem and the simplest sailing model, we used SciPy's \verb|solve_bvp| function with great success. However, our physically accurate model led to discontinuous controls (bang-bang), which lead to sharp corners in the state--tacking. Since \verb|solve_bvp| assumes continuous solutions, it was incompatible with the proper solution. It crashed when trying to resolve the corners by increasing mesh resolution. Similarly, since we did not bound how quickly $\theta$ can change, some of our attempts at the solution seemed to result in $\theta$ changing direction every timestep, tacking so quickly that it appeared the boat was going in a straight line. In essence, \verb|solvebvp| is theoretically elegant and mathematically clean, but is fragile in ways that did not work well with this problem.
 
-\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues. \verb|ipopt| is an interior-point optimization solver which only takes an objective function and certain kinds of constraints. We enforced the $\dot{x} = f$ relation via pointwise constraints with forward euler, and penalized changes in theta in the objective. Whereas \verb|ipopt| was a bit more brute force, perhaps, it successfully discovered tacking as the optimal route and is a very fast solver.
+\large We decided to use Julia's \verb|ipopt| to attempt to avoid these issues. \verb|ipopt| is an interior-point optimization solver which only takes an objective function and certain kinds of constraints. We enforced the $\dot{x} = f$ relation via pointwise constraints with forward euler, and penalized changes in theta in the objective. Whereas \verb|ipopt| was a bit more brute force, it successfully discovered tacking as the optimal route and is computationally efficient.
 
 \FancySubtitle[1cm][1cm]{Conclusions and Next Steps}
 
