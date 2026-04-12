@@ -21,7 +21,7 @@
 \date{\today} % or use \today
 
 \begin{abstract}
-In this paper we will try to model the optimal path in the historical M\&M 100 Miler sailing race that takes place in Lake Michigan. Many forces impact optimal sailing, including wind direction, current, and waves, making this a challenging problem to model accurately. The primary questions we work to answer are what the simplest model is that rediscovers real sailing techniques, such as tacking, and how many parameters we can add into our model while still being able to solve it and getting reasonable results. We solve the classic Zermelo Navigation Problem assuming constant boat velocity and fixed current drift vector field. Further iterations involve relying on wind instead of a motor, taking into account the impact of the islands on wind and current speed, and including the impacts of being near Wisconsin on the wind. Our more accurate models were able to find a path that matched the speeds of real-world sailors from the year we got current and wind data.
+In this paper we will try to model the optimal path in the historical M\&M 100 Miler sailing race. Many forces impact optimal sailing, including wind direction, current, and waves, making this a challenging problem to model accurately. The primary questions we work to answer are what the simplest model is that rediscovers real sailing techniques, such as tacking, and how many parameters we can add into our model while still being able to solve it and get reasonable results. We solve the classic Zermelo Navigation Problem assuming constant boat velocity and fixed current drift vector field. Further iterations involve relying on wind instead of a motor, taking into account the impact of the islands on wind and current speed, and adding land penalties. Our more accurate models were able to find a path that matched the speeds of real-world sailors from the year we got current and wind data.
 
 \end{abstract}
 
@@ -30,19 +30,31 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 %% First Section
 \section{Background}
 
-\par The primary question this paper seeks to determine is the simplest model that would re-discover real world sailing techniques, particularly tacking and jibing. 
+% BACKGROUND ABOUT THE RACE HERE
+\par The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan.
 
-\par Every breadmaker has noticed that small changes in initial dough conditions can lead to wide variations in the quality of the baked bread. By having a good model for how yeast interacts with the other ingredients in bread, we will be able to better understand the breadmaking process and how to optimize initial conditions.
+
+\par The primary question this paper seeks to determine is what the simplest model is that re-discovers real world sailing techniques, particularly tacking and jibing. 
 
 %% Second Section 
 \section{Mathematical Representation}
 
-\par In this section we go over the models we built in detail.
+\par In this section we go over the models we used to represent sailing.
+
+% Talk about square sails vs. triangular sails
+
+\subsection*{Model 1: Zeremlo Navigation Approach}
+
+\subsection*{Model 2: Square-Sail Dynamics}
+
+\subsection*{Model 3: Triangular-Sail Dynamics}
+
+\subsection*{Model 4: Sailing With Land Penalties}
 
 %% Third Section
 \section{Solution}
 
-\cite{modeling_yeast_spread}
+\cite{repo_2026}
 
 %%Fourth Section
 \section{Interpretation}
@@ -56,6 +68,20 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 
 \subsection*{Impact}
 
+% TALK ABOUT HOW SAILS ARE BEING ADDED TO SHIPPING VESSELS AGAIN
+
+%%Fifth Section
+\section{Conclusion}
+
+\par While the simplest two models we worked with were not able to rediscover real sailing techniques, the more complicated ones were.
+
+%%FERPA Release
+\section{FERPA Release}
+We give Dr. Jarvis, and other instructors at BYU teaching ACME classes permission to share our project as an example of a good project in future classes they teach.
+
+\begin{itemize}
+    \item Ethan Palenske
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Bibliography below
