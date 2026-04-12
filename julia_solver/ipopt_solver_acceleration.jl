@@ -1,0 +1,230 @@
+using JuMP, Ipopt
+import MathOptInterface as MOI
+using LinearAlgebra
+using Plots
+using JLD2
+using HDF5
+
+# ---------------------------------------------------------------------------
+# PLUG AND PLAY: change phi and NO_GO_DEG, nothing else needs touching.
+# phi returns the wind vector [wx, wy] at position (x, y).
+# Must be differentiable (no hard branches) for ForwardDiff/Ipopt.
+# ---------------------------------------------------------------------------
+# Wind speed conversion: mph → degrees/hour
+# At lat ~45°N: 1° lat ≈ 69.0 mi, 1° lon ≈ 69.0 * cos(45°) ≈ 48.8 mi
+const LAT_CENTER       = 45.1025          # midpoint of 44.990–45.215
+const MILES_PER_DEG_LAT = 69.0
+const MILES_PER_DEG_LON = 69.0 * cos(deg2rad(LAT_CENTER))  # ≈ 48.8
+
+# Wind components in mph → degrees/hour
+const WX_MPH =  2.43   # eastward
+const WY_MPH =  4.05   # northward
+
+phi(_, _) = [WX_MPH / MILES_PER_DEG_LON, WY_MPH / MILES_PER_DEG_LAT]
+
+const NO_GO_DEG = 45.0
+
+function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_title)
+    # ---------------------------------------------------------------------------
+    # Sailing polar.
+    # The hard if-branch of the original causes INVALID_MODEL because ForwardDiff
+    # can't compute a valid Hessian at the no-go boundary. Replace with a smooth
+    # tanh step: 0 inside no-go zone, 1 outside, ~5° transition width (k=20).
+    # ---------------------------------------------------------------------------
+    function a(theta, x, y, xdot, ydot)
+        # Wind vector
+        wvec     = phi(x, y)
+
+        # Compute wind velocity and direction
+        apparent_wind_speed = sqrt((wvec[1] - xdot)^2 + (wvec[2] - ydot)^2)
+
+        apparent_wind_dir = atan(wvec[2] - ydot, wvec[1] - xdot) - π
+
+        # alpha is angle between wind and heading, no-go is no-go range
+        alpha = mod(theta - apparent_wind_dir + π, 2π) - π
+        no_go    = NO_GO_DEG * π / 180
+
+        # Get speed multiplier--this does the heavy lifting
+        speed_mult   = sin(alpha)^2 * (1 + cos(alpha)^2) / 2
+
+        # nogo_weight smoothly makes no-go range 0
+        nogo_weight  = (1 + tanh(50.0 * (abs(alpha) - no_go))) / 2
+
+
+        return apparent_wind_speed * speed_mult * nogo_weight
+    end
+
+    # ---------------------------------------------------------------------------
+    # Derive initial-guess tack headings automatically from phi.
+    # The two optimal tack headings are just outside the no-go boundary on each
+    # side of the directly-upwind direction.
+    # ---------------------------------------------------------------------------
+    function tack_headings()
+        w0       = phi((x0_val + xf_val) / 2, (y0_val + yf_val) / 2)
+        wind_dir = atan(w0[2], w0[1]) - π
+        no_go    = NO_GO_DEG * π / 180
+        margin   = deg2rad(5.0)
+        upwind   = wind_dir + π
+        ta = mod(upwind + no_go + margin, 2π)
+        tb = mod(upwind - no_go - margin, 2π)
+        return ta, tb
+    end
+
+    # ---------------------------------------------------------------------------
+    # Build and solve the NLP.
+    # ---------------------------------------------------------------------------
+    # Use Ipopt, interior point solver for nonlinear problems
+    model = Model(Ipopt.Optimizer)
+
+    # Set model attributes like tol and max_iter
+    set_optimizer_attribute(model, "print_level", 3)
+    set_optimizer_attribute(model, "max_iter", 100000)
+    set_optimizer_attribute(model, "tol", 1e-3)
+    set_optimizer_attribute(model, "acceptable_tol", 1e-2)
+
+    # Set op_a as the 'alias' of a() within the model
+    @operator(model, op_a, 5, a)
+
+    # Set variables x, y, theta, and T with built in bounds
+    @variable(model, x[1:N])
+    @variable(model, y[1:N])
+    @variable(model, xdot[1:N])
+    @variable(model, ydot[1:N])
+    @variable(model, 0 <= theta[1:N] <= 2π)
+    @variable(model, T >= 0.1)
+
+    # Set objective, Mayer with penalty for tacks
+    # L1-style penalty: sqrt((Δθ)² + δ) is smooth but charges ~|Δθ| per step.
+    # Unlike L2, this strongly penalises many small switches over one large one —
+    # the total cost of 100 chatters each of 1° equals the cost of one switch of 100°,
+    # so Ipopt strongly prefers to consolidate switching into as few steps as possible.
+    # Increase eps to accept a longer T in exchange for cleaner legs.
+    eps = 1.5
+    smooth = 1e-4   # smoothing; keeps the Hessian nonsingular at Δθ=0
+    @objective(model, Min, T + eps * sum(sqrt((theta[i+1]-theta[i])^2 + smooth) for i in 1:N-1))
+
+    # Set starting and ending fixed points
+    @constraint(model, x[1] == x0_val)
+    @constraint(model, y[1] == y0_val)
+    @constraint(model, x[N] == xf_val)
+    @constraint(model, y[N] == yf_val)
+    @constraint(model, xdot[1] == 0.0)
+    @constraint(model, ydot[1] == 0.0)
+
+
+    # Euler forward dynamics, no current
+    # This chunk establishes that x' = f(t, x, u)
+    for i in 1:N-1
+        @constraint(model, (N - 1) * (x[i+1] - x[i]) == T * xdot[i])
+        @constraint(model, (N - 1) * (y[i+1] - y[i]) == T * ydot[i])
+        @constraint(model, (N - 1) * (xdot[i+1] - xdot[i]) == T * op_a(theta[i], x[i], y[i], xdot[i], ydot[i]) * cos(theta[i]))
+        @constraint(model, (N - 1) * (ydot[i+1] - ydot[i]) == T * op_a(theta[i], x[i], y[i], xdot[i], ydot[i]) * sin(theta[i]))
+    end
+
+    # ---------------------------------------------------------------------------
+    # Initial guess: straight-line (x,y), theta alternates between the two tack
+    # headings every half of the trajectory.  T estimated from distance/speed.
+    # ---------------------------------------------------------------------------
+    tack_a, tack_b = tack_headings()
+
+    for i in 1:N
+        s = (i - 1) / (N - 1)
+        set_start_value(x[i], x0_val + s * (xf_val - x0_val))
+        set_start_value(y[i], y0_val + s * (yf_val - y0_val))
+        set_start_value(theta[i], s < 0.5 ? tack_a : tack_b)
+    end
+
+    dist   = sqrt((xf_val - x0_val)^2 + (yf_val - y0_val)^2)
+    a_est  = a(tack_a, (x0_val + xf_val) / 2, (y0_val + yf_val) / 2, 0.0, 0.0)
+    T_init = a_est > 1e-3 ? sqrt(2 * dist / a_est) * 1.5 : 100.0
+
+    set_start_value(T, T_init)
+
+    for i in 1:N
+        set_start_value(xdot[i], (xf_val - x0_val) / T_init)
+        set_start_value(ydot[i], (yf_val - y0_val) / T_init)
+    end
+
+    println("Tack headings (deg): ", round.(rad2deg.([tack_a, tack_b]), digits=1))
+    println("T initial guess: ", round(T_init, digits=2))
+
+    optimize!(model)
+
+    println("$plot_title")
+    println("Status:    ", termination_status(model))
+    println("Min time T: ", value(T))
+    println("-" ^ 50)
+
+    x_sol, y_sol, xdot_sol, ydot_sol, theta_sol, T_sol = value.(x), value.(y), value.(xdot), value.(ydot), value.(theta), value(T)
+
+
+    h5open("acc_$filename.h5", "w") do f
+        f["x"]     = x_sol
+        f["y"]     = y_sol
+        f["xdot"]  = xdot_sol
+        f["ydot"]  = ydot_sol
+        f["theta"] = theta_sol
+        f["T"]     = T_sol
+    end
+    println("Saved solution to $filename.h5")
+
+
+    # ---------------------------------------------------------------------------
+    # Plot
+    # ---------------------------------------------------------------------------
+    if want_plot
+        xs  = range(x0_val, xf_val, length=12)
+        ys  = range(y0_val, yf_val, length=12)
+        Xg  = [xi for xi in xs, yi in ys]
+        Yg  = [yi for xi in xs, yi in ys]
+        w0  = phi(15.0, 15.0)
+        Ug  = fill(w0[1], size(Xg))
+        Vg  = fill(w0[2], size(Yg))
+
+        T_rounded = round(value(T_sol), digits=2)
+        p1 = quiver(Xg[:], Yg[:], quiver=(Ug[:] .* 1.5, Vg[:] .* 1.5),
+            color=:gray, alpha=0.4, aspect_ratio=:equal,
+            xlabel="x", ylabel="y", title="Optimal path $plot_title (T = $T_rounded)",
+            legend=:topright)
+        plot!(p1, x_sol, y_sol, color=:blue, lw=2, label="path")
+        scatter!(p1, [x0_val], [y0_val], color=:green, ms=8, label="start")
+        scatter!(p1, [xf_val], [yf_val], color=:red,   ms=8, label="end")
+
+        p2 = plot(range(0, value(T_sol), length=N), rad2deg.(theta_sol),
+            xlabel="time", ylabel="heading (deg)",
+            title="Heading θ(t)", legend=false)
+
+        plot(p1, p2, size=(1100, 480))
+        savefig("ipopt_solution_$filename.png")
+        println("Saved to ipopt_solution_$filename.png")
+    end
+
+    return value.(x), value.(y), value.(theta), value(T), x0_val, y0_val, xf_val, yf_val, N
+
+end
+
+# Legs of the race
+LEGS = [
+    ("Leg 1",  (-87.606, 45.111), (-87.560, 45.105), "leg_1"),
+    ("Leg 2",  (-87.560, 45.105), (-87.525, 45.055), "leg_2"),
+    ("Leg 3",  (-87.525, 45.055), (-87.490, 45.040), "leg_3"),
+    ("Leg 4",  (-87.490, 45.040), (-87.248, 45.145), "leg_4"),
+    ("Leg 5",  (-87.248, 45.145), (-87.245, 45.176), "leg_5"),
+    ("Leg 6",  (-87.245, 45.176), (-87.217, 45.177), "leg_6"),
+    ("Leg 7",  (-87.217, 45.177), (-87.210, 45.168), "leg_7"),
+    ("Leg 8",  (-87.210, 45.168), (-87.193, 45.177), "leg_8"),
+    ("Leg 9",  (-87.193, 45.177), (-87.195, 45.187), "leg_9"),
+    ("Leg 10", (-87.195, 45.187), (-87.335, 45.260), "leg_10"),
+    ("Leg 11", (-87.335, 45.260), (-87.606, 45.111), "leg_11")
+]
+
+for (plot_title, start, finish, filename) in LEGS
+    x0_val, y0_val = start
+    xf_val, yf_val = finish
+    solve(x0_val, y0_val, xf_val, yf_val, 150, filename, true, plot_title)
+end
+# plot_title, start, finish, filename = LEGS[3]
+# x0_val, y0_val = start
+# xf_val, yf_val = finish
+# solve(x0_val, y0_val, xf_val, yf_val, 100, filename, true, plot_title)
+
