@@ -8,4 +8,8 @@ Poster suggestions:
 
 
 To do:
-* 
+* Ethan: Work on paper background / conclusion
+* Ethan: Add a readme.md file to each folder
+* Everyone: Sort through their files and consolidate code
+* Connor: Find functions that match the shoreline
+* Jackson: Add land constraints
