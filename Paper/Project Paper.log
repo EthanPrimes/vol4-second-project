@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 APR 2026 14:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 APR 2026 14:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -342,9 +342,14 @@ Package hyperref Info: Link coloring OFF on input line 15.
 \@outlinefile=\write3
 \openout3 = `"Project Paper.out"'.
 
+<images/100miler_race.png, id=77, 682.2288pt x 642.7212pt>
+File: images/100miler_race.png Graphic file (type png)
+<use images/100miler_race.png>
+Package pdftex.def Info: images/100miler_race.png  used on input line 38.
+(pdftex.def)             Requested size: 180.0pt x 169.57497pt.
 
 
-[1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+[1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./images/100miler_race.png>]
 
 [2]
 
@@ -361,18 +366,18 @@ Package rerunfilecheck Info: File `"Project Paper".out' has not changed.
 (rerunfilecheck)             Checksum: D96FD490E4F11DC652B9BC1558C3F55F;3215.
  ) 
 Here is how much of TeX's memory you used:
- 11250 strings out of 473190
- 177479 string characters out of 5715801
- 597652 words of memory out of 5000000
- 34179 multiletter control sequences out of 15000+600000
+ 11262 strings out of 473190
+ 177789 string characters out of 5715801
+ 596703 words of memory out of 5000000
+ 34190 multiletter control sequences out of 15000+600000
  567443 words of font info for 69 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 75i,12n,79p,1015b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1015b,466s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on "Project Paper.pdf" (5 pages, 186530 bytes).
+Output written on "Project Paper.pdf" (5 pages, 2351829 bytes).
 PDF statistics:
- 186 PDF objects out of 1000 (max. 8388607)
- 149 compressed objects within 2 object streams
- 27 named destinations out of 1000 (max. 500000)
- 145 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 190 PDF objects out of 1000 (max. 8388607)
+ 151 compressed objects within 2 object streams
+ 28 named destinations out of 1000 (max. 500000)
+ 150 words of extra memory for PDF output out of 10000 (max. 10000000)
 
