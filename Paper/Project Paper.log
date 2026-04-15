@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  11 APR 2026 18:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 APR 2026 12:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup/Project Paper.tex"
-(/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/writeup/Project Paper.tex
+**"/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex"
+(/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amscls/amsart.cls
@@ -346,29 +346,31 @@ Package hyperref Info: Link coloring OFF on input line 15.
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-[2] (./Project Paper.bbl)
+[2]
 
-[3] (./Project Paper.aux)
+[3] (./Project Paper.bbl)
+
+[4] (./Project Paper.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `"Project Paper".out' has not changed.
-(rerunfilecheck)             Checksum: 69FD41C93D3D478DFBC75EA657EB7E6C;2241.
+(rerunfilecheck)             Checksum: 8218BE6F1E8903F8E79CCD2F123F4601;2271.
  ) 
 Here is how much of TeX's memory you used:
- 11230 strings out of 473190
- 177175 string characters out of 5715801
- 594567 words of memory out of 5000000
- 34168 multiletter control sequences out of 15000+600000
- 567097 words of font info for 68 fonts, out of 8000000 for 9000
+ 11241 strings out of 473190
+ 177379 string characters out of 5715801
+ 596647 words of memory out of 5000000
+ 34175 multiletter control sequences out of 15000+600000
+ 567443 words of font info for 69 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 75i,6n,79p,1017b,458s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on "Project Paper.pdf" (3 pages, 120277 bytes).
+ 75i,12n,79p,1015b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on "Project Paper.pdf" (4 pages, 184278 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 104 compressed objects within 2 object streams
- 19 named destinations out of 1000 (max. 500000)
+ 165 PDF objects out of 1000 (max. 8388607)
+ 129 compressed objects within 2 object streams
+ 22 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

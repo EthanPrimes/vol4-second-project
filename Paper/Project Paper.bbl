@@ -1,9 +1,19 @@
-\begin{thebibliography}{CM26}
+\begin{thebibliography}{{Mar}24}
 
 \bibitem[CM26]{repo_2026}
 Jackson~Pond Connor~McBride, Ethan~Palenske.
 \newblock vol4-second-project.
 \newblock \url{https://github.com/EthanPrimes/vol4-second-project}, 2026.
 \newblock GitHub repository, MIT license, accessed 2026-4-11.
+
+\bibitem[{Mar}24]{mmyc2024charts}
+{Marinette \& Menominee Yacht Club}.
+\newblock 100 miler race charts, 2024.
+\newblock Accessed: March 27, 2026.
+
+\bibitem[Pag26]{page2026vela}
+Tom Page.
+\newblock This wind-powered cargo ship wants to cut emissions by up to 96\% and deliver faster than conventional sea freight, 2026.
+\newblock CNN Climate. Published: February 12, 2026. Accessed: April 15, 2026.
 
 \end{thebibliography}

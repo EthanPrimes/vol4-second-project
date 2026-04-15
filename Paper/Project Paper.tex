@@ -31,33 +31,70 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 \section{Background}
 
 % BACKGROUND ABOUT THE RACE HERE
-\par The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan.
+\par The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan, and despite its name, is about $42$ nautical miles in length \cite{mmyc2024charts}. While this is a family-centered race with no prizes or larger impact, the problem of optimizing sailing routes is an ancient one, and one that is growing in importance today.
 
+\par Triangular sails were invented in the 2nd century, and since then, determining optimal routes for boats has been a key question not just for racing, but also for commerce, avoiding pirates, and catching commercial vessels that are avoiding you. Now that cargo vessels are beginning to explore adding sails to make their travel more efficient, optimal sailing routes for commerce are a key issue in global supply chain \cite{page2026vela}.
 
-\par The primary question this paper seeks to determine is what the simplest model is that re-discovers real world sailing techniques, particularly tacking and jibing. 
+\par In this project we work to solve a related problem by modeling the optimal route for the 100 Miler race. We started from the simplest case and then increased the model complexity from there. We have a few more parameters to add, including land penalties to prevent the ships from going on land, which we hope to implement soon. We also want to constrain the rate at which the angle of the boat changes, and we want to have wind and current impact boat acceleration instead of velocity.
+
+\par The primary question this paper seeks to determine is what the simplest model is that re-discovers real world sailing techniques, particularly tacking and jibing. Similarly, we wanted to determine the most physically realistic model we could put together that could still be solved numerically and yield realistic results.
 
 %% Second Section 
-\section{Mathematical Representation}
+\section{Mathematical Representations}
 
-\par In this section we go over the models we used to represent sailing.
+\par In this section we go over the models we used to represent sailing dynamics.
 
 % Talk about square sails vs. triangular sails
 
-\subsection*{Model 1: Zeremlo Navigation Approach}
+\subsection*{Model 1: Zermelo Navigation Problem}
+
+\par We first solved the classical Zermelo Navigation Problem, which involves directing a motorboat moving at constant speed $v$ through a body of water with a variable current, given by the vector field $\vec{w}.$ The problem is to determine the path that minimizes the time it takes to get between two fixed points. In this case the control is the angle between the boat's hedding and the $x$-axis, $\theta.$
+
+\par Our state $\vec{s}$ is given by $$ \begin{bmatrix} x \\ y \end{bmatrix}$$ which are simply our $x$ and $y$ coordinates. 
+
+The control vector, or $\vec{u}$, is given by the $x$ and $y$ components of the fixed velocity $v$ in the direction of $\theta,$ or
+
+$$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix}.$$
+
+The velocity vector is the control vector plus the effects of the drift $\vec w$:
+
+$$ \dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
+
+This problem's constraints are fixed endpoints and a norm for our control $u$:
+$$ \| u \| = v, \;\; \vec{s}(t_0) = \vec{s}_0, \;\; \vec{s}(t_f) = \vec{s}_f.$$
+
+Thus, our functional to be minimized is
+\begin{align*}
+    J[u] &= \int_{t_0}^{t_f} 1 dt\\
+    \text{subject to } \dot{\vec{s}} &= \vec{u}(t) + \vec{w}(\vec{s}(t)),\\
+    \vec{s}(t_0) &= \vec{s}_0,\\
+    \vec{s}(t_f) &= \vec{s}_f,\\
+    \text{and } \| u \| &= v.
+\end{align*}
 
 \subsection*{Model 2: Square-Sail Dynamics}
 
+\par The next approach used simple sailing dynamics modeled on square-sailed boats. The assumption is the boat moves in the same direction as the sail is facing, with speed proportional to the exposure of the sail to the wind. The dynamics are very similar to the previous problem, with the angle of the boat from the $x$-axis, $\theta,$ being our control, and $\phi$ being the angle of the wind in relation to the $x$-axis. The primary differences between this model and the previous one is that we no longer have the constraint of constant speed and the dynamics are slightly different:
+
+$$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix}.$$
+
+and the constraint $\| u \| = v$ becomes $\| u \| = v |\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the problem, including the functional, are identical to the previous one.
+
 \subsection*{Model 3: Triangular-Sail Dynamics}
 
-\subsection*{Model 4: Sailing With Land Penalties}
+\par However, boats with triangular sails work very differently from boats with square sails. Instead of being pushed by the wind, triangular sails act similar to airplane wings: the wind blows faster over their front than their back, causing a pressure differential that \textit{pulls} the boat in the direction the sail is facing. This means that boats can sail nearly upwind, but also makes sailing directly downwind very unstable.
+
+\subsection*{Model 4: Acceleration and Land Penalties}
+
+\par Each of the previous models assumed that wind and current directly impacted a boat's velocity. However, it is more accurate to model these as changing the boat's \textit{acceleration,} which in turn impacts velocity.
 
 %% Third Section
-\section{Solution}
+\section{Solutions}
 
 \cite{repo_2026}
 
 %%Fourth Section
-\section{Interpretation}
+\section{Interpretations}
 
 
 \subsection*{Appropriateness of models}
@@ -65,6 +102,7 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 
 \subsection*{Potential improvements}
 
+\par While we accounted for the impact of current, we did not account for the impact of waves on sailing.
 
 \subsection*{Impact}
 
@@ -77,10 +115,12 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 
 %%FERPA Release
 \section{FERPA Release}
-We give Dr. Jarvis, and other instructors at BYU teaching ACME classes permission to share our project as an example of a good project in future classes they teach.
+We give Dr. Jarvis and other instructors at BYU teaching ACME classes permission to share our project as an example of a good project in future classes they teach.
 
 \begin{itemize}
+    \item Connor McBride
     \item Ethan Palenske
+    \item Jackson Pond
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
