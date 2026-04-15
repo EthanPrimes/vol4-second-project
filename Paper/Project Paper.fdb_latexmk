@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex Project Paper"] 1776279800.7134 "Project Paper.aux" "Project Paper.bbl" "Project Paper" 1776279801.3303 0
-  "./refs.bib" 1776276117.06856 946 4e76b109320f228ec4404fb422ff8cd8 ""
+["bibtex Project Paper"] 1776281536.5792 "Project Paper.aux" "Project Paper.bbl" "Project Paper" 1776281537.18656 0
+  "./refs.bib" 1776281535.75254 955 97ef0a8736827fa5c7585ac868c7a469 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "Project Paper.aux" 1776279801.15567 2812 c34e869428676b9ba8c168deed670d2a "pdflatex"
+  "Project Paper.aux" 1776281537.02341 2813 129c93e55ddd3b998801a7d82c58c5a5 "pdflatex"
   (generated)
   "Project Paper.bbl"
   "Project Paper.blg"
   (rewritten before read)
-["pdflatex"] 1776279800.77751 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" "Project Paper.pdf" "Project Paper" 1776279801.33041 0
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" 1776279799.98756 8168 a654b039cc75b812d2e6792ebad4c812 ""
+["pdflatex"] 1776281536.6481 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" "Project Paper.pdf" "Project Paper" 1776281537.18666 0
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" 1776279956.23119 8168 a654b039cc75b812d2e6792ebad4c812 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -111,10 +111,10 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1757904402 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Project Paper.aux" 1776279801.15567 2812 c34e869428676b9ba8c168deed670d2a "pdflatex"
-  "Project Paper.bbl" 1776279800.77604 694 e2f85a4487d6e1618c755cba5c2f3711 "bibtex Project Paper"
-  "Project Paper.out" 1776279801.15614 3215 d96fd490e4f11dc652b9bc1558c3f55f "pdflatex"
-  "Project Paper.tex" 1776279799.98756 8168 a654b039cc75b812d2e6792ebad4c812 ""
+  "Project Paper.aux" 1776281537.02341 2813 129c93e55ddd3b998801a7d82c58c5a5 "pdflatex"
+  "Project Paper.bbl" 1776281536.64661 700 92692a8d554542b3c50803e5247c66f7 "bibtex Project Paper"
+  "Project Paper.out" 1776281537.02389 3215 d96fd490e4f11dc652b9bc1558c3f55f "pdflatex"
+  "Project Paper.tex" 1776279956.23119 8168 a654b039cc75b812d2e6792ebad4c812 ""
   (generated)
   "Project Paper.aux"
   "Project Paper.log"

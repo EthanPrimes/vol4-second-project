@@ -8,7 +8,7 @@ Poster suggestions:
 
 
 To do:
-* Ethan: Add a readme.md file to each folder
 * Everyone: Sort through their files and consolidate code
 * Connor: Find functions that match the shoreline
 * Jackson: Add land constraints
+* Everyone: Write in the `README.md` files about what your code / plotting / data files mean / do
