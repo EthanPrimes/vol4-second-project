@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 APR 2026 12:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 APR 2026 13:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -348,29 +348,31 @@ Package hyperref Info: Link coloring OFF on input line 15.
 
 [2]
 
-[3] (./Project Paper.bbl)
+[3]
 
-[4] (./Project Paper.aux)
+[4] (./Project Paper.bbl)
+
+[5] (./Project Paper.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `"Project Paper".out' has not changed.
-(rerunfilecheck)             Checksum: 8218BE6F1E8903F8E79CCD2F123F4601;2271.
+(rerunfilecheck)             Checksum: D96FD490E4F11DC652B9BC1558C3F55F;3215.
  ) 
 Here is how much of TeX's memory you used:
- 11241 strings out of 473190
- 177379 string characters out of 5715801
- 596647 words of memory out of 5000000
- 34175 multiletter control sequences out of 15000+600000
+ 11250 strings out of 473190
+ 177479 string characters out of 5715801
+ 597651 words of memory out of 5000000
+ 34179 multiletter control sequences out of 15000+600000
  567443 words of font info for 69 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 75i,12n,79p,1015b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1015b,505s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on "Project Paper.pdf" (4 pages, 184278 bytes).
+Output written on "Project Paper.pdf" (5 pages, 185265 bytes).
 PDF statistics:
- 165 PDF objects out of 1000 (max. 8388607)
- 129 compressed objects within 2 object streams
- 22 named destinations out of 1000 (max. 500000)
- 113 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 186 PDF objects out of 1000 (max. 8388607)
+ 149 compressed objects within 2 object streams
+ 27 named destinations out of 1000 (max. 500000)
+ 145 words of extra memory for PDF output out of 10000 (max. 10000000)
 
