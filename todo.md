@@ -8,4 +8,11 @@ Poster suggestions:
 
 
 To do:
-* 
+* Everyone: Sort through their files and consolidate code
+* Connor: Add numerical land penalties
+* Jackson: Find functions that match the shoreline
+* Jackson: Add land constraints, fill in Model 3 and 4 in the paper
+* Ethan: Write up the Model 1 and Model 2 solutions
+
+Final To-Do:
+* Refactor day - refactor code and write file summaries in the `README.md` files
