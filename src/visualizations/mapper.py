@@ -15,34 +15,43 @@ import cartopy.io.img_tiles as cimgt
 
 
 # ── Race marks: (lon, lat) — NOTE: cartopy wants lon first ──────────────────
+# Coordinates match the solver legs exactly (ipopt_solver_acceleration.jl)
 MARKS = {
-    "Start/Finish\n(Menominee)": (-87.614, 45.108),
-    "Green Island":              (-87.495, 44.990),
-    "Fish Creek Buoy":           (-87.245, 45.135),
-    "Strawberry Ch. S":          (-87.260, 45.180),
-    "Strawberry Ch. N":          (-87.270, 45.215),
-    "Chambers Island":           (-87.375, 45.200),
+    "Start / Finish":   (-87.606, 45.111),
+    "Mark 2":           (-87.560, 45.105),
+    "Mark 3":           (-87.525, 45.055),
+    "Green Island":     (-87.490, 45.040),
+    "Fish Creek Buoy":  (-87.248, 45.145),
+    "Strawberry Ch. S": (-87.245, 45.176),
+    "Mark 7":           (-87.217, 45.177),
+    "Horseshoe Island": (-87.210, 45.168),
+    "Mark 9":           (-87.193, 45.177),
+    "Mark 10":          (-87.195, 45.187),
+    "Chambers Island":  (-87.335, 45.260),
 }
 
-# Official course sequence (lon, lat)
+# Official course sequence (lon, lat) — matches solver LEGS waypoints
 OFFICIAL = [
-    (-87.614, 45.108),   # Start
-    (-87.495, 44.990),   # Green Island
-    (-87.245, 45.135),   # Fish Creek
-    (-87.260, 45.180),   # Strawberry S
-    (-87.270, 45.215),   # Strawberry N
-    (-87.375, 45.200),   # Chambers Island
-    (-87.614, 45.108),   # Finish
+    (-87.606, 45.111),   # Start
+    (-87.560, 45.105),   # Mark 2
+    (-87.525, 45.055),   # Mark 3
+    (-87.490, 45.040),   # Green Island
+    (-87.248, 45.145),   # Fish Creek Buoy
+    (-87.245, 45.176),   # Strawberry Ch. S
+    (-87.217, 45.177),   # Mark 7
+    (-87.210, 45.168),   # Horseshoe Island
+    (-87.193, 45.177),   # Mark 9
+    (-87.195, 45.187),   # Mark 10
+    (-87.335, 45.260),   # Chambers Island
+    (-87.606, 45.111),   # Finish
 ]
 
 # ── Islands / obstacles: (lon, lat, label, radius_deg_approx) ───────────────
 OBSTACLES = [
-    (-87.357, 45.184, "", 0.035)
-    # (-87.370, 45.162, "Horseshoe\nIsland",    0.012),
-    # (-87.268, 45.196, "Strawberry\nIslands",  0.018),
-    # (-87.495, 44.990, "Green Island",         0.010),
-    # (-87.340, 45.215, "Hat Island",           0.008),
-    # (-87.290, 45.175, "Nicolet Bay\nShoals",  0.015),
+    (-87.357, 45.184, "Chambers Island", 0.055),
+    (-87.265, 45.159, "Adventure Island", 0.010),
+    (-87.210, 45.179, "Horseshoe\nIsland",    0.005),
+    (-87.497, 45.059, "Green Island",         0.013),
 ]
 
 # ── Map extent: [lon_min, lon_max, lat_min, lat_max] ────────────────────────
@@ -107,10 +116,20 @@ def draw_marks(ax, marks, zorder=10):
         # Number badge
         ax.text(lon, lat, str(i), color='white', fontsize=9, fontweight='bold',
                 ha='center', va='center', transform=PLATE, zorder=zorder+1)
-        # Label — nudge to avoid overlap
-        nudge = {1: (0.010, 0.006), 2: (-0.045, -0.018),
-                 3: (0.010, 0.006), 4: (0.012, -0.005),
-                 5: (0.012, 0.005), 6: (-0.055, 0.02)}
+        # Label — nudge to avoid overlap; keyed to the 11-mark course
+        nudge = {
+            1:  ( 0.010,  0.008),   # Start / Finish — right
+            2:  ( 0.010, -0.012),   # Mark 2 — below right
+            3:  ( 0.010, -0.012),   # Mark 3 — below right
+            4:  ( 0.010, -0.012),   # Green Island — below right
+            5:  ( 0.010,  0.008),   # Fish Creek Buoy — above right
+            6:  (-0.060,  0.008),   # Strawberry Ch. S — above left
+            7:  ( 0.010,  0.008),   # Mark 7 — above right
+            8:  ( 0.010, -0.014),   # Horseshoe Island — below right
+            9:  ( 0.010,  0.008),   # Mark 9 — above right
+            10: (-0.060,  0.008),   # Mark 10 — above left
+            11: (-0.060,  0.008),   # Chambers Island — above left
+        }
         dx, dy = nudge.get(i, (0.008, 0.006))
         ax.text(lon + dx, lat + dy, name,
                 fontsize=11.25, fontweight='bold', color='white', transform=PLATE,

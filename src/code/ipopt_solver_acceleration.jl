@@ -45,13 +45,13 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
         no_go    = NO_GO_DEG * π / 180
 
         # Get speed multiplier--this does the heavy lifting
-        speed_mult   = sin(alpha)^2 * (1 + cos(alpha)^2) / 2
+        speed_mult   = sin(alpha)^2 * (1 + cos(alpha)^2)
 
         # nogo_weight smoothly makes no-go range 0
         nogo_weight  = (1 + tanh(50.0 * (abs(alpha) - no_go))) / 2
 
 
-        return apparent_wind_speed * speed_mult * nogo_weight
+        return (1/0.47) * apparent_wind_speed * speed_mult * nogo_weight
     end
 
     # ---------------------------------------------------------------------------
@@ -99,7 +99,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     # the total cost of 100 chatters each of 1° equals the cost of one switch of 100°,
     # so Ipopt strongly prefers to consolidate switching into as few steps as possible.
     # Increase eps to accept a longer T in exchange for cleaner legs.
-    eps = 1.5
+    eps = 1.
     smooth = 1e-4   # smoothing; keeps the Hessian nonsingular at Δθ=0
     @objective(model, Min, T + eps * sum(sqrt((theta[i+1]-theta[i])^2 + smooth) for i in 1:N-1))
 
