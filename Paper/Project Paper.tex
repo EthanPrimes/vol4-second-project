@@ -89,7 +89,40 @@ and the constraint $\| u \| = v$ becomes $\| u \| = v |\cos(\theta - \phi)|.$ In
 
 \subsection*{Model 3: Triangular-Sail Dynamics}
 
-\par However, boats with triangular sails work very differently from boats with square sails. Instead of being pushed by the wind, triangular sails act similar to airplane wings: the wind blows faster over their front than their back, causing a pressure differential that \textit{pulls} the boat in the direction the sail is facing. This means that boats can sail nearly upwind, but also makes sailing directly downwind very unstable.
+\par However, boats with triangular sails work very differently from boats with square sails. Instead of being pushed by the wind, triangular sails act similar to airplane wings: the wind blows faster over their front than their back, causing a pressure differential that \textit{pulls} the boat in the direction the sail is facing. This allows boats with triangular sails to sail diagonally upwind. However, since the sail is assymetric, this also makes sailing directly downwind very unstable.
+
+\par This new dynamic can be neatly added to our model of Zermelo Navigation (Model 1) by making velocity a function of the wind direction and the boat's heading. We created a velocity function that matches sailing speeds respecting wind direction and boat heading.
+
+% FIGURE OF FUNCTION.
+
+\par The cost function $J$ is identical to previously, but the constraint that $\dot{x} = f$ is now given by 
+
+$$\begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} - \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
+
+\par Where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind.
+
+\par So then the Hamiltonian is given by 
+
+$$ 
+\begin{aligned}
+H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
+&= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} \dot{x} - v(\theta(t), \phi(x, y)) \cos(\theta) - w_1(x, y) \\ \dot{y} - v(\theta(t), \phi(x, y)) \sin(\theta) - w_2(x, y) \end{bmatrix} - 1 \\
+&= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2)-1
+\end{aligned}
+$$
+
+\par So the costate evolution equations are given by
+
+$$
+\begin{aligned}
+\dot{\lambda_1} &= -\frac{\partial H}{\partial x} \\
+& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
+\dot{\lambda_2} & = -\frac{\partial H}{\partial y} \\
+& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
+\frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) \\
+&= 0
+\end{aligned}
+$$
 
 \subsection*{Model 4: Acceleration and Land Penalties}
 
