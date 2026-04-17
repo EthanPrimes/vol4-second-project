@@ -4,6 +4,7 @@ using LinearAlgebra
 using Plots
 using JLD2
 using HDF5
+using DelimitedFiles
 
 # ---------------------------------------------------------------------------
 # PLUG AND PLAY: change phi and NO_GO_DEG, nothing else needs touching.
@@ -24,7 +25,50 @@ phi(_, _) = [WX_MPH / MILES_PER_DEG_LON, WY_MPH / MILES_PER_DEG_LAT]
 
 const NO_GO_DEG = 45.0
 
-function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_title)
+# ---------------------------------------------------------------------------
+# Chebyshev polynomial fit/eval for shoreline constraints.
+# _cheb_eval is generic so ForwardDiff can differentiate through it.
+# ---------------------------------------------------------------------------
+function _cheb_fit(xs, ys, degree)
+    xmin, xmax = minimum(xs), maximum(xs)
+    xs_n = @. 2 * (xs - xmin) / (xmax - xmin) - 1
+    V = zeros(length(xs), degree + 1)
+    V[:, 1] .= 1.0
+    degree >= 1 && (V[:, 2] = xs_n)
+    for k in 3:degree+1
+        @. V[:, k] = 2 * xs_n * V[:, k-1] - V[:, k-2]
+    end
+    return V \ ys, xmin, xmax
+end
+
+function _cheb_eval(x, coeffs, xmin, xmax)
+    xn = 2 * (x - xmin) / (xmax - xmin) - 1
+    t0 = one(xn);  t1 = xn
+    result = coeffs[1] * t0 + coeffs[2] * t1
+    for k in 3:lastindex(coeffs)
+        t2 = 2 * xn * t1 - t0
+        result += coeffs[k] * t2
+        t0, t1 = t1, t2
+    end
+    return result
+end
+
+const _NORTH_CHEB = let
+    data = readdlm(joinpath(@__DIR__, "..", "data", "north_shoreline.csv"), ',', Float64, header=true)[1]
+    idx  = sortperm(data[:, 1])
+    _cheb_fit(data[idx, 2], data[idx, 1], 4)
+end
+
+const _SOUTH_CHEB = let
+    data = readdlm(joinpath(@__DIR__, "..", "data", "south_shoreline.csv"), ',', Float64, header=true)[1]
+    idx  = sortperm(data[:, 1])
+    _cheb_fit(data[idx, 1], data[idx, 2], 4)
+end
+
+north_shore(y) = _cheb_eval(y, _NORTH_CHEB[1], _NORTH_CHEB[2], _NORTH_CHEB[3])
+south_shore(x) = _cheb_eval(x, _SOUTH_CHEB[1], _SOUTH_CHEB[2], _SOUTH_CHEB[3])
+
+function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_title, want_constraints)
     # ---------------------------------------------------------------------------
     # Sailing polar.
     # The hard if-branch of the original causes INVALID_MODEL because ForwardDiff
@@ -121,6 +165,16 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
         @constraint(model, (N - 1) * (ydot[i+1] - ydot[i]) == T * op_a(theta[i], x[i], y[i], xdot[i], ydot[i]) * sin(theta[i]))
     end
 
+    # Shoreline constraints: keep path within water boundaries
+    if want_constraints
+        @operator(model, op_north_shore, 1, north_shore)
+        @operator(model, op_south_shore, 1, south_shore)
+        for i in 1:N
+            @constraint(model, x[i] >= op_north_shore(y[i]))
+            @constraint(model, y[i] >= op_south_shore(x[i]))
+        end
+    end
+
     # ---------------------------------------------------------------------------
     # Initial guess: straight-line (x,y), theta alternates between the two tack
     # headings every half of the trajectory.  T estimated from distance/speed.
@@ -158,7 +212,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     x_sol, y_sol, xdot_sol, ydot_sol, theta_sol, T_sol = value.(x), value.(y), value.(xdot), value.(ydot), value.(theta), value(T)
 
 
-    h5open("acc_$filename.h5", "w") do f
+    h5open("../data/acc_$filename.h5", "w") do f
         f["x"]     = x_sol
         f["y"]     = y_sol
         f["xdot"]  = xdot_sol
@@ -195,7 +249,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
             title="Heading θ(t)", legend=false)
 
         plot(p1, p2, size=(1100, 480))
-        savefig("ipopt_solution_$filename.png")
+        savefig("../../Paper/images/acc_$filename.png")
         println("Saved to ipopt_solution_$filename.png")
     end
 
@@ -221,7 +275,7 @@ LEGS = [
 for (plot_title, start, finish, filename) in LEGS
     x0_val, y0_val = start
     xf_val, yf_val = finish
-    solve(x0_val, y0_val, xf_val, yf_val, 150, filename, true, plot_title)
+    solve(x0_val, y0_val, xf_val, yf_val, 150, filename, true, plot_title, true)
 end
 # plot_title, start, finish, filename = LEGS[3]
 # x0_val, y0_val = start
