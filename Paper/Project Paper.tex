@@ -10,6 +10,11 @@
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{placeins} %enables \FloatBarrier, which prevents figures and tables from going below it.
 \usepackage{hyperref} %makes cross references into hyperlinks. 
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+
 \graphicspath{ {./images/} }
 
 \begin{document}
@@ -53,7 +58,7 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 
 % Talk about square sails vs. triangular sails
 
-\subsection*{Model 1: Zermelo Navigation Problem}
+\subsection{Model 1: Zermelo Navigation Problem}
 
 \par We first solved the classical Zermelo Navigation Problem, which involves directing a motorboat moving at constant speed $v$ through a body of water with a variable current, given by the vector field $\vec{w}.$ The problem is to determine the path that minimizes the time it takes to get between two fixed points. In this case the control is the angle between the boat's hedding and the $x$-axis, $\theta.$
 
@@ -79,7 +84,7 @@ Thus, our functional to be minimized is
     \text{and } \| u \| &= v.
 \end{align*}
 
-\subsection*{Model 2: Square-Sail Dynamics}
+\subsection{Model 2: Square-Sail Dynamics}
 
 \par The next approach used simple sailing dynamics modeled on square-sailed boats. The assumption is the boat moves in the same direction as the sail is facing, with speed proportional to the exposure of the sail to the wind. The dynamics are very similar to the previous problem, with the angle of the boat from the $x$-axis, $\theta,$ being our control, and $\phi$ being the angle of the wind in relation to the $x$-axis. The primary differences between this model and the previous one is that we no longer have the constraint of constant speed and the dynamics are slightly different:
 
@@ -87,7 +92,8 @@ $$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \p
 
 and the constraint $\| u \| = v$ becomes $\| u \| = v |\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
 
-\subsection*{Model 3: Triangular-Sail Dynamics}
+\subsection{Model 3: Triangular-Sail Dynamics}
+\label{sec:model3}
 
 \par However, boats with triangular sails work very differently from boats with square sails. Instead of being pushed by the wind, triangular sails act similar to airplane wings: the wind blows faster over their front than their back, causing a pressure differential that \textit{pulls} the boat in the direction the sail is facing. This allows boats with triangular sails to sail diagonally upwind. However, since the sail is assymetric, this also makes sailing directly downwind very unstable.
 
@@ -99,9 +105,10 @@ and the constraint $\| u \| = v$ becomes $\| u \| = v |\cos(\theta - \phi)|.$ In
 
 $$\dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
 
-\par Where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. $v(\theta(t), \phi(x, y))$ is a function of both wind and boat heading which returns the speed of the boat in the direction it is heading. Multiplying by $\cos(\theta)$ and $\sin(\theta)$ splits the velocity vector of the boat into its $x$ and $y$ components. Both $v()$ and $\w(x, y)$s have units $\frac{\text{deg}}{\text{hr}}$
+\par Where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. $v(\theta(t), \phi(x, y))$ is a function of both wind and boat heading which returns the speed of the boat in the direction it is heading. Multiplying by $\cos(\theta)$ and $\sin(\theta)$ splits the velocity vector of the boat into its $x$ and $y$ components. Both $v()$ and $\vec{w}(x, y)$ have units $\frac{\text{deg}}{\text{hr}}$
 
-\subsection*{Model 4: Acceleration and Land Penalties}
+\subsection{Model 4: Acceleration and Land Penalties}
+\label{sec:model4}
 
 \par Each of the previous models assumed that wind and current directly determine a boat's velocity. However, it is more accurate to model these as changing the boat's \textit{acceleration} instead. 
 
@@ -109,22 +116,22 @@ To model this more accurate dynamic, we track two extra states:
 
 $$\dot{\begin{bmatrix} x \\ y \\ \dot{x} \\ \dot{y}\end{bmatrix}} = \begin{bmatrix} \dot{x} \\ \dot{y} \\ a(\theta(t), \phi(x, y)) \cos(\theta) \\ a(\theta(t), \phi(x, y)) \sin(\theta) \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ \tilde{w}_1(x, y) \\ \tilde{w}_2(x, y) \end{bmatrix}$$
 
-Where instead of determining the velocity with wind and heading dependent $v()$, we determine acceleration with wind and heading dependent $a()$. Both $a()$ and the \tilde{w}(x, y)'s have units $\frac{\text{deg}}{\text{hr}^2}$
+Where instead of determining the velocity with wind and heading dependent $v()$, we determine acceleration with wind and heading dependent $a()$. Both $a()$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}$
 
 %% Third Section
 \section{Solutions}
 
 \par In this section we solve the optimal control problems from the previous section and explain the numerical methods we used to compute optimal paths.
 
-\subsection*{Model 1: Zermelo Navigation Problem}
+\subsection{Model 1: Zermelo Navigation Problem}
 
 
-\subsection*{Model 2: Square-Sail Dynamics}
+\subsection{Model 2: Square-Sail Dynamics}
 
 
-\subsection*{Model 3: Triangular-Sail Dynamics}
+\subsection{Model 3: Triangular-Sail Dynamics}
 
-\par So then the Hamiltonian is given by 
+\par Given the dynamics described in \ref{sec:model3}, the Hamiltonian is given by 
 
 $$ 
 \begin{aligned}
@@ -134,7 +141,7 @@ H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos
 \end{aligned}
 $$
 
-\par So the costate evolution equations are given by
+\par So the costate evolution equations and $\frac{\partial H}{\partial u}$ are given by
 
 $$
 \begin{aligned}
@@ -147,20 +154,55 @@ $$
 \end{aligned}
 $$
 
+Also, since there is no final time cost, we have the endpoint condition that 
 
-\subsection*{Model 4: Acceleration and Land Penalties}
+$$H(t_f) = 0$$
+
+\par We implemented this formulation as a boundary value problem using \texttt{scipy.solve\_bvp()}. However, since the optimal solution dis-continually between headings while going upwind or downwind, the solution has sharp corners which break \texttt{scipy.solve\_bvp()}, which expects smooth solutions.
+
+\par To mitigate this issue, we switched to implementing this problem as an interior point optimization problem, and used the solver implemented by the \texttt{IPOPT} package, with Julia's \texttt{JuMP} optimization package. Our objective function was simply total time, and the $\dot{x} = f$ relation was implemented as a leapfrog Euler discretization of the two-state system, on each time-step of the solution. For $i = 1, \ldots, N-1$, we enforce the constraints:
+\begin{align*}
+(N-1)(x_{i+1} - x_i) &= T \cdot v(\theta_i, x_i, y_i) \cos(\theta_i) \\
+(N-1)(y_{i+1} - y_i) &= T \cdot v(\theta_i, x_i, y_i) \sin(\theta_i)
+\end{align*}
+Where $N$ is the number of timesteps, $T$ is the final time, so $\frac{N-1}{T}$ is effectively $\frac{1}{\Delta t}$.
+
+This implementation worked well and handled the discontinuous nature of the solution effectively. However, initially, when traveling in a near-upwind or near-downwind direction, the solution switched rapidly between headings, which is an unrealistic route for a physical boat. As such we added a penalty term to the objective that penalized changes in heading. 
+
+% \begin{algorithm}
+% \caption{Discretized Dynamics Constraints}
+% \begin{algorithmic}
+% \For{$i = 1$ to $N-1$}
+%     \State $(N-1)(x_{i+1} - x_i) = T \cdot v(\theta_i, x_i, y_i) \cos(\theta_i)$
+%     \State $(N-1)(y_{i+1} - y_i) = T \cdot v(\theta_i, x_i, y_i) \sin(\theta_i)$
+% \EndFor
+% \end{algorithmic}
+% \end{algorithm}
+
+\subsection{Model 4: Acceleration and Land Penalties}
+\par The implementation of the model described in \ref{sec:model4} is very similar to the previous. The only difference is the acceleration function $a()$ in place of the velocity function $v()$. It was a little trickier since the acceleration applied to the boat by the wind depends not on the absolute wind-speed but on \textit{apparent} wind speed, or the wind speed experienced by the boat. Otherwise the boat would continually accelerate forever on any fixed heading. We used the estimation that a racing sailboat would take 30 minutes on any given heading to reach maximum speed on that heading, and added the appropriate multiplicative factor. 
+
+\par As in the previous implementation, we incorporate the $\dot{x} = f$ relation via a standard leapfrog-style Euler discretization of the 4-state system. For $i = 1, \ldots, N-1$, we enforce the constraints:
+\begin{align*}
+(N-1)(x_{i+1} - x_i) &= T \dot{x}_i \\
+(N-1)(y_{i+1} - y_i) &= T \dot{y}_i \\
+(N-1)(\dot{x}_{i+1} - \dot{x}_i) &= T \cdot a(\theta_i, x_i, y_i, \dot{x}_i, \dot{y}_i) \cos(\theta_i) \\
+(N-1)(\dot{y}_{i+1} - \dot{y}_i) &= T \cdot a(\theta_i, x_i, y_i, \dot{x}_i, \dot{y}_i) \sin(\theta_i)
+\end{align*}
+
+\par This implementation still switches between directions but does so smoothly.
 
 %%Fourth Section
 \section{Interpretation}
 
-\subsection*{Comparisons of Results}
+\subsection{Comparisons of Results}
 
 
-\subsection*{Potential improvements}
+\subsection{Potential improvements}
 
 \par While we accounted for the impact of current, we did not account for the impact of waves on sailing.
 
-\subsection*{Impact}
+\subsection{Impact}
 % The impact of our results / this problem
 
 \par With continually growing concerns about the impact of fossil fuel use on the environment, and with the ever-present motivation to cut costs, the impact of cutting shipping emissions using sails cannot be overstated. One company, Vela, is already using a 100\% wind-powered ship with triangular sails to transport cargo across the ocean faster than other shipping vessels. Not only does the prototype, a type of trimarian, cut down on emissions, it also is much quieter, less disturbing to wildlife than traditional shipping, and individual boats can cross the Atlantic 2-4 times faster than traditional cargo ships \cite{page2026vela}.
