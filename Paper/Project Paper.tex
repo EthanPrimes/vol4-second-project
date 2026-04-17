@@ -59,6 +59,7 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 % Talk about square sails vs. triangular sails
 
 \subsection{Model 1: Zermelo Navigation Problem}
+\label{sec:model1}
 
 \par We first solved the classical Zermelo Navigation Problem, which involves directing a motorboat moving at constant speed $v$ through a body of water with a variable current, given by the vector field $\vec{w}.$ The problem is to determine the path that minimizes the time it takes to get between two fixed points. In this case the control is the angle between the boat's hedding and the $x$-axis, $\theta.$
 
@@ -85,6 +86,7 @@ Thus, our functional to be minimized is
 \end{align*}
 
 \subsection{Model 2: Square-Sail Dynamics}
+\label{sec:model2}
 
 \par The next approach used simple sailing dynamics modeled on square-sailed boats. The assumption is the boat moves in the same direction as the sail is facing, with speed proportional to the exposure of the sail to the wind. The dynamics are very similar to the previous problem, with the angle of the boat from the $x$-axis, $\theta,$ being our control, and $\phi$ being the angle of the wind in relation to the $x$-axis. The primary differences between this model and the previous one is that we no longer have the constraint of constant speed and the dynamics are slightly different:
 
@@ -95,9 +97,9 @@ and the constraint $\| u \| = v$ becomes $\| u \| = v |\cos(\theta - \phi)|.$ In
 \subsection{Model 3: Triangular-Sail Dynamics}
 \label{sec:model3}
 
-\par However, boats with triangular sails work very differently from boats with square sails. Instead of being pushed by the wind, triangular sails act similar to airplane wings: the wind blows faster over their front than their back, causing a pressure differential that \textit{pulls} the boat in the direction the sail is facing. This allows boats with triangular sails to sail diagonally upwind. However, since the sail is assymetric, this also makes sailing directly downwind very unstable.
+\par However, boats with triangular sails work very differently from boats with square sails. Instead of being pushed by the wind, triangular sails act similar to airplane wings: the wind blows faster over their front than their back, causing a pressure differential that \textit{pulls} the boat in the direction the sail is facing. This allows boats with triangular sails to sail up to about 40$^\circ$ off of directly upwind. However, since the sail is assymetric, this also makes sailing directly downwind very unstable. So there are two no-go zones, sectors of headings, relative to the wind, toward which sailboats can't travel. When a sailor is traveling upwind or downwind, they zig-zag on either side of the no-go zone. Switching directions in this way is called \textit{tacking} when traveling upwind, and \textit{jibing} when traveling downwind.
 
-\par This new dynamic can be neatly added to our model of Zermelo Navigation (Model 1) by making velocity a function of the wind direction and the boat's heading. We created a velocity function that matches sailing speeds respecting wind direction, wind velocity, and boat heading.
+\par This new dynamic can be neatly added to our model of Zermelo Navigation (Section~{sec:model1}) by making velocity a function of the wind direction and the boat's heading. We created a velocity function that matches sailing speeds respecting wind direction, wind velocity, and boat heading.
 
 % FIGURE OF FUNCTION.
 
@@ -131,7 +133,7 @@ Where instead of determining the velocity with wind and heading dependent $v()$,
 
 \subsection{Model 3: Triangular-Sail Dynamics}
 
-\par Given the dynamics described in \ref{sec:model3}, the Hamiltonian is given by 
+\par Given the dynamics described in Section~\ref{sec:model3}, the Hamiltonian is given by 
 
 $$ 
 \begin{aligned}
@@ -145,12 +147,8 @@ $$
 
 $$
 \begin{aligned}
-\dot{\lambda_1} &= -\frac{\partial H}{\partial x} \\
-& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
-\dot{\lambda_2} & = -\frac{\partial H}{\partial y} \\
-& = - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
-\frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) \\
-&= 0
+    \dot{\begin{bmatrix} \lambda_1 \\ \lambda_2 \end{bmatrix}} &= \begin{bmatrix} -\frac{\partial H}{\partial x} \\ -\frac{\partial H}{\partial y} \end{bmatrix} = \begin{bmatrix} - \left ( \lambda_1 \left ( \frac{\partial v}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial v}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\ - \left ( \lambda_1 \left ( \frac{\partial v}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial v}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \end{bmatrix} \\
+    \frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) = 0
 \end{aligned}
 $$
 
@@ -158,7 +156,7 @@ Also, since there is no final time cost, we have the endpoint condition that
 
 $$H(t_f) = 0$$
 
-\par We implemented this formulation as a boundary value problem using \texttt{scipy.solve\_bvp()}. However, since the optimal solution dis-continually between headings while going upwind or downwind, the solution has sharp corners which break \texttt{scipy.solve\_bvp()}, which expects smooth solutions.
+\par We implemented this formulation as a boundary value problem using \texttt{scipy.solve\_bvp()}. However, since the optimal solution dis-continually switches between headings while going upwind or downwind, the solution has sharp corners which break \texttt{scipy.solve\_bvp()}, which expects smooth solutions.
 
 \par To mitigate this issue, we switched to implementing this problem as an interior point optimization problem, and used the solver implemented by the \texttt{IPOPT} package, with Julia's \texttt{JuMP} optimization package. Our objective function was simply total time, and the $\dot{x} = f$ relation was implemented as a leapfrog Euler discretization of the two-state system, on each time-step of the solution. For $i = 1, \ldots, N-1$, we enforce the constraints:
 \begin{align*}
@@ -182,7 +180,21 @@ Where $N$ is the number of timesteps, $T$ is the final time, so $\frac{N-1}{T}$ 
 % \end{algorithm}
 
 \subsection{Model 4: Acceleration and Land Penalties}
-\par The implementation of the model described in \ref{sec:model4} is very similar to the previous. The only difference is the acceleration function $a()$ in place of the velocity function $v()$. It was a little trickier since the acceleration applied to the boat by the wind depends not on the absolute wind-speed but on \textit{apparent} wind speed, or the wind speed experienced by the boat. Otherwise the boat would continually accelerate forever on any fixed heading. We used the estimation that a racing sailboat would take 30 minutes on any given heading to reach maximum speed on that heading, and added the appropriate multiplicative factor. 
+\par We will again work out the details of Patryagin's Maximum principle before discussing our implementation. With the $\dot{x} = f$ relation as described in Section~\ref{sec:model4}, the Hamiltonian is given by 
+
+$$ H = \lambda_1 \dot{x} + \lambda_2 \dot{y} + \lambda_3 a(\theta, \phi(x, y)) \cos(\theta) + \lambda_4 a(\theta, \phi(x, y))\sin(\theta)$$
+
+\par And so, with the Hamiltonian equations and by Pontryagin's Maximum principle, the costate evolution equations and $\frac{\partial H}{\partial \theta}$ are given by 
+
+\begin{align*}
+    \dot{\begin{bmatrix} \lambda_1 \\ \lambda_2 \\ \lambda_3 \\ \lambda_4 \end{bmatrix}} &= \begin{bmatrix} -\frac{\partial H}{\partial x} \\ -\frac{\partial H}{\partial y} \\ -\frac{\partial H}{\partial \dot{x}} \\ -\frac{\partial H}{\partial \dot{y}} \end{bmatrix} = - \begin{bmatrix} \lambda_3 \frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial x} \cos(\theta) + \lambda_4 \frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial x} \sin(\theta) \\ \lambda_3 \frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial y} \cos(\theta) + \lambda_4 \frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial y} \sin(\theta) \\ \lambda_1 \\ \lambda_2 \end{bmatrix} \\
+    \frac{\partial H}{\partial \theta} &= -\lambda_3 \frac{\partial a}{\partial \theta}\sin(\theta) +\lambda_4 \frac{\partial a}{\partial \theta}\cos(\theta)
+\end{align*}
+
+\par And since there are still no endpoint penalties, we have that 
+$$ H(t_f) = 0 $$
+
+\par The implementation of the model described in Section~\ref{sec:model4}, however, is very similar to the previous. The only difference is the acceleration function $a()$ in place of the velocity function $v()$. It was a little trickier since the acceleration applied to the boat by the wind depends not on the absolute wind-speed but on \textit{apparent} wind speed, or the wind speed experienced by the boat. Otherwise the boat would continually accelerate forever on any fixed heading. We used the estimation that a racing sailboat would take 30 minutes on any given heading to reach maximum speed on that heading, and added the appropriate multiplicative factor. 
 
 \par As in the previous implementation, we incorporate the $\dot{x} = f$ relation via a standard leapfrog-style Euler discretization of the 4-state system. For $i = 1, \ldots, N-1$, we enforce the constraints:
 \begin{align*}
