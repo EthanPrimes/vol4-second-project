@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex Project Paper"] 1776473643.68569 "Project Paper.aux" "Project Paper.bbl" "Project Paper" 1776473737.16467 0
+["bibtex Project Paper"] 1776482010.70249 "Project Paper.aux" "Project Paper.bbl" "Project Paper" 1776482012.11828 0
   "./refs.bib" 1776287047.44255 955 97ef0a8736827fa5c7585ac868c7a469 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "Project Paper.aux" 1776473736.94568 3612 5a837f4a7ed3fb38e2ce92dfb93e867c "pdflatex"
+  "Project Paper.aux" 1776482011.88734 3612 b99b9215fb83c7bc6ed92b8ba8be7442 "pdflatex"
   (generated)
   "Project Paper.bbl"
   "Project Paper.blg"
   (rewritten before read)
-["pdflatex"] 1776473736.22822 "/home/connor-mcbride/acme/math438/final-project/vol4-second-project/Paper/Project Paper.tex" "Project Paper.pdf" "Project Paper" 1776473737.16479 0
+["pdflatex"] 1776482010.91806 "/home/connor-mcbride/acme/math438/final-project/vol4-second-project/Paper/Project Paper.tex" "Project Paper.pdf" "Project Paper" 1776482012.11844 0
   "/etc/texmf/web2c/texmf.cnf" 1748457146.96402 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/connor-mcbride/acme/math438/final-project/vol4-second-project/Paper/Project Paper.tex" 1776473736.02906 22055 e92544ad330b8fd51cc86286e440892f ""
+  "/home/connor-mcbride/acme/math438/final-project/vol4-second-project/Paper/Project Paper.tex" 1776482008.93347 22349 e6054f5a1664ca08c94a3b479b0ebcd2 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -120,10 +120,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1748457159.99642 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1748457205 8213772 3a438d4e48f9c0d3e7a795387742c55b ""
-  "Project Paper.aux" 1776473736.94568 3612 5a837f4a7ed3fb38e2ce92dfb93e867c "pdflatex"
-  "Project Paper.bbl" 1776473643.81473 700 92692a8d554542b3c50803e5247c66f7 "bibtex Project Paper"
-  "Project Paper.out" 1776473736.94568 3708 7ce3f39735a9f7a6b42f12ed1b851fa1 "pdflatex"
-  "Project Paper.tex" 1776473736.02906 22055 e92544ad330b8fd51cc86286e440892f ""
+  "Project Paper.aux" 1776482011.88734 3612 b99b9215fb83c7bc6ed92b8ba8be7442 "pdflatex"
+  "Project Paper.bbl" 1776482010.91032 700 92692a8d554542b3c50803e5247c66f7 "bibtex Project Paper"
+  "Project Paper.out" 1776482011.88734 3708 7ce3f39735a9f7a6b42f12ed1b851fa1 "pdflatex"
+  "Project Paper.tex" 1776482008.93347 22349 e6054f5a1664ca08c94a3b479b0ebcd2 ""
   "images/100miler_race.png" 1776287047.44214 1968857 d6d2c75370aa3fe0d29670436ab96fc6 ""
   (generated)
   "Project Paper.aux"
