@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper"] 1776472730.81787 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper" 1776472731.67705 0
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" 1776472731.50965 3612 5a837f4a7ed3fb38e2ce92dfb93e867c "pdflatex"
+["bibtex /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper"] 1776473184.67924 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper" 1776473207.6607 0
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" 1776473207.49005 3612 5a837f4a7ed3fb38e2ce92dfb93e867c "pdflatex"
   "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/refs.bib" 1776281535.75254 955 97ef0a8736827fa5c7585ac868c7a469 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
   (generated)
   "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl"
   "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.blg"
   (rewritten before read)
-["pdflatex"] 1776472730.88616 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.pdf" "Project Paper" 1776472731.67716 0
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" 1776472731.50965 3612 5a837f4a7ed3fb38e2ce92dfb93e867c "pdflatex"
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl" 1776472730.88298 700 92692a8d554542b3c50803e5247c66f7 "bibtex /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper"
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.out" 1776472731.51023 3708 7ce3f39735a9f7a6b42f12ed1b851fa1 "pdflatex"
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" 1776472720.90576 21722 336610a0e01165b44a01e008ce3d846a ""
+["pdflatex"] 1776473206.89586 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.pdf" "Project Paper" 1776473207.6608 0
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" 1776473207.49005 3612 5a837f4a7ed3fb38e2ce92dfb93e867c "pdflatex"
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl" 1776473184.74711 700 92692a8d554542b3c50803e5247c66f7 "bibtex /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper"
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.out" 1776473207.49041 3708 7ce3f39735a9f7a6b42f12ed1b851fa1 "pdflatex"
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" 1776473202.78112 22054 bb17fc4997324c3d94b01afc94bf8e85 ""
   "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/images/100miler_race.png" 1776286227.71129 1968857 d6d2c75370aa3fe0d29670436ab96fc6 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
