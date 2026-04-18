@@ -120,6 +120,13 @@ $$\frac{\mathrm{d}}{\mathrm{d}t} \begin{bmatrix} x \\ y \\ \dot{x} \\ \dot{y}\en
 
 Where instead of determining the velocity with wind and heading dependent $v()$, we determine acceleration with wind and heading dependent $a()$. Both $a()$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}.$
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/optimized_routes.png}
+    \caption{Optimized routes for the velocity-based relation (left) and acceleration-based (right) models.}
+    \label{fig:optimized_routes}
+\end{figure}
+
 %% Third Section
 \section{Solutions}
 
@@ -190,16 +197,16 @@ $$H(t_f) = 0$$
 
 \par We implemented this formulation as a boundary value problem using \texttt{scipy.integrate.solve\_bvp}. However, since the optimal solution dis-continually switches between headings while going upwind or downwind, the solution has sharp corners which break \texttt{scipy.integrate.solve\_bvp}, which expects smooth solutions.
 
-\par To mitigate this issue, we switched to implementing this problem as an interior point optimization problem, and used the solver implemented by the \texttt{IPOPT} package, with Julia's \texttt{JuMP} optimization package. Our objective function was simply total time, and the $\dot{x} = f$ relation was implemented as a leapfrog Euler discretization of the two-state system, on each time-step of the solution. For $i = 1, \ldots, N-1$, we enforce the constraints:
+\par To mitigate this issue, we switched to implementing this problem as an interior point optimization problem, and used the solver implemented by the \texttt{IPOPT} package, with Julia's \texttt{JuMP} optimization package. This solver essentially minimizes an objective function subject to equality and inequality constraints using a form of Newton descent. Our objective function was simply total time, and the $\dot{x} = f$ relation was implemented as a leapfrog Euler discretization of the two-state system, on each time-step of the solution. For $i = 1, \ldots, N-1$, we enforce the constraints:
 \begin{align*}
 (N-1)(x_{i+1} - x_i) &= T \cdot v(\theta_i, x_i, y_i) \cos(\theta_i) \\
 (N-1)(y_{i+1} - y_i) &= T \cdot v(\theta_i, x_i, y_i) \sin(\theta_i)
 \end{align*}
 Where $N$ is the number of timesteps, $T$ is the final time, so $\frac{N-1}{T}$ is effectively $\frac{1}{\Delta t}$.
 
-\par This implementation is, unsurprisingly, very finicky depending on initial guesses. Our initial guess is somewhat crude but works well. The path from beginning to end is initialized as a straight path, and $theta$ starts a bit outside of the up-wind no-go zone on one side, and switches to the other halfway through the path, simulating a single tack.
+\par This implementation is, unsurprisingly, very finicky depending on initial guesses. Our initial guess is somewhat crude but works well. The path from beginning to end is initialized as a straight path, and $theta$ starts a bit outside of the up-wind no-go zone on one side, and switches to the other halfway through the path, simulating a single tack. That initialization broke for legs of the race that do not require a change of direction (2, 3, 9, 10), and for those we initialized with a single heading. Leg 11, which requires a tack, broke the solver regardless of initialization. We tried tuning several hyperparameters such as mesh size, tolerance, and maximum iterations.
 
-\par This implementation worked well and handled the discontinuous nature of the solution effectively. However, initially, when traveling in a near-upwind or near-downwind direction, the solution switched rapidly between headings, which is an unrealistic route for a physical boat. As such we added a penalty term to the objective that penalized changes in heading. 
+\par This implementation mostly worked well and handled the discontinuous nature of the solution effectively. However, initially, when traveling in a near-upwind or near-downwind direction, the solution switched rapidly between headings, which is an unrealistic route for a physical boat. As such we added a penalty term to the objective that penalized changes in heading. 
 
 % \begin{algorithm}
 % \caption{Discretized Dynamics Constraints}
@@ -236,7 +243,7 @@ $$ H(t_f) = 0 $$
 (N-1)(\dot{y}_{i+1} - \dot{y}_i) &= T \cdot a(\theta_i, x_i, y_i, \dot{x}_i, \dot{y}_i) \sin(\theta_i)
 \end{align*}
 
-\par We used the same initial guess as for the previous model. This implementation still switches between directions but does so smoothly.
+\par We used the same initial guess as for the previous model. This implementation still switches between directions but does so smoothly. The acceleration-relation was friendlier to the solver than the velocity-relation, and ran quickly without needing any alternate initializations.
 
 \subsection{Land Penalties}
 \par The interior point problem formulation made it very simple to add in coastline constraints with the \texttt{IPOPT} solver, which we used for models 3 and 4. We used WebPlotDigitizer to find points along the coastline, then polynomially interpolated to create functions that represented the coastlines. Then we added time-step-wise constraints like so:
@@ -260,7 +267,9 @@ where $d$ is the calculated closest distance from the boat to the nearest point 
 %%Fourth Section
 \section{Interpretation}
 
-\par We discovered tacking! In reality, the fastest sailors do not follow paths like these. Since wind shifts direction and speed, sailors switch direction more often both to take advantage of shifts and to account for potential future shifts. Additionally, right-of-way rules incentivize racers to switch directions more often both to stay out of the way for other racers and to force other racers to change their trajectory. However, if it were known that wind would be constant, as in our formulation, and there were only one sailboat, a single tack per race leg would be perfectly reasonable.
+\par As soon as we incorporated a relation between wind and heading that was similar to real racing dynamics, we found optimal paths that tacked or jibed once. With our model that related wind and heading to velocity directly, we got discontinuous, jagged paths with sharp corners. When we related wind and heading to acceleration, which is physical, we got curved, drifting paths that the boat followed, but still with a single tack or jibe. 
+
+\par In reality, the fastest sailors do not follow paths like these. Since wind shifts direction and speed, sailors switch direction more often both to take advantage of shifts and to account for potential future shifts. Additionally, right-of-way rules incentivize racers to switch directions more often both to stay out of the way for other racers and to force other racers to change their trajectory. However, if it were known that wind would be constant, as in our formulation, and there were only one sailboat, a single tack per race leg would be perfectly reasonable.
 
 \subsection{Comparisons of Results}
 
