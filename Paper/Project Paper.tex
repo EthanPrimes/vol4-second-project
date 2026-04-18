@@ -120,6 +120,13 @@ $$\frac{\mathrm{d}}{\mathrm{d}t} \begin{bmatrix} x \\ y \\ \dot{x} \\ \dot{y}\en
 
 Where instead of determining the velocity with wind and heading dependent $v()$, we determine acceleration with wind and heading dependent $a()$. Both $a()$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}.$
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/optimized_routes.png}
+    \caption{Optimized routes for the velocity-based relation (left) and acceleration-based (right) models.}
+    \label{fig:optimized_routes}
+\end{figure}
+
 %% Third Section
 \section{Solutions}
 
@@ -260,7 +267,9 @@ where $d$ is the calculated closest distance from the boat to the nearest point 
 %%Fourth Section
 \section{Interpretation}
 
-\par We discovered tacking! In reality, the fastest sailors do not follow paths like these. Since wind shifts direction and speed, sailors switch direction more often both to take advantage of shifts and to account for potential future shifts. Additionally, right-of-way rules incentivize racers to switch directions more often both to stay out of the way for other racers and to force other racers to change their trajectory. However, if it were known that wind would be constant, as in our formulation, and there were only one sailboat, a single tack per race leg would be perfectly reasonable.
+\par As soon as we incorporated a relation between wind and heading that was similar to real racing dynamics, we found optimal paths that tacked or jibed once. With our model that related wind and heading to velocity directly, we got discontinuous, jagged paths with sharp corners. When we related wind and heading to acceleration, which is physical, we got curved, drifting paths that the boat followed, but still with a single tack or jibe. 
+
+\par In reality, the fastest sailors do not follow paths like these. Since wind shifts direction and speed, sailors switch direction more often both to take advantage of shifts and to account for potential future shifts. Additionally, right-of-way rules incentivize racers to switch directions more often both to stay out of the way for other racers and to force other racers to change their trajectory. However, if it were known that wind would be constant, as in our formulation, and there were only one sailboat, a single tack per race leg would be perfectly reasonable.
 
 \subsection{Comparisons of Results}
 
