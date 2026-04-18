@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper"] 1776540469.04686 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper" 1776540555.64585 0
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" 1776540555.46626 3447 ff9580fb3544fd440f7a742da3481db9 "pdflatex"
+["bibtex /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper"] 1776540974.5706 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper" 1776541106.84232 0
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" 1776541106.67627 3447 a506300213a5ddcb6d9996dda99e42ca "pdflatex"
   "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/refs.bib" 1776281535.75254 955 97ef0a8736827fa5c7585ac868c7a469 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
   (generated)
   "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl"
   "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.blg"
   (rewritten before read)
-["pdflatex"] 1776540554.87384 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.pdf" "Project Paper" 1776540555.64597 0
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" 1776540555.46626 3447 ff9580fb3544fd440f7a742da3481db9 "pdflatex"
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl" 1776540469.12071 700 92692a8d554542b3c50803e5247c66f7 "bibtex /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper"
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.out" 1776540555.46677 3353 e835800a076341f711eec91ccaab72d6 "pdflatex"
-  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" 1776540554.77742 24202 602750de56b61daddc4cbb2ee4cf2096 ""
+["pdflatex"] 1776541106.08942 "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.pdf" "Project Paper" 1776541106.84247 0
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux" 1776541106.67627 3447 a506300213a5ddcb6d9996dda99e42ca "pdflatex"
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl" 1776540974.6416 700 92692a8d554542b3c50803e5247c66f7 "bibtex /Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper"
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.out" 1776541106.67679 3353 e835800a076341f711eec91ccaab72d6 "pdflatex"
+  "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.tex" 1776541104.96736 23974 22bc75433b108f132b972a7cceb4d414 ""
   "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/images/100miler_race.png" 1776286227.71129 1968857 d6d2c75370aa3fe0d29670436ab96fc6 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
