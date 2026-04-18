@@ -26,7 +26,7 @@
 \date{\today} % or use \today
 
 \begin{abstract}
-In this paper we will try to model the optimal path in the historical M\&M 100 Miler sailing race. Many forces impact optimal sailing, including wind direction, current, and waves, making this a challenging problem to model accurately. The primary questions we work to answer are what the simplest model is that rediscovers real sailing techniques, such as tacking, and how many parameters we can add into our model while still being able to solve it and get reasonable results. We solve the classic Zermelo Navigation Problem assuming constant boat velocity and fixed current drift vector field. Further iterations involve relying on wind instead of a motor, taking into account the impact of the islands on wind and current speed, and adding land penalties. Our more accurate models were able to find a path that matched the speeds of real-world sailors from the year we got current and wind data.
+In this paper we will try to model the optimal path in the historical M\&M 100 Miler sailing race. Many forces impact optimal sailing, including wind direction, current, and waves, making this a challenging problem to model accurately. The primary questions we work to answer are what the simplest model is that rediscovers real sailing techniques, such as tacking, and how many parameters we can add into our model while still being able to solve it and get reasonable results. We solve the classic Zermelo Navigation Problem assuming constant boat velocity and fixed current drift vector field. Further iterations involve relying on wind instead of a motor, examining square vs. triangular sails, and adding land penalties. Our more accurate models were able to find a path that matched the speeds of real-world sailors from the year we got current and wind data.
 
 \end{abstract}
 
@@ -35,7 +35,6 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 %% First Section
 \section{Background}
 
-% BACKGROUND ABOUT THE RACE HERE
 \par The historic M\&M 100 Miler sailing race takes place annually in Lake Michigan, and despite its name, is about $42$ nautical miles in length \cite{mmyc2024charts}. While this is a family-centered race with no prizes or larger impact, the problem of optimizing sailing routes is an ancient one, and one that is growing in importance today.
 
 \begin{figure}[htbp]
@@ -45,11 +44,11 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
     \label{fig:100milder_map}
 \end{figure}
 
-\par Triangular sails were first used in the 2nd century, and since then, determining optimal routes for boats has been a key question not just for racing, but also for commerce, avoiding pirates, and catching commercial vessels that are avoiding you. Now that cargo vessels are beginning to explore adding sails to make their travel more efficient, optimal sailing routes for commerce are a key issue in global supply chain \cite{page2026vela}.
+\par Triangular sails were first used in the 2nd century, and since then, determining optimal routes for boats has been a key question not just for racing, but also for commerce, avoiding pirates, and catching commercial vessels that are avoiding you. Now that cargo vessels are beginning to explore adding sails to make their travel more efficient, optimal sailing routes are once again a key issue in global supply chain \cite{page2026vela}.
 
 \par In this project we work to solve a related problem by modeling the optimal route for the 100 Miler race. We started from the simplest case and then increased the model complexity from there.
 
-\par The primary question this paper seeks to determine is what the simplest model is that re-discovers real world sailing techniques, particularly tacking and jibing. Similarly, we wanted to determine the most physically realistic model we could put together that could still be solved numerically and yield realistic results. Our code is available on our GitHub repository \cite{repo_2026}.
+\par The primary question this paper seeks to determine is what the simplest model is that re-discovers real world sailing techniques, particularly tacking and jibing. Similarly, we wanted to determine the most physically realistic model that could still be solved numerically and yield realistic results. Our code is available on our GitHub repository \cite{repo_2026}.
 
 %% Second Section 
 \section{Mathematical Representations}
@@ -61,9 +60,9 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 \subsection{Model 1: Zermelo Navigation Problem}
 \label{sec:model1}
 
-\par We first solved the classical Zermelo Navigation Problem, which involves directing a motorboat moving at constant speed $v$ through a body of water with a variable current, given by the vector field $\mathbf{w}.$ The problem is to determine the path that minimizes the time it takes to get between two fixed points. In this case the control is the angle between the boat's hedding and the $x$-axis, $\theta.$
-
-\par Our state $\mathbf{s}$ is given by $$ \begin{bmatrix} x \\ y \end{bmatrix}$$ which are simply our $x$ and $y$ coordinates. 
+\par We first solved the classical Zermelo Navigation Problem, which involves directing a motorboat moving at constant speed $v$ through a body of water with a variable current, given by the vector field $\mathbf{w}.$ The problem is to determine the path that minimizes the time it takes to get between two fixed points. In this case the control is the angle $\theta$ between the boat's heading and the $x$-axis. Our state $\mathbf{s}$ is given by
+$$ \begin{bmatrix} x \\ y \end{bmatrix}$$
+which are simply our $x$ and $y$ coordinates. 
 
 The control vector, or $\mathbf{u}$, is given by the $x$ and $y$ components of the fixed velocity $v$ in the direction of $\theta,$ or
 
@@ -74,9 +73,10 @@ The velocity vector is the control vector plus the effects of the drift $\mathbf
 $$ \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
 
 This problem's constraints are fixed endpoints and a norm for our control $\mathbf{u}$:
-$$ \| \mathbf{u} \| = v, \;\; \mathbf{s}(t_0) = \mathbf{s}_0, \;\; \mathbf{s}(t_f) = \mathbf{s}_f.$$
 
-Thus, our functional to be minimized is
+$$\mathbf{s}(t_0) = \mathbf{s}_0, \;\; \mathbf{s}(t_f) = \mathbf{s}_f, \;\; \| \mathbf{u} \| = v.$$
+
+Thus, the functional to be minimized is
 \begin{align*}
     J[u] &= \int_{t_0}^{t_f} 1 dt\\
     \text{subject to } \dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t)),\\
@@ -88,18 +88,18 @@ Thus, our functional to be minimized is
 \subsection{Model 2: Square-Sail Dynamics}
 \label{sec:model2}
 
-\par The next approach used simple sailing dynamics modeled on square-sailed boats. The assumption is the boat moves in the same direction as the sail is facing, with speed proportional to the exposure of the sail to the wind. The dynamics are very similar to the previous problem, with the angle of the boat from the $x$-axis, $\theta,$ being our control, and $\phi$ being the angle of the wind in relation to the $x$-axis. The primary differences between this model and the previous one is that we no longer have the constraint of constant speed and the dynamics are slightly different:
+\par The next approach used simple sailing dynamics modeled on square-sailed boats. The assumption is that the boat moves in the same direction as the sail is facing, with speed proportional to the exposure of the sail to the wind. The dynamics are very similar to the previous problem, with the angle of the boat from the $x$-axis, $\theta,$ being our control, and $\phi$ being the angle of the wind in relation to the $x$-axis. The primary differences between this model and the previous one is that we no longer have the constraint of constant boat speed and the dynamics are slightly different:
 
 $$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix}.$$
 
-and the constraint $\| \mathbf{u} \| = v$ becomes $\| \mathbf{u} \| = v |\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
+\par Also, the constraint $\| \mathbf{u} \| = v$ becomes $\| \mathbf{u} \| = v |\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
 
 \subsection{Model 3: Triangular-Sail Dynamics}
 \label{sec:model3}
 
-\par However, boats with triangular sails work very differently from boats with square sails. Instead of being pushed by the wind, triangular sails act similar to airplane wings: the wind blows faster over their front than their back, causing a pressure differential that \textit{pulls} the boat in the direction the sail is facing. This allows boats with triangular sails to sail up to about 40$^\circ$ off of directly upwind. However, since the sail is assymetric, this also makes sailing directly downwind very unstable. So there are two no-go zones, sectors of headings, relative to the wind, toward which sailboats can't travel. When a sailor is traveling upwind or downwind, they zig-zag on either side of the no-go zone. Switching directions in this way is called \textit{tacking} when traveling upwind, and \textit{jibing} when traveling downwind.
+\par Boats with triangular sails work very differently from boats with square sails. Instead of being pushed by the wind, triangular sails act similar to airplane wings: the wind blows faster over their front than their back, causing a pressure differential that \textit{pulls} the boat in the direction the sail is facing. This allows boats with triangular sails to sail up to about 40$^\circ$ off of directly upwind. However, since the sail is assymetric, this also makes sailing directly downwind very unstable. So there are two no-go zones, sectors of headings, relative to the wind, toward which sailboats can't travel. When a sailor is traveling upwind or downwind, they zig-zag on either side of the no-go zone. Switching directions in this way is called \textit{tacking} when traveling upwind, and \textit{jibing} when traveling downwind.
 
-\par This new dynamic can be neatly added to our model of Zermelo Navigation (Section~{sec:model1}) by making velocity a function of the wind direction and the boat's heading. We created a velocity function that matches sailing speeds respecting wind direction, wind velocity, and boat heading.
+\par This new dynamic can be neatly added to our model of Zermelo Navigation (Section~\ref{sec:model1}) by making velocity a function of the wind direction and the boat's heading. We created a velocity function that matches sailing speeds respecting wind direction, wind velocity, and boat heading.
 
 % FIGURE OF FUNCTION.
 
@@ -118,7 +118,7 @@ To model this more accurate dynamic, we track two extra states:
 
 $$\frac{\mathrm{d}}{\mathrm{d}t} \begin{bmatrix} x \\ y \\ \dot{x} \\ \dot{y}\end{bmatrix} = \begin{bmatrix} \dot{x} \\ \dot{y} \\ a(\theta(t), \phi(x, y)) \cos(\theta) \\ a(\theta(t), \phi(x, y)) \sin(\theta) \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ \tilde{w}_1(x, y) \\ \tilde{w}_2(x, y) \end{bmatrix}$$
 
-Where instead of determining the velocity with wind and heading dependent $v()$, we determine acceleration with wind and heading dependent $a()$. Both $a()$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}$.
+Where instead of determining the velocity with wind and heading dependent $v$, we determine acceleration with wind and heading dependent $a$. Both $a$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}.$
 
 \begin{figure}[htbp]
     \centering
@@ -258,9 +258,9 @@ For $i = 1, \ldots, N-1$, we enforce the constraints:
 
 \par Where north$()$ and south$()$ are the interpolated functions representing the north and south coastlines, respectively.
 
-\par For numerical solutions to the optimal control problem, we can implement different types of land penalties as different cost functions that penalize the boat for getting too close to land. Modeling each island as an ellipse and each coastline as a sequence of lines segments along the coast, possible choices for the two different land penalties are given by 
+\par For numerical solutions to the optimal control problem, we can implement different types of land penalties as different cost functions that penalize the boat for getting too close to land. Modeling each island as an ellipse and each coastline as a sequence of lines segments along the coast, possible choices for the two different land penalties include
 \begin{align*}
-    C_{\text{island}}(x,y) = \frac{1}{\left((x-c_x)^2/r_x + (y-c_y)^2/r_y\right)^n}, \quad C_{\text{coast}}(x,y) = \frac{1}{d^n},
+    C_{\text{island}}(x,y) = \frac{1}{\left((x-c_x)^2/r_x + (y-c_y)^2/r_y\right)^n} \; \text{ and } \; C_{\text{coast}}(x,y) = \frac{1}{d^n},
 \end{align*}
 where $d$ is the calculated closest distance from the boat to the nearest point along the coastline interpolation. The widths and center of the island can be controlled with $(c_x, c_y)$ and $(r_x, r_y)$. The steepness of the penalty can be controlled with $n$. 
 
