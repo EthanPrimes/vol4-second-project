@@ -105,7 +105,7 @@ def draw_route(ax, route, color, label, lw=2.2, zorder=6):
                 zorder=zorder+1)
 
 
-def draw_marks(ax, marks, zorder=10):
+def draw_marks(ax, marks, zorder=10, clean=False):
     for i, (name, (lon, lat)) in enumerate(marks.items(), start=1):
         is_start = i == 1
         color = '#111111' if is_start else '#cc2200'
@@ -116,6 +116,8 @@ def draw_marks(ax, marks, zorder=10):
         # Number badge
         ax.text(lon, lat, str(i), color='white', fontsize=9, fontweight='bold',
                 ha='center', va='center', transform=PLATE, zorder=zorder+1)
+        if clean:
+            continue
         # Label — nudge to avoid overlap; keyed to the 11-mark course
         nudge = {
             1:  ( 0.010,  0.008),   # Start / Finish — right
@@ -212,19 +214,22 @@ def get_default_map():
 
     return ax
 
-def get_satellite_map():
+def get_satellite_map(ax=None, clean=False):
     # Stamen Terrain gives a nice topographic feel for coastal sailing maps
     tiler = cimgt.GoogleTiles(style='satellite')   # swap to 'terrain' or 'street' if preferred
 
-    fig = plt.figure(figsize=(11, 9))
-    ax = fig.add_subplot(1, 1, 1, projection=tiler.crs)
+    if ax is None:
+        fig = plt.figure(figsize=(11, 9))
+        ax = fig.add_subplot(1, 1, 1, projection=tiler.crs)
+
+    fig = ax.get_figure()
 
     ax.set_extent(EXTENT, crs=PLATE)
     ax.add_image(tiler, 11)   # zoom level 11 — increase for more detail, slower fetch
 
     draw_obstacles(ax, OBSTACLES)
     draw_course(ax, OFFICIAL, color='#222222', label='Official course')
-    draw_marks(ax, MARKS)
+    draw_marks(ax, MARKS, clean=clean)
 
     gl = ax.gridlines(draw_labels=True, linewidth=0.3, color='#aaaaaa',
                     linestyle=':', x_inline=False, y_inline=False)
