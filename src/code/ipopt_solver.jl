@@ -91,7 +91,11 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     # The two optimal tack headings are just outside the no-go boundary on each
     # side of the directly-upwind direction.
     # ---------------------------------------------------------------------------
-    function tack_headings()
+    function tack_headings(straight::Bool=false)
+        if straight
+            heading = mod(atan(yf_val - y0_val, xf_val - x0_val), 2π)
+            return heading, heading
+        end
         w0       = phi((x0_val + xf_val) / 2, (y0_val + yf_val) / 2)
         wind_dir = atan(w0[2], w0[1]) - π
         no_go    = NO_GO_DEG * π / 180
@@ -102,6 +106,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
         return ta, tb
     end
 
+
     # ---------------------------------------------------------------------------
     # Build and solve the NLP.
     # ---------------------------------------------------------------------------
@@ -111,7 +116,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     # Set model attributes like tol and max_iter
     set_optimizer_attribute(model, "print_level", 3)
     set_optimizer_attribute(model, "max_iter", 1000000)
-    set_optimizer_attribute(model, "tol", 1e-3)
+    set_optimizer_attribute(model, "tol", 1e-2)
     set_optimizer_attribute(model, "acceptable_tol", 1e-2)
 
     # Set op_v as the 'alias' of V within the model
@@ -129,7 +134,7 @@ function solve(x0_val, y0_val, xf_val, yf_val, N, filename, want_plot, plot_titl
     # the total cost of 100 chatters each of 1° equals the cost of one switch of 100°,
     # so Ipopt strongly prefers to consolidate switching into as few steps as possible.
     # Increase eps to accept a longer T in exchange for cleaner legs.
-    eps = 1.5
+    eps = .5
     smooth = 1e-4   # smoothing; keeps the Hessian nonsingular at Δθ=0
     @objective(model, Min, T + eps * sum(sqrt((theta[i+1]-theta[i])^2 + smooth) for i in 1:N-1))
 
@@ -232,23 +237,23 @@ end
 
 # Legs of the race
 LEGS = [
-    ("Leg 1",  (-87.606, 45.111), (-87.560, 45.105), "leg_1"),
-    ("Leg 2",  (-87.560, 45.105), (-87.525, 45.055), "leg_2"),
-    ("Leg 3",  (-87.525, 45.055), (-87.490, 45.040), "leg_3"),
-    ("Leg 4",  (-87.490, 45.040), (-87.248, 45.145), "leg_4"),
-    ("Leg 5",  (-87.248, 45.145), (-87.245, 45.176), "leg_5"),
-    ("Leg 6",  (-87.245, 45.176), (-87.217, 45.177), "leg_6"),
-    ("Leg 7",  (-87.217, 45.177), (-87.210, 45.168), "leg_7"),
-    ("Leg 8",  (-87.210, 45.168), (-87.193, 45.177), "leg_8"),
-    ("Leg 9",  (-87.193, 45.177), (-87.195, 45.187), "leg_9"),
-    ("Leg 10", (-87.195, 45.187), (-87.335, 45.260), "leg_10"),
+    # ("Leg 1",  (-87.606, 45.111), (-87.560, 45.105), "leg_1"),
+    # ("Leg 2",  (-87.560, 45.105), (-87.525, 45.055), "leg_2"),
+    # ("Leg 3",  (-87.525, 45.055), (-87.490, 45.040), "leg_3"),
+    # ("Leg 4",  (-87.490, 45.040), (-87.248, 45.145), "leg_4"),
+    # ("Leg 5",  (-87.248, 45.145), (-87.245, 45.176), "leg_5"),
+    # ("Leg 6",  (-87.245, 45.176), (-87.217, 45.177), "leg_6"),
+    # ("Leg 7",  (-87.217, 45.177), (-87.210, 45.168), "leg_7"),
+    # ("Leg 8",  (-87.210, 45.168), (-87.193, 45.177), "leg_8"),
+    # ("Leg 9",  (-87.193, 45.177), (-87.195, 45.187), "leg_9"),
+    # ("Leg 10", (-87.195, 45.187), (-87.335, 45.260), "leg_10"),
     ("Leg 11", (-87.335, 45.260), (-87.606, 45.111), "leg_11")
 ]
 
 for (plot_title, start, finish, filename) in LEGS
     x0_val, y0_val = start
     xf_val, yf_val = finish
-    solve(x0_val, y0_val, xf_val, yf_val, 150, filename, true, plot_title, true)
+    solve(x0_val, y0_val, xf_val, yf_val, 250, filename, true, plot_title, false)
 end
 # plot_title, start, finish, filename = LEGS[3]
 # x0_val, y0_val = start

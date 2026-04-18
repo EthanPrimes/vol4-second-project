@@ -275,7 +275,7 @@ LEGS = [
 for (plot_title, start, finish, filename) in LEGS
     x0_val, y0_val = start
     xf_val, yf_val = finish
-    solve(x0_val, y0_val, xf_val, yf_val, 150, filename, true, plot_title, true)
+    solve(x0_val, y0_val, xf_val, yf_val, 150, filename, true, plot_title, false)
 end
 # plot_title, start, finish, filename = LEGS[3]
 # x0_val, y0_val = start
