@@ -118,12 +118,16 @@ To model this more accurate dynamic, we track two extra states:
 
 $$\frac{\mathrm{d}}{\mathrm{d}t} \begin{bmatrix} x \\ y \\ \dot{x} \\ \dot{y}\end{bmatrix} = \begin{bmatrix} \dot{x} \\ \dot{y} \\ a(\theta(t), \phi(x, y)) \cos(\theta) \\ a(\theta(t), \phi(x, y)) \sin(\theta) \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ \tilde{w}_1(x, y) \\ \tilde{w}_2(x, y) \end{bmatrix}$$
 
+<<<<<<< HEAD
 Where instead of determining the velocity with wind and heading dependent $v$, we determine acceleration with wind and heading dependent $a$. Both $a$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}.$
+=======
+Where instead of determining the velocity with wind and heading dependent $v()$, we determine acceleration with wind and heading dependent $a()$. Both $a()$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}$.
+>>>>>>> 97e1afd6d8eaa3f3871d59f5d4c0112f79b0ffef
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{images/optimized_routes.png}
-    \caption{Optimized routes for the velocity-based relation (left) and acceleration-based (right) models.}
+    \caption{Optimized routes for the square-sail boat (left), triangular sail with velocity-based relation (middle) and acceleration-based (right) models. Since the square-sailed boat can't travel upwind, it can only sail the legs shown. The final leg of the velocity-relation model is not shown as it could not be computed.}
     \label{fig:optimized_routes}
 \end{figure}
 
@@ -221,13 +225,16 @@ Where $N$ is the number of timesteps, $T$ is the final time, so $\frac{N-1}{T}$ 
 \subsection{Model 4: Acceleration and Land Penalties}
 \par We will again work out the details of Pontryagin's Maximum principle before discussing our implementation. With the $\dot{x} = f$ relation as described in Section~\ref{sec:model4}, the Hamiltonian is given by 
 
-$$ H = \lambda_1 \dot{x} + \lambda_2 \dot{y} + \lambda_3 a(\theta, \phi(x, y)) \cos(\theta) + \lambda_4 a(\theta, \phi(x, y))\sin(\theta)$$
+$$ H = \lambda_1 \dot{x} + \lambda_2 \dot{y} + \lambda_3(a(\theta, \phi)\cos(\theta) + \tilde{w}_1) + \lambda_4(a(\theta, \phi)\sin(\theta) + \tilde{w}_2) - 1. $$
 
 \par And so, with the Hamiltonian equations and by Pontryagin's Maximum principle, the costate evolution equations and $\frac{\partial H}{\partial \theta}$ are given by 
 
 \begin{align*}
-    \dot{\begin{bmatrix} \lambda_1 \\ \lambda_2 \\ \lambda_3 \\ \lambda_4 \end{bmatrix}} &= \begin{bmatrix} -\frac{\partial H}{\partial x} \\ -\frac{\partial H}{\partial y} \\ -\frac{\partial H}{\partial \dot{x}} \\ -\frac{\partial H}{\partial \dot{y}} \end{bmatrix} = - \begin{bmatrix} \lambda_3 \frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial x} \cos(\theta) + \lambda_4 \frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial x} \sin(\theta) \\ \lambda_3 \frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial y} \cos(\theta) + \lambda_4 \frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial y} \sin(\theta) \\ \lambda_1 \\ \lambda_2 \end{bmatrix} \\
-    \frac{\partial H}{\partial \theta} &= -\lambda_3 \frac{\partial a}{\partial \theta}\sin(\theta) +\lambda_4 \frac{\partial a}{\partial \theta}\cos(\theta)
+    \dot{\lambda}_1 &= -\lambda_3\left(\frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial x}\cos(\theta) + \frac{\partial \tilde{w}_1}{\partial x}\right) - \lambda_4\left(\frac{\partial a}{\partial \phi}\frac{\partial \phi}{\partial x} \sin(\theta) + \frac{\partial \tilde{w}_2}{\partial x}\right) \\
+    \dot{\lambda}_2 &= -\lambda_3\left(\frac{\partial a}{\partial \phi} \frac{\partial \phi}{\partial y}\cos(\theta) + \frac{\partial \tilde{w}_1}{\partial y}\right) - \lambda_4\left(\frac{\partial a}{\partial \phi}\frac{\partial \phi}{\partial y} \sin(\theta) + \frac{\partial \tilde{w}_2}{\partial y}\right) \\
+    \dot{\lambda}_3 &= -\lambda_1 \\
+    \dot{\lambda}_4 &= -\lambda_2 \\
+    \frac{\partial H}{\partial \theta} &= \lambda_3\left(\frac{\partial a}{\partial \theta} \cos(\theta) - a\sin(\theta)\right) + \lambda_4\left(\frac{\partial a}{\partial \theta} \sin(\theta) + a\cos(\theta)\right) = 0.
 \end{align*}
 
 \par And since there are still no endpoint penalties, we have that 
