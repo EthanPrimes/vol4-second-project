@@ -7,7 +7,7 @@
 % \usepackage{chemformula}
 \usepackage[version=4]{mhchem}  % Used for chemical equations
 \usepackage{graphicx}
-\usepackage{amssymb,amsmath,amsthm}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
 \usepackage{placeins} %enables \FloatBarrier, which prevents figures and tables from going below it.
 \usepackage{hyperref} %makes cross references into hyperlinks. 
 
@@ -61,28 +61,28 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
 \subsection{Model 1: Zermelo Navigation Problem}
 \label{sec:model1}
 
-\par We first solved the classical Zermelo Navigation Problem, which involves directing a motorboat moving at constant speed $v$ through a body of water with a variable current, given by the vector field $\vec{w}.$ The problem is to determine the path that minimizes the time it takes to get between two fixed points. In this case the control is the angle between the boat's hedding and the $x$-axis, $\theta.$
+\par We first solved the classical Zermelo Navigation Problem, which involves directing a motorboat moving at constant speed $v$ through a body of water with a variable current, given by the vector field $\mathbf{w}.$ The problem is to determine the path that minimizes the time it takes to get between two fixed points. In this case the control is the angle between the boat's hedding and the $x$-axis, $\theta.$
 
-\par Our state $\vec{s}$ is given by $$ \begin{bmatrix} x \\ y \end{bmatrix}$$ which are simply our $x$ and $y$ coordinates. 
+\par Our state $\mathbf{s}$ is given by $$ \begin{bmatrix} x \\ y \end{bmatrix}$$ which are simply our $x$ and $y$ coordinates. 
 
-The control vector, or $\vec{u}$, is given by the $x$ and $y$ components of the fixed velocity $v$ in the direction of $\theta,$ or
+The control vector, or $\mathbf{u}$, is given by the $x$ and $y$ components of the fixed velocity $v$ in the direction of $\theta,$ or
 
 $$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix}.$$
 
-The velocity vector is the control vector plus the effects of the drift $\vec w$:
+The velocity vector is the control vector plus the effects of the drift $\mathbf w$:
 
-$$ \dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
+$$ \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
 
-This problem's constraints are fixed endpoints and a norm for our control $u$:
-$$ \| u \| = v, \;\; \vec{s}(t_0) = \vec{s}_0, \;\; \vec{s}(t_f) = \vec{s}_f.$$
+This problem's constraints are fixed endpoints and a norm for our control $\mathbf{u}$:
+$$ \| \mathbf{u} \| = v, \;\; \mathbf{s}(t_0) = \mathbf{s}_0, \;\; \mathbf{s}(t_f) = \mathbf{s}_f.$$
 
 Thus, our functional to be minimized is
 \begin{align*}
     J[u] &= \int_{t_0}^{t_f} 1 dt\\
-    \text{subject to } \dot{\vec{s}} &= \vec{u}(t) + \vec{w}(\vec{s}(t)),\\
-    \vec{s}(t_0) &= \vec{s}_0,\\
-    \vec{s}(t_f) &= \vec{s}_f,\\
-    \text{and } \| u \| &= v.
+    \text{subject to } \dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t)),\\
+    \mathbf{s}(t_0) &= \mathbf{s}_0,\\
+    \mathbf{s}(t_f) &= \mathbf{s}_f,\\
+    \text{and } \| \mathbf{u} \| &= v.
 \end{align*}
 
 \subsection{Model 2: Square-Sail Dynamics}
@@ -92,7 +92,7 @@ Thus, our functional to be minimized is
 
 $$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix}.$$
 
-and the constraint $\| u \| = v$ becomes $\| u \| = v |\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
+and the constraint $\| \mathbf{u} \| = v$ becomes $\| \mathbf{u} \| = v |\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
 
 \subsection{Model 3: Triangular-Sail Dynamics}
 \label{sec:model3}
@@ -105,9 +105,9 @@ and the constraint $\| u \| = v$ becomes $\| u \| = v |\cos(\theta - \phi)|.$ In
 
 \par The cost function $J$ is identical to previously, but the constraint that $\dot{x} = f$ is now given by 
 
-$$\dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
+$$ \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
 
-\par Where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. $v(\theta(t), \phi(x, y))$ is a function of both wind and boat heading which returns the speed of the boat in the direction it is heading. Multiplying by $\cos(\theta)$ and $\sin(\theta)$ splits the velocity vector of the boat into its $x$ and $y$ components. Both $v(\theta, phi(x, y))$ and $\vec{w}(x, y)$ have units $\frac{\text{deg}}{\text{hr}}.$
+\par Where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. $v(\theta(t), \phi(x, y))$ is a function of both wind and boat heading which returns the speed of the boat in the direction it is heading. Multiplying by $\cos(\theta)$ and $\sin(\theta)$ splits the velocity vector of the boat into its $x$ and $y$ components. Both $v(\theta, \phi(x, y))$ and $\mathbf{w}(x, y)$ have units $\frac{\text{deg}}{\text{hr}}.$
 
 \subsection{Model 4: Acceleration and Land Penalties}
 \label{sec:model4}
@@ -116,7 +116,7 @@ $$\dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v(\theta(t), \phi(x, y)) \begin{b
 
 To model this more accurate dynamic, we track two extra states:
 
-$$\dot{\begin{bmatrix} x \\ y \\ \dot{x} \\ \dot{y}\end{bmatrix}} = \begin{bmatrix} \dot{x} \\ \dot{y} \\ a(\theta(t), \phi(x, y)) \cos(\theta) \\ a(\theta(t), \phi(x, y)) \sin(\theta) \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ \tilde{w}_1(x, y) \\ \tilde{w}_2(x, y) \end{bmatrix}$$
+$$\frac{\mathrm{d}}{\mathrm{d}t} \begin{bmatrix} x \\ y \\ \dot{x} \\ \dot{y}\end{bmatrix} = \begin{bmatrix} \dot{x} \\ \dot{y} \\ a(\theta(t), \phi(x, y)) \cos(\theta) \\ a(\theta(t), \phi(x, y)) \sin(\theta) \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ \tilde{w}_1(x, y) \\ \tilde{w}_2(x, y) \end{bmatrix}$$
 
 Where instead of determining the velocity with wind and heading dependent $v()$, we determine acceleration with wind and heading dependent $a()$. Both $a()$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}$
 
@@ -131,30 +131,30 @@ Where instead of determining the velocity with wind and heading dependent $v()$,
 
 \begin{align*}
     J[u] &= \int_{t_0}^{t_f} 1 dt\\
-    \text{subject to } \dot{\vec{s}} &= \vec{u}(t) + \vec{w}(\vec{s}(t)),\\
-    \vec{s}(t_0) &= \vec{s}_0,\\
-    \vec{s}(t_f) &= \vec{s}_f,\\
-    \text{and } \| u \| &= v,
+    \text{subject to } \dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t)),\\
+    \mathbf{s}(t_0) &= \mathbf{s}_0,\\
+    \mathbf{s}(t_f) &= \mathbf{s}_f,\\
+    \text{and } \| \mathbf{u} \| &= v,
 \end{align*}
-where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. So, the hamiltonian is given by 
+where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. So, the Hamiltonian is given by 
 
 \begin{align*}
-    H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
-    &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} \dot{x} - v(\theta(t), \phi(x, y)) \cos(\theta) - w_1(x, y) \\ \dot{y} - v(\theta(t), \phi(x, y)) \sin(\theta) - w_2(x, y) \end{bmatrix} - 1 \\
-    &= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2 v(\theta,\phi(x, y))\sin(\theta)-w_2) - 1.
+    H &= \boldsymbol{\lambda}(t)^\top \left(v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta(t)) \\ \sin(\theta(t)) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
+    &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} v(\theta(t), \phi(x, y)) \cos(\theta(t)) + w_1(x, y) \\ v(\theta(t), \phi(x, y)) \sin(\theta(t)) + w_2(x, y) \end{bmatrix} - 1 \\
+    &= \lambda_1(v(\theta, \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta, \phi)\sin(\theta) + w_2) - 1
 \end{align*}
 
 So the costate evolution equations, and Pontryagin's Maximum Principle, will yeild
 
 \begin{align*}
-\dot{\lambda_1} &= - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
-\dot{\lambda_2} &= - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
+\dot{\lambda}_1 &= - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) + \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
+\dot{\lambda}_2 &= - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) + \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
 \frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) \\
 &= 0.
 \end{align*}
 
 \par The result is also subject to the boundary conditions
-$$\vec{s_{0}} = \vec{s}(0) \text{ and } \vec{s_{t_f}} = \vec{s}(t_f),$$
+$$\mathbf{s_{0}} = \mathbf{s}(0) \text{ and } \mathbf{s_{t_f}} = \mathbf{s}(t_f),$$
 with $H(t_f) = 0$ since there is no final time cost.
 
 \par We implemented this using \verb|scipy.solve_bvp()|. In order to determine the optimal end time we treated it as a parameter and normalized the problem to go between the times $0$ and $1.$
@@ -168,7 +168,7 @@ with $H(t_f) = 0$ since there is no final time cost.
 
 $$ 
 \begin{aligned}
-H &= \lambda(t)^T (\dot{\vec{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
+H &= \lambda(t)^T (\dot{\mathbf{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
 &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} \dot{x} - v(\theta(t), \phi(x, y)) \cos(\theta) - w_1(x, y) \\ \dot{y} - v(\theta(t), \phi(x, y)) \sin(\theta) - w_2(x, y) \end{bmatrix} - 1 \\
 &= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2)-1
 \end{aligned}
@@ -247,6 +247,12 @@ For $i = 1, \ldots, N-1$, we enforce the constraints:
 
 \par Where north$()$ and south$()$ are the interpolated functions representing the north and south coastlines, respectively.
 
+\par For numerical solutions to the optimal control problem, we can implement different types of land penalties as different cost functions that penalize the boat for getting too close to land. Modeling each island as an ellipse and each coastline as a sequence of lines segments along the coast, possible choices for the two different land penalties are given by 
+\begin{align*}
+    C_{\text{island}}(x,y) = \frac{1}{\left((x-c_x)^2/r_x + (y-c_y)^2/r_y\right)^n}, \quad C_{\text{coast}}(x,y) = \frac{1}{d^n},
+\end{align*}
+where $d$ is the calculated closest distance from the boat to the nearest point along the coastline interpolation. The widths and center of the island can be controlled with $(c_x, c_y)$ and $(r_x, r_y)$. The steepness of the penalty can be controlled with $n$. 
+
 \par While these constraints were simple to add to the implementations, they complicated an already messy nonlinear optimization problem, and made several of the legs locally infeasible for the initial guesses we used. This issue was especially pronounced for the version that related acceleration to wind and heading.
 
 
@@ -272,7 +278,7 @@ For $i = 1, \ldots, N-1$, we enforce the constraints:
 %%Fifth Section
 \section{Conclusion}
 
-\par While the simplest two models we worked with were not able to rediscover real sailing techniques, the more complicated ones were.
+\par While the simplest two models we worked with were not able to rediscover real sailing techniques, the more complicated ones were. By speciying exact waypoints throughout the race course to travel through, the boat is able to travel in a somewhat realistic race path.
 
 %%FERPA Release
 \section{FERPA Release}
