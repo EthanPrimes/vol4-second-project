@@ -118,11 +118,7 @@ To model this more accurate dynamic, we track two extra states:
 
 $$\frac{\mathrm{d}}{\mathrm{d}t} \begin{bmatrix} x \\ y \\ \dot{x} \\ \dot{y}\end{bmatrix} = \begin{bmatrix} \dot{x} \\ \dot{y} \\ a(\theta(t), \phi(x, y)) \cos(\theta) \\ a(\theta(t), \phi(x, y)) \sin(\theta) \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ \tilde{w}_1(x, y) \\ \tilde{w}_2(x, y) \end{bmatrix}$$
 
-<<<<<<< HEAD
 Where instead of determining the velocity with wind and heading dependent $v$, we determine acceleration with wind and heading dependent $a$. Both $a$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}.$
-=======
-Where instead of determining the velocity with wind and heading dependent $v()$, we determine acceleration with wind and heading dependent $a()$. Both $a()$ and the $\tilde{w}(x, y)$'s have units $\frac{\text{deg}}{\text{hr}^2}$.
->>>>>>> 97e1afd6d8eaa3f3871d59f5d4c0112f79b0ffef
 
 \begin{figure}[htbp]
     \centering
@@ -141,7 +137,7 @@ Where instead of determining the velocity with wind and heading dependent $v()$,
 \par Under the dynamics we assumed in Section~\ref{sec:model1}, our functional will be given by
 
 \begin{align*}
-    J[u] &= \int_{t_0}^{t_f} 1 \,dt\\
+    J[u] &= \int_{t_0}^{t_f} 1 dt\\
     \text{subject to } \dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t)),\\
     \mathbf{s}(t_0) &= \mathbf{s}_0,\\
     \mathbf{s}(t_f) &= \mathbf{s}_f,\\
