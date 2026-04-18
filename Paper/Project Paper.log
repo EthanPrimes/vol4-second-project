@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 APR 2026 15:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  17 APR 2026 18:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -286,98 +286,150 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip72
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count302
+\c@ALG@rem=\count303
+\c@ALG@nested=\count304
+\ALG@tlm=\skip73
+\ALG@thistlm=\skip74
+\c@ALG@Lnr=\count305
+\c@ALG@blocknr=\count306
+\c@ALG@storecount=\count307
+\c@ALG@tmpcounter=\count308
+\ALG@tmplength=\skip75
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count309
+\float@exts=\toks29
+\float@box=\box56
+\@float@everytoks=\toks30
+\@floatcapt=\box57
+)
+\@float@every@algorithm=\toks31
+\c@algorithm=\count310
 ) (/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux)
 \openout1 = `"Project Paper.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 20.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 15.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 20.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
-Package chemgreek Info: Activating mapping `default' on line 15.
+Package chemgreek Info: Activating mapping `default' on line 20.
 
  (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count302
+\scratchcounter=\count311
 \scratchdimen=\dimen165
-\scratchbox=\box56
-\nofMPsegments=\count303
-\nofMParguments=\count304
-\everyMPshowfont=\toks29
-\MPscratchCnt=\count305
+\scratchbox=\box58
+\nofMPsegments=\count312
+\nofMParguments=\count313
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count314
 \MPscratchDim=\dimen166
-\MPnumerator=\count306
-\makeMPintoPDFobject=\count307
-\everyMPtoPDFconversion=\toks30
+\MPnumerator=\count315
+\makeMPintoPDFobject=\count316
+\everyMPtoPDFconversion=\toks33
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 15.
+Package hyperref Info: Link coloring OFF on input line 20.
  (/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.out) (/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.out)
 \@outlinefile=\write3
 \openout3 = `"Project Paper.out"'.
 
-<images/100miler_race.png, id=77, 682.2288pt x 642.7212pt>
+<images/100miler_race.png, id=81, 682.2288pt x 642.7212pt>
 File: images/100miler_race.png Graphic file (type png)
 <use images/100miler_race.png>
-Package pdftex.def Info: images/100miler_race.png  used on input line 38.
+Package pdftex.def Info: images/100miler_race.png  used on input line 43.
 (pdftex.def)             Requested size: 198.0011pt x 186.53148pt.
 
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-[2 </Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/images/100miler_race.png>]
+[2
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.86 \end{align*}
+                  </Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/images/100miler_race.png>]
 
 [3]
 
-[4] (/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl)
+[4]
+Overfull \hbox (2.67357pt too wide) in paragraph at lines 170--171
+ \OT1/cmr/m/n/10.95 3.3.\OT1/cmr/bx/n/10.95 Model 3: Triangular-Sail Dy-nam-ics.[][] \OT1/cmr/m/n/10.95 Given the dy-nam-ics de-scribed
+ []
 
-[5] (/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux)
+
+
+[5]
+
+[6]
+
+[7]
+
+[8]
+
+[9] (/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.bbl)
+
+[10] (/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `"Project Paper".out' has not changed.
-(rerunfilecheck)             Checksum: 7F56BB72B49D70526936FA66382CD9F8;3200.
+(rerunfilecheck)             Checksum: 7CE3F39735A9F7A6B42F12ED1B851FA1;3708.
  ) 
 Here is how much of TeX's memory you used:
- 11262 strings out of 473190
- 178679 string characters out of 5715801
- 595703 words of memory out of 5000000
- 34190 multiletter control sequences out of 15000+600000
- 567443 words of font info for 69 fonts, out of 8000000 for 9000
+ 11943 strings out of 473190
+ 189470 string characters out of 5715801
+ 616249 words of memory out of 5000000
+ 34846 multiletter control sequences out of 15000+600000
+ 567611 words of font info for 70 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 75i,12n,79p,1015b,470s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.pdf" (5 pages, 2351818 bytes).
+ 75i,16n,79p,1015b,521s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on "/Users/ethanpalenske/Desktop/Winter 2026 Classes/vol4-second-project/Paper/Project Paper.pdf" (10 pages, 2396688 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 28 named destinations out of 1000 (max. 500000)
- 150 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 230 PDF objects out of 1000 (max. 8388607)
+ 182 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
+ 158 words of extra memory for PDF output out of 10000 (max. 10000000)
 
