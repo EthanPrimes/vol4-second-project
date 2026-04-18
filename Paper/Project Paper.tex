@@ -141,7 +141,7 @@ For the sake of making future problems simpler to solve, we assumed that $v$ is 
 \begin{align*}
     H &= \boldsymbol{\lambda}(t)^\top \left(v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta(t)) \\ \sin(\theta(t)) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
     &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} v(\theta(t), \phi(x, y)) \cos(\theta(t)) + w_1(x, y) \\ v(\theta(t), \phi(x, y)) \sin(\theta(t)) + w_2(x, y) \end{bmatrix} - 1 \\
-    &= \lambda_1(v(\theta, \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta, \phi)\sin(\theta) + w_2) - 1
+    &= \lambda_1(v(\theta, \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta, \phi)\sin(\theta) + w_2) - 1.
 \end{align*}
 
 So the costate evolution equations, and Pontryagin's Maximum Principle, will yield
@@ -151,17 +151,16 @@ So the costate evolution equations, and Pontryagin's Maximum Principle, will yie
     \dot{y} &= v(\theta, \phi) \sin(\theta) + w_2(x, y) \\
     \dot{\lambda}_1 &= -\lambda_1 \left ( \frac{\partial v}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial v}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right )\\
     \dot{\lambda}_2 &= -\lambda_1 \left ( \frac{\partial v}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial v}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right )\\
-    \frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) \\
-    &= 0.
+    \frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) = 0.
 \end{align*}
 
 \par The result is also subject to the boundary conditions
 $$\mathbf{s_{0}} = \mathbf{s}(0) \text{ and } \mathbf{s_{t_f}} = \mathbf{s}(t_f),$$
 with $H(t_f) = 0$ since there is no final time cost.
 
-\par We implemented this using \verb|scipy.solve_bvp()|. In order to determine the optimal end time we treated it as a parameter and normalized the problem to go between the times $0$ and $1.$
+\par We implemented this using \verb|scipy.integrate.solve_bvp|. In order to determine the optimal end time we treated it as a parameter and normalized the problem to go between the times $0$ and $1.$
 
-\par The solution for the setup given in Section~\ref{sec:model2} is almost identical to the previous problem, just with the $\cos(\theta - \phi)$ terms accounted for; and indeed, we can account for that in the arbitrary velocity function used here. We were able to solve it similarly using \verb|scipy.solve_bvp()|.
+\par The solution for the setup given in Section~\ref{sec:model2} is almost identical to the previous problem, just with the $\cos(\theta - \phi)$ terms accounted for; and indeed, we can account for that in the arbitrary velocity function used here. We were able to solve it similarly using \verb|scipy.integrate.solve_bvp|.
 
 \subsection{Model 3: Triangular-Sail Dynamics}
 
@@ -169,9 +168,9 @@ with $H(t_f) = 0$ since there is no final time cost.
 
 $$ 
 \begin{aligned}
-H &= \lambda(t)^T (\dot{\mathbf{x}} - v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}) - 1\\
-&= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} \dot{x} - v(\theta(t), \phi(x, y)) \cos(\theta) - w_1(x, y) \\ \dot{y} - v(\theta(t), \phi(x, y)) \sin(\theta) - w_2(x, y) \end{bmatrix} - 1 \\
-&= \lambda_1(v(\theta, \phi(x, y))\cos(\theta) - w_1)+ \lambda_2(v(\theta,\phi(x, y))\sin(\theta)-w_2)-1
+    H &= \boldsymbol{\lambda}(t)^\top \left(v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta(t)) \\ \sin(\theta(t)) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1 \\
+    &= \begin{bmatrix} \lambda_1 & \lambda_2 \end{bmatrix}  \begin{bmatrix} v(\theta(t), \phi(x, y)) \cos(\theta(t)) + w_1(x, y) \\ v(\theta(t), \phi(x, y)) \sin(\theta(t)) + w_2(x, y) \end{bmatrix} - 1 \\
+    &= \lambda_1(v(\theta, \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta, \phi)\sin(\theta) + w_2) - 1.
 \end{aligned}
 $$
 
@@ -179,8 +178,9 @@ $$
 
 $$
 \begin{aligned}
-    \dot{\begin{bmatrix} \lambda_1 \\ \lambda_2 \end{bmatrix}} &= \begin{bmatrix} -\frac{\partial H}{\partial x} \\ -\frac{\partial H}{\partial y} \end{bmatrix} = \begin{bmatrix} - \left ( \lambda_1 \left ( \frac{\partial v}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial v}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\ - \left ( \lambda_1 \left ( \frac{\partial v}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial v}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \end{bmatrix} \\
-    \frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) = 0
+    \dot{\lambda}_1 &= -\frac{\partial H}{\partial x} = -\lambda_1 \left ( \frac{\partial v}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) - \lambda_2 \left ( \frac{\partial v}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \\
+    \dot{\lambda}_2 &= -\frac{\partial H}{\partial y} = -\lambda_1 \left ( \frac{\partial v}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) - \lambda_2 \left ( \frac{\partial v}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \\
+    \frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) = 0.
 \end{aligned}
 $$
 
@@ -188,7 +188,7 @@ Also, since there is no final time cost, we have the endpoint condition that
 
 $$H(t_f) = 0$$
 
-\par We implemented this formulation as a boundary value problem using \texttt{scipy.solve\_bvp()}. However, since the optimal solution dis-continually switches between headings while going upwind or downwind, the solution has sharp corners which break \texttt{scipy.solve\_bvp()}, which expects smooth solutions.
+\par We implemented this formulation as a boundary value problem using \texttt{scipy.integrate.solve\_bvp}. However, since the optimal solution dis-continually switches between headings while going upwind or downwind, the solution has sharp corners which break \texttt{scipy.integrate.solve\_bvp}, which expects smooth solutions.
 
 \par To mitigate this issue, we switched to implementing this problem as an interior point optimization problem, and used the solver implemented by the \texttt{IPOPT} package, with Julia's \texttt{JuMP} optimization package. Our objective function was simply total time, and the $\dot{x} = f$ relation was implemented as a leapfrog Euler discretization of the two-state system, on each time-step of the solution. For $i = 1, \ldots, N-1$, we enforce the constraints:
 \begin{align*}
