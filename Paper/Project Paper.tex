@@ -107,7 +107,7 @@ and the constraint $\| u \| = v$ becomes $\| u \| = v |\cos(\theta - \phi)|.$ In
 
 $$\dot{\begin{bmatrix} x \\ y \end{bmatrix}} = v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta) \\ \sin(\theta) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}$$
 
-\par Where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. $v(\theta(t), \phi(x, y))$ is a function of both wind and boat heading which returns the speed of the boat in the direction it is heading. Multiplying by $\cos(\theta)$ and $\sin(\theta)$ splits the velocity vector of the boat into its $x$ and $y$ components. Both $v()$ and $\vec{w}(x, y)$ have units $\frac{\text{deg}}{\text{hr}}$
+\par Where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. $v(\theta(t), \phi(x, y))$ is a function of both wind and boat heading which returns the speed of the boat in the direction it is heading. Multiplying by $\cos(\theta)$ and $\sin(\theta)$ splits the velocity vector of the boat into its $x$ and $y$ components. Both $v(\theta, phi(x, y))$ and $\vec{w}(x, y)$ have units $\frac{\text{deg}}{\text{hr}}.$
 
 \subsection{Model 4: Acceleration and Land Penalties}
 \label{sec:model4}
@@ -260,7 +260,7 @@ For $i = 1, \ldots, N-1$, we enforce the constraints:
 
 \subsection{Potential improvements}
 
-\par While we accounted for the impact of current, we did not account for the impact of waves on sailing.
+\par While we accounted for the impact of current, we did not account for the impact of waves on sailing. Similarly, we did not examine the impact of other racers, wind shadows (wind going slower after passing over land), bad weather, and friction. There are many paths that could be explored further, although at some point it becomes a problem of optimizing boats and not routes.
 
 \subsection{Impact}
 % The impact of our results / this problem
