@@ -125,7 +125,7 @@ Where instead of determining the velocity with wind and heading dependent $v()$,
 
 \par In this section we solve the optimal control problems from the previous section and explain the numerical methods we used to compute optimal paths.
 
-\subsection{Model 1: Zermelo Navigation Problem}
+\subsection{Models 1 \& 2}
 
 \par Under the dynamics we assumed in Section~\ref{sec:model1}, our functional will be given by
 
@@ -136,7 +136,7 @@ Where instead of determining the velocity with wind and heading dependent $v()$,
     \mathbf{s}(t_f) &= \mathbf{s}_f,\\
     \text{and } \| \mathbf{u} \| &= v,
 \end{align*}
-where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind. So, the Hamiltonian is given by 
+For the sake of making future problems simpler to solve, we assumed that $v$ is a function, represented by $v(\theta(t), \phi(x, y)),$ indicating that the velocity of the boat is impacted by the boat angle and the wind angle. Also, while this notation is a bit confusing, $\phi(x, y)$ just yields the $x$ and $y$ components of the wind, so this is a constant in terms of the position of the boat. So, the Hamiltonian is given by 
 
 \begin{align*}
     H &= \boldsymbol{\lambda}(t)^\top \left(v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta(t)) \\ \sin(\theta(t)) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
@@ -144,11 +144,19 @@ where $\phi(x, y)$ gives the $x$ and $y$ components of the velocity of the wind.
     &= \lambda_1(v(\theta, \phi)\cos(\theta) + w_1)+ \lambda_2(v(\theta, \phi)\sin(\theta) + w_2) - 1
 \end{align*}
 
-So the costate evolution equations, and Pontryagin's Maximum Principle, will yeild
+So the costate evolution equations, and Pontryagin's Maximum Principle, will yield
 
 \begin{align*}
-\dot{\lambda}_1 &= - \left ( \lambda_1 \left ( \frac{\partial V}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) + \lambda_2 \left ( \frac{\partial V}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
-\dot{\lambda}_2 &= - \left ( \lambda_1 \left ( \frac{\partial V}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) + \lambda_2 \left ( \frac{\partial V}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
+\dot{x} &= v(\theta, \phi) \cos(\theta) + w_1(x, y) \\
+\dot{y} &= v(\theta, \phi) \sin(\theta) + w_2(x, y) \\
+\dot{\lambda_1} &= -\lambda_1 \frac{\partial w_1}{\partial x} -\lambda_2 \frac{\partial w_2}{\partial x} \\
+\dot{\lambda_2} &= -\lambda_1 \frac{\partial w_1}{\partial y} -\lambda_2 \frac{\partial w_2}{\partial y} \\
+H(t_f) &= 0,
+\end{align*}
+
+\begin{align*}
+\dot{\lambda}_1 &= - \left ( \lambda_1 \left ( \frac{\partial v}{\partial x} \cos(\theta) + \frac{\partial w_1}{\partial x} \right ) + \lambda_2 \left ( \frac{\partial v}{\partial x} \sin(\theta) + \frac{\partial w_2}{\partial x} \right ) \right ) \\
+\dot{\lambda}_2 &= - \left ( \lambda_1 \left ( \frac{\partial v}{\partial y} \cos(\theta) + \frac{\partial w_1}{\partial y} \right ) + \lambda_2 \left ( \frac{\partial v}{\partial y} \sin(\theta) + \frac{\partial w_2}{\partial y} \right ) \right ) \\
 \frac{\partial H}{\partial \theta} &= \lambda_1 \left (\frac{\partial v}{\partial \theta} \cos(\theta) - v \sin(\theta) \right ) + \lambda_2 \left (\frac{\partial v}{\partial \theta} \sin(\theta) + v \cos(\theta) \right ) \\
 &= 0.
 \end{align*}
@@ -159,8 +167,7 @@ with $H(t_f) = 0$ since there is no final time cost.
 
 \par We implemented this using \verb|scipy.solve_bvp()|. In order to determine the optimal end time we treated it as a parameter and normalized the problem to go between the times $0$ and $1.$
 
-\subsection{Model 2: Square-Sail Dynamics}
-\par The solution here is almost identical to the previous problem, just with the $\cos(\theta - \phi)$ terms accounted for. We were able to solve it similarly using \verb|scipy.solve_bvp()|.
+\par The solution for the setup given in Section~\ref{sec:model2} is almost identical to the previous problem, just with the $\cos(\theta - \phi)$ terms accounted for; and indeed, we can account for that in the arbitrary velocity function used here. We were able to solve it similarly using \verb|scipy.solve_bvp()|.
 
 \subsection{Model 3: Triangular-Sail Dynamics}
 
