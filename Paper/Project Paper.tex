@@ -270,16 +270,17 @@ where $d$ is the calculated closest distance from the boat to the nearest point 
 %%Fourth Section
 \section{Interpretation}
 
-\par As soon as we incorporated a relation between wind and heading that was similar to real racing dynamics, we found optimal paths that tacked or jibed once. With our model that related wind and heading to velocity directly, we got discontinuous, jagged paths with sharp corners. When we related wind and heading to acceleration, which is physical, we got curved, drifting paths that the boat followed, but still with a single tack or jibe. 
-
-\par In reality, the fastest sailors do not follow paths like these. Since wind shifts direction and speed, sailors switch direction more often both to take advantage of shifts and to account for potential future shifts. Additionally, right-of-way rules incentivize racers to switch directions more often both to stay out of the way for other racers and to force other racers to change their trajectory. However, if it were known that wind would be constant, as in our formulation, and there were only one sailboat, a single tack per race leg would be perfectly reasonable.
-
 \subsection{Comparisons of Results}
 
+\par The solution to the Zermelo Navigation problem was more of a warm-up for the paper than an intended solution, so we don't compare it to the other models here.
+
+\par As soon as we incorporated a relation between wind and heading that was similar to real racing dynamics, we found optimal paths that tacked or jibed once. With our model that related wind and heading to velocity directly, we got discontinuous, jagged paths with sharp corners. When we related wind and heading to acceleration, which is physical, we got curved, drifting paths that the boat followed, but still with a single tack or jibe. The simplest sailing approach did not discover tacking or jibing, since we made assumptions that made it impossible for the boat to go upwind.
 
 \subsection{Potential improvements}
 
 \par While we accounted for the impact of current, we did not account for the impact of waves on sailing. Similarly, we did not examine the impact of other racers, wind shadows (wind going slower after passing over land), bad weather, and friction. There are many paths that could be explored further, although at some point it becomes a problem of optimizing boats and not routes.
+
+\par In reality, the fastest sailors do not follow paths like the ones that we found. Since wind shifts direction and speed, sailors switch direction more often both to take advantage of shifts and to account for potential future shifts. Additionally, right-of-way rules incentivize racers to switch directions more often both to stay out of the way for other racers and to force other racers to change their trajectory. However, if it were known that wind would be constant, as in our formulation, and there were only one sailboat, a single tack per race leg would be perfectly reasonable.
 
 \subsection{Impact}
 % The impact of our results / this problem
