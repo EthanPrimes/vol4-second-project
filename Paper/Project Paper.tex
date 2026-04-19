@@ -236,7 +236,7 @@ $$ H = \lambda_1 \dot{x} + \lambda_2 \dot{y} + \lambda_3(a(\theta, \phi)\cos(\th
 \par And since there are still no endpoint penalties, we have that 
 $$ H(t_f) = 0 $$
 
-\par The implementation of the model described in Section~\ref{sec:model4}, however, is very similar to the previous. The only difference is the acceleration function $a()$ in place of the velocity function $v()$. It was a little trickier since the acceleration applied to the boat by the wind depends not on the absolute wind-speed but on \textit{apparent} wind speed, or the wind speed experienced by the boat. Otherwise the boat would continually accelerate forever on any fixed heading. We used the estimation that a racing sailboat would take 30 minutes on any given heading to reach maximum speed on that heading, and added the appropriate multiplicative factor. 
+\par The implementation of the model described in Section~\ref{sec:model4}, however, is very similar to the previous. The only difference is the acceleration function $a$ in place of the velocity function $v$. It was a little trickier since the acceleration applied to the boat by the wind depends not on the absolute wind-speed but on \textit{apparent} wind speed, or the wind speed experienced by the boat. Otherwise the boat would continually accelerate forever on any fixed heading. We used the estimation that a racing sailboat would take 30 minutes on any given heading to reach maximum speed on that heading, and added the appropriate multiplicative factor. 
 
 \par As in the previous implementation, we incorporate the $\dot{x} = f$ relation via a standard leapfrog-style Euler discretization of the 4-state system. For $i = 1, \ldots, N-1$, we enforce the constraints:
 \begin{align*}
