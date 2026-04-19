@@ -79,7 +79,7 @@ $$\mathbf{s}(t_0) = \mathbf{s}_0, \;\; \mathbf{s}(t_f) = \mathbf{s}_f, \;\; \| \
 
 Thus, the functional to be minimized is
 \begin{align*}
-    J[u] &= \int_{t_0}^{t_f} 1 dt\\
+    J[u] &= \int_{t_0}^{t_f} 1 \,dt\\
     \text{subject to } \dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t)),\\
     \mathbf{s}(t_0) &= \mathbf{s}_0,\\
     \mathbf{s}(t_f) &= \mathbf{s}_f,\\
@@ -93,7 +93,7 @@ Thus, the functional to be minimized is
 
 $$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix}.$$
 
-\par Also, the constraint $\| \mathbf{u} \| = v$ becomes $\| \mathbf{u} \| = v |\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
+\par Also, the constraint $\| \mathbf{u} \| = v$ becomes $\| \mathbf{u} \| = v|\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
 
 \subsection{Model 3: Triangular-Sail Dynamics}
 \label{sec:model3}
@@ -138,13 +138,13 @@ Where instead of determining the velocity with wind and heading dependent $v$, w
 \par Under the dynamics we assumed in Section~\ref{sec:model1}, our functional will be given by
 
 \begin{align*}
-    J[u] &= \int_{t_0}^{t_f} 1 dt\\
+    J[u] &= \int_{t_0}^{t_f} 1 \,dt\\
     \text{subject to } \dot{\mathbf{s}} &= \mathbf{u}(t) + \mathbf{w}(\mathbf{s}(t)),\\
     \mathbf{s}(t_0) &= \mathbf{s}_0,\\
     \mathbf{s}(t_f) &= \mathbf{s}_f,\\
     \text{and } \| \mathbf{u} \| &= v,
 \end{align*}
-For the sake of making future problems simpler to solve, we assumed that $v$ is a function, represented by $v(\theta(t), \phi(x, y)),$ indicating that the velocity of the boat is impacted by the boat angle and the wind angle. Here, $phi(x, y)$ returns the horizontal and vertical components of wind velocity at the point $(x, y).$ Similarly, we let the wind and current be variable here, enabling us to solve two approaches simultaneously. So, the Hamiltonian is given by 
+For the sake of making future problems simpler to solve, we assumed that $v$ is a function, represented by $v(\theta(t), \phi(x, y)),$ indicating that the velocity of the boat is impacted by the boat angle and the wind angle. Here, $\phi(x, y)$ returns the horizontal and vertical components of wind velocity at the point $(x, y).$ Similarly, we let the wind and current be variable here, enabling us to solve two approaches simultaneously. So, the Hamiltonian is given by 
 
 \begin{align*}
     H &= \boldsymbol{\lambda}(t)^\top \left(v(\theta(t), \phi(x, y)) \begin{bmatrix} \cos(\theta(t)) \\ \sin(\theta(t)) \end{bmatrix} + \begin{bmatrix} w_1(x, y) \\ w_2(x, y) \end{bmatrix}\right) - 1\\
@@ -205,7 +205,7 @@ $$H(t_f) = 0$$
 \end{align*}
 Where $N$ is the number of timesteps, $T$ is the final time, so $\frac{N-1}{T}$ is effectively $\frac{1}{\Delta t}$.
 
-\par This implementation is, unsurprisingly, very finicky depending on initial guesses. Our initial guess is somewhat crude but works well. The path from beginning to end is initialized as a straight path, and $theta$ starts a bit outside of the up-wind no-go zone on one side, and switches to the other halfway through the path, simulating a single tack. That initialization broke for legs of the race that do not require a change of direction (2, 3, 9, 10), and for those we initialized with a single heading. Leg 11, which requires a tack, broke the solver regardless of initialization. We tried tuning several hyperparameters such as mesh size, tolerance, and maximum iterations.
+\par This implementation is, unsurprisingly, very finicky depending on initial guesses. Our initial guess is somewhat crude but works well. The path from beginning to end is initialized as a straight path, and $\theta$ starts a bit outside of the up-wind no-go zone on one side, and switches to the other halfway through the path, simulating a single tack. That initialization broke for legs of the race that do not require a change of direction (2, 3, 9, 10), and for those we initialized with a single heading. Leg 11, which requires a tack, broke the solver regardless of initialization. We tried tuning several hyperparameters such as mesh size, tolerance, and maximum iterations.
 
 \par This implementation mostly worked well and handled the discontinuous nature of the solution effectively. However, initially, when traveling in a near-upwind or near-downwind direction, the solution switched rapidly between headings, which is an unrealistic route for a physical boat. As such we added a penalty term to the objective that penalized changes in heading. 
 
