@@ -8,6 +8,7 @@
 \usepackage[version=4]{mhchem}  % Used for chemical equations
 \usepackage{graphicx}
 \usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{mathrsfs}
 \usepackage{placeins} %enables \FloatBarrier, which prevents figures and tables from going below it.
 \usepackage{hyperref} %makes cross references into hyperlinks. 
 
@@ -266,6 +267,25 @@ where $d$ is the calculated closest distance from the boat to the nearest point 
 
 \par While these constraints were simple to add to the implementations, they complicated an already messy nonlinear optimization problem, and made several of the legs locally infeasible for the initial guesses we used. This issue was especially pronounced for the version that related acceleration to wind and heading.
 
+\subsubsection{Derivation of KKT Conditions with Land Constraints}
+Let's suppose that we have land constraints for the islands and coastlines to prevent the ship from entering certain exclusionary zones around the land masses. We can define each exclusionary zone as its own inequality constraint, i.e., $\mathbf{h}(x,y) \preceq \mathbf{0}$. The modified Lagrangian becomes 
+\begin{align*}
+    \mathscr{L} &= H - \boldsymbol{\mu}(t)^\top \boldsymbol{h}(x,y) \\
+    &= \lambda_1 \dot{x} + \lambda_2 \dot{y} + \lambda_3(a(\theta, \phi)\cos(\theta) + \tilde{w}_1) + \lambda_4(a(\theta, \phi)\sin(\theta) + \tilde{w}_2) - 1 \\
+    &\qquad - \boldsymbol{\mu}(t)^\top \boldsymbol{h}(x,y).
+\end{align*}
+The position costates then become 
+\begin{align*}
+    \dot{\lambda}_1 &= -\frac{\partial H}{\partial x} + \boldsymbol{\mu}(t)^\top\frac{\partial\mathbf{h}}{\partial x} \\
+    \dot{\lambda}_2 &= -\frac{\partial H}{\partial y} + \boldsymbol{\mu}(t)^\top\frac{\partial\mathbf{h}}{\partial y},
+\end{align*}
+where $-\frac{\partial H}{\partial x}$ and $-\frac{\partial H}{\partial y}$ are as derived before for the original position costates. The velocity costates $\dot{\lambda}_3$ and $\dot{\lambda}_4$ remain unchanged as the inequality constraints don't depend on $\dot{x}$ or $\dot{y}$.
+The KKT conditions then become 
+\begin{gather*}
+    \frac{\partial \mathscr{L}}{\partial \theta} = 0, \\
+    \mathbf{h}(x,y) \preceq \mathbf{0}, \quad \boldsymbol{\mu}(t) \succeq \mathbf{0}, \quad \mu_j(t)h_j(x,y) = 0 \quad\forall j.
+\end{gather*}
+Note that the stationary condition $\frac{\partial \mathscr{L}}{\partial \theta} = 0$ remains unchanged from the unconstrained situation as the constraints do not depend on $\theta$. 
 
 %%Fourth Section
 \section{Interpretation}
