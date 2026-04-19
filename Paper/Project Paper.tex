@@ -45,7 +45,7 @@ In this paper we will try to model the optimal path in the historical M\&M 100 M
     \label{fig:100milder_map}
 \end{figure}
 
-\par Triangular sails were first used in the 2nd century, and since then, determining optimal routes for boats has been a key question not just for racing, but also for commerce, avoiding pirates, and catching commercial vessels that are avoiding you. Now that cargo vessels are beginning to explore adding sails to make their travel more efficient, optimal sailing routes are once again a key issue in global supply chain \cite{page2026vela}.
+\par Triangular sails were first used in the 2nd century, and since then, determining optimal routes for boats has been a key question not just for racing, but also for commerce, avoiding pirates, and catching commercial vessels that are avoiding you. Now that cargo vessels are beginning to explore adding sails to make their travel more efficient, optimal sailing is once again a key issue in global supply chain \cite{page2026vela}.
 
 \par In this project we work to solve a related problem by modeling the optimal route for the 100 Miler race. We started from the simplest case and then increased the model complexity from there.
 
@@ -93,7 +93,7 @@ Thus, the functional to be minimized is
 
 $$ \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = v \begin{bmatrix} \cos(\theta - \phi) \cos(\theta) \\ \cos(\theta - \phi) \sin(\theta) \end{bmatrix}.$$
 
-\par Also, the constraint $\| \mathbf{u} \| = v$ becomes $\| \mathbf{u} \| = v|\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
+\par Also, the constraint $\| \mathbf{u} \| = v$ becomes $\| \mathbf{u} \| = v|\cos(\theta - \phi)|.$ Intuitively the $\cos(\theta - \phi)$ term is the dot product between the boat's heading and the wind's direction, dictating the exposure of the sail to the wind. The rest of the setup, including the functional, are identical to the previous one.
 
 \subsection{Model 3: Triangular-Sail Dynamics}
 \label{sec:model3}
@@ -274,16 +274,19 @@ Let's suppose that we have land constraints for the islands and coastlines to pr
     &= \lambda_1 \dot{x} + \lambda_2 \dot{y} + \lambda_3(a(\theta, \phi)\cos(\theta) + \tilde{w}_1) + \lambda_4(a(\theta, \phi)\sin(\theta) + \tilde{w}_2) - 1 \\
     &\qquad - \boldsymbol{\mu}(t)^\top \boldsymbol{h}(x,y).
 \end{align*}
-The position costates then become 
+
+\par The position costates then become 
 \begin{align*}
     \dot{\lambda}_1 &= -\frac{\partial H}{\partial x} + \boldsymbol{\mu}(t)^\top\frac{\partial\mathbf{h}}{\partial x} \\
     \dot{\lambda}_2 &= -\frac{\partial H}{\partial y} + \boldsymbol{\mu}(t)^\top\frac{\partial\mathbf{h}}{\partial y},
 \end{align*}
-where $-\frac{\partial H}{\partial x}$ and $-\frac{\partial H}{\partial y}$ are as derived before for the original position costates. The velocity costates $\dot{\lambda}_3$ and $\dot{\lambda}_4$ remain unchanged as the inequality constraints don't depend on $\dot{x}$ or $\dot{y}$.
+where $-\frac{\partial H}{\partial x}$ and $-\frac{\partial H}{\partial y}$ are as derived before for the original position costates.
+
+\par The velocity costates $\dot{\lambda}_3$ and $\dot{\lambda}_4$ remain unchanged as the inequality constraints don't depend on $\dot{x}$ or $\dot{y}$.
 The KKT conditions then become 
 \begin{gather*}
     \frac{\partial \mathscr{L}}{\partial \theta} = 0, \\
-    \mathbf{h}(x,y) \preceq \mathbf{0}, \quad \boldsymbol{\mu}(t) \succeq \mathbf{0}, \quad \mu_j(t)h_j(x,y) = 0 \quad\forall j.
+    \mathbf{h}(x,y) \preceq \mathbf{0}, \quad \boldsymbol{\mu}(t) \succeq \mathbf{0}, \; \text{ and } \; \mu_j(t)h_j(x,y) = 0 \quad\forall j.
 \end{gather*}
 Note that the stationary condition $\frac{\partial \mathscr{L}}{\partial \theta} = 0$ remains unchanged from the unconstrained situation as the constraints do not depend on $\theta$. 
 
